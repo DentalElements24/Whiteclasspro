@@ -30,8 +30,8 @@ a{ color:inherit; }
   font-weight:500;
 }
 header{ border-bottom:1px solid var(--border); background:#fff; position:sticky; top:0; z-index:100; }
-.site-logo-row{ text-align:center; padding:26px 0 16px; }
-.site-logo{ height:99px; }
+.site-logo-row{ text-align:center; padding:8px 0; }
+.site-logo{ height:74px; }
 .main-nav{ display:none; }
 .mobile-bar{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
 .burger-btn{ background:none; border:none; font-size:24px; line-height:1; cursor:pointer; padding:4px 8px; color:var(--text); }
