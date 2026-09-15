@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.main-nav');
   var headerWrap = document.querySelector('.site-header-fixed');
-  var navContainer = nav ? nav.querySelector('.container') : null;
 
   var isMobile = function () {
     return window.matchMedia('(max-width: 780px)').matches;
@@ -18,54 +17,45 @@ document.addEventListener('DOMContentLoaded', function () {
     document.documentElement.style.setProperty('--header-h', h + 'px');
   };
 
-  // --- Mobile: aufgeklapptes Menü darf nie höher als der sichtbare
-  // Bereich unterhalb des fixierten Headers werden — sonst wird es
-  // intern scrollbar statt über den Viewport hinauszulaufen. ---
-  var syncMobileNavMaxHeight = function () {
-    if (!nav || !navContainer) return;
-    if (!isMobile()) {
-      navContainer.style.maxHeight = '';
-      return;
-    }
-    var navTop = nav.getBoundingClientRect().top;
-    var available = window.innerHeight - navTop;
-    navContainer.style.maxHeight = Math.max(160, available) + 'px';
-  };
-
-  var syncAll = function () {
-    syncHeaderHeight();
-    syncMobileNavMaxHeight();
-  };
-
-  syncAll();
-  window.addEventListener('load', syncAll);
-  window.addEventListener('resize', syncAll);
-  window.addEventListener('orientationchange', syncAll);
+  syncHeaderHeight();
+  window.addEventListener('load', syncHeaderHeight);
+  window.addEventListener('resize', syncHeaderHeight);
+  window.addEventListener('orientationchange', syncHeaderHeight);
 
   // Logo lädt asynchron — Höhe neu berechnen, sobald es fertig ist,
   // damit der Header-Platzhalter nicht kurz zu niedrig ist.
   var logo = document.querySelector('.site-logo');
   if (logo && !logo.complete) {
-    logo.addEventListener('load', syncAll);
+    logo.addEventListener('load', syncHeaderHeight);
   }
 
   if (toggle && nav) {
     toggle.addEventListener('click', function () {
       var isOpen = nav.classList.toggle('nav-open');
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      syncAll();
+      if (!isOpen) {
+        // Beim Schließen des Hamburger-Menüs auch offene Dropdowns zuklappen
+        document.querySelectorAll('.nav-item.open').forEach(function (item) {
+          item.classList.remove('open');
+        });
+      }
+      syncHeaderHeight();
     });
   }
 
-  // Auf Mobile: Dropdown "Menü"/Sprachauswahl per Tap statt Hover öffnen/schließen
-  document.querySelectorAll('.nav-item > button').forEach(function (btn) {
+  // Auf Mobile: "Menü" / Sprachauswahl per Tap statt Hover öffnen/schließen.
+  // Menü links, Sprachauswahl rechts — es öffnet dabei immer nur eines der
+  // beiden Dropdowns gleichzeitig.
+  var navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(function (item) {
+    var btn = item.querySelector('button');
+    if (!btn) return;
     btn.addEventListener('click', function (e) {
-      if (isMobile()) {
-        e.preventDefault();
-        var item = btn.closest('.nav-item');
-        item.classList.toggle('open');
-        syncAll();
-      }
+      if (!isMobile()) return;
+      e.preventDefault();
+      var willOpen = !item.classList.contains('open');
+      navItems.forEach(function (other) { other.classList.remove('open'); });
+      if (willOpen) item.classList.add('open');
     });
   });
 
@@ -76,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isMobile()) {
           nav.classList.remove('nav-open');
           if (toggle) toggle.setAttribute('aria-expanded', 'false');
-          syncAll();
+          syncHeaderHeight();
         }
       });
     });

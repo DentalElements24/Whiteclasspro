@@ -39,7 +39,7 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Für GitH
 ## Navigation
 - Links: "Menü ▾" — Dropdown mit allen Bereichen (Zahnaufhellung, Zahnstärkung, Über uns, So funktioniert's, FAQ, Kontakt)
 - Rechts: Sprachauswahl (🌐 DE ▾) — Umschalter für Englisch, Polnisch, Niederländisch, Französisch, Spanisch. Die Sprachen sind aktuell als "bald verfügbar" hinterlegt, da noch keine übersetzten Seiteninhalte existieren — das UI ist vorbereitet, die eigentliche Übersetzung ist ein separater nächster Schritt.
-- Mobil: Hamburger-Menü (`script.js`) klappt die Navigation auf; Untermenüs öffnen sich per Tap statt Hover.
+- Mobil: Hamburger-Menü (`script.js`) klappt die Navigation auf; "Menü" erscheint dabei links unter dem Logo, die Sprachauswahl gegenüber rechts. Beide öffnen ihr Dropdown per Tap als schwebende Karte darunter (wie am Desktop), nicht als ausklappende Liste, die den Header aufbläht — es ist dabei immer nur eines der beiden Dropdowns gleichzeitig offen.
 - Die Dropdown-Menüs (Desktop) waren zeitweise nicht anklickbar (Hover-Lücke zwischen Button und Menü) — behoben durch eine nahtlose Hover-Brücke in `styles.css`.
 
 ## Fixierter Header
