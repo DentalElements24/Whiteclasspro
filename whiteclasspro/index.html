@@ -3,73 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>White Class Pro — Zahnaufhellung &amp; Zahnpflege vom Zahntechniker-Meister</title>
-<meta name="description" content="White Class Pro: Zahnaufhellung und zahnstärkende Nahrungsergänzung, ausgewählt und empfohlen von Zahntechnikermeister Christian Penz. Made in Germany.">
+<title>White Class Pro — Zahnaufhellung für Zuhause</title>
+<meta name="description" content="White Class Pro: Zahnaufhellungs-Set mit PAP-Formel, ohne Peroxid. Made in Germany.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="site-header-fixed">
 <div class="promo-banner">EINFÜHRUNGSANGEBOT — Starter-Set zum reduzierten Preis, solange der Vorrat reicht</div>
 
 <header>
   <div class="site-logo-row">
     <a href="index.html"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
-    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
   <nav class="main-nav">
     <div class="container">
       <div class="nav-item">
-        <button>Menü &#9662;</button>
+        <button>Produkte &#9662;</button>
         <div class="dropdown-menu">
-          <a href="zahnaufhellung.html">Zahnaufhellung</a>
-          <a href="zahnstaerkung.html">Zahnstärkung</a>
-          <a href="ueber-uns.html">Über uns</a>
-          <a href="index.html#so-funktioniert">So funktioniert's</a>
-          <a href="index.html#faq">FAQ</a>
-          <a href="kontakt.html">Kontakt</a>
+          <a href="index.html#produkte">White Class Pro</a>
+          <a href="#" class="disabled">Produkt 2 &middot; bald verf&uuml;gbar</a>
+          <a href="#" class="disabled">Produkt 3 &middot; bald verf&uuml;gbar</a>
         </div>
       </div>
-      <div class="nav-item lang-switch">
-        <button>🌐 DE &#9662;</button>
-        <div class="dropdown-menu">
-          <a href="#" class="disabled">English &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Français &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
-        </div>
-      </div>
+      <a href="index.html#so-funktioniert">So funktioniert's</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="#produkt" class="btn btn-primary nav-cta">Jetzt sichern</a>
     </div>
   </nav>
+  <div class="mobile-bar container">
+    <button class="burger-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menü">&#9776;</button>
+    <div class="lang-select">&#127760; DE &#9662;</div>
+  </div>
+  <div id="mobileMenu" class="mobile-menu container">
+    <div class="sub-label">Produkte</div>
+    <a href="index.html#produkte">White Class Pro</a>
+    <a href="#" class="disabled">Produkt 2 &middot; bald verf&uuml;gbar</a>
+    <a href="#" class="disabled">Produkt 3 &middot; bald verf&uuml;gbar</a>
+    <a href="index.html#so-funktioniert">So funktioniert's</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="kontakt.html">Kontakt</a>
+    <a href="index.html#produkt" class="btn btn-primary">Jetzt sichern</a>
+  </div>
 </header>
-</div>
 
-<section id="produkt" style="padding:56px 0 40px;">
-  <div class="container hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
+<section id="produkte" style="padding:64px 0 20px;">
+  <div class="container">
+    <h2 style="font-size:24px; font-weight:600; margin:0 0 24px;">Unsere Produkte</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
 
-    <div class="hero-media" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; height:440px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); font-size:14px;">
+      <div class="product-card">
+        <span class="product-badge">Jetzt erhältlich</span>
+        <h3 style="font-size:16px; margin:0 0 8px;">White Class Pro</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0 0 14px;">Zahnaufhellungs-Set mit PAP-Formel, ohne Peroxid.</p>
+        <a href="#produkt" class="btn btn-primary" style="font-size:13px; padding:9px 16px;">Ansehen</a>
+      </div>
+
+      <div class="product-card placeholder">
+        <span class="product-badge">Bald verfügbar</span>
+        <h3 style="font-size:16px; margin:0 0 8px;">Produkt 2</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Platzhalter für ein weiteres Produkt aus dem White Class Pro Sortiment.</p>
+      </div>
+
+      <div class="product-card placeholder">
+        <span class="product-badge">Bald verfügbar</span>
+        <h3 style="font-size:16px; margin:0 0 8px;">Produkt 3</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Platzhalter für ein weiteres Produkt aus dem White Class Pro Sortiment.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="produkt" style="padding:36px 0 64px;">
+  <div class="container" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
+
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; height:440px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); font-size:14px;">
       [ Produktbild-Platzhalter: White Class Pro Set ]
     </div>
 
     <div>
       <p style="color:var(--red); font-size:13px; font-weight:600; letter-spacing:0.03em; margin:0 0 12px;">EINFÜHRUNGSANGEBOT · ZEITLICH BEGRENZT</p>
-      <h1 style="font-size:36px; font-weight:600; line-height:1.25; margin:0 0 16px;">
-        Sichtbar hellere, stärkere Zähne — empfohlen vom Zahntechniker-Meister.
+      <h1 style="font-size:38px; font-weight:600; line-height:1.25; margin:0 0 16px;">
+        Sichtbar hellere Zähne, ohne Peroxid.
       </h1>
-      <p style="font-size:15px; color:var(--text-secondary); line-height:1.7; margin:0 0 18px;">
-        White Class Pro startet mit dem Zahnaufhellungs-Set mit PAP-Formel — schonend für Zahnschmelz und Zahnfleisch.
-        Ausgewählt und empfohlen von Christian Penz, Zahntechnikermeister mit jahrzehntelanger Laborerfahrung.
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.7; margin:0 0 20px;">
+        White Class Pro nutzt eine PAP-Formel — schonend für Zahnschmelz und Zahnfleisch.
+        Anwendung ganz einfach zuhause, erste Ergebnisse nach wenigen Tagen.
       </p>
-
-      <div class="expert-badge" style="margin-bottom:20px;">
-        <span class="expert-badge-icon">🎓</span>
-        <span><strong>Empfohlen von einem Zahntechniker-Meister</strong>Christian Penz, jahrzehntelange Berufserfahrung &amp; eigenes Dentallabor. <a href="ueber-uns.html" style="color:var(--blue);">Mehr erfahren →</a></span>
-      </div>
 
       <div class="stars">★★★★★ <span style="color:var(--text-secondary); font-size:13px;">4,7 · 312 Bewertungen</span></div>
 
@@ -78,7 +101,7 @@
         <span class="price-new" style="margin-left:10px;">29,00 €</span>
       </div>
 
-      <a href="zahnaufhellung.html#white-class-pro" class="btn btn-primary" style="width:100%; text-align:center; padding:15px 0; font-size:16px;">Jetzt sichern</a>
+      <a href="#" class="btn btn-primary" style="width:100%; text-align:center; padding:15px 0; font-size:16px;">Jetzt sichern</a>
       <p style="font-size:12px; color:var(--text-secondary); margin:10px 0 0;">Versandkosten werden an der Kasse berechnet. Inkl. MwSt.</p>
 
       <div class="trust-row">
@@ -101,150 +124,44 @@
   </div>
 </section>
 
-<section id="kategorien" style="padding:64px 0 20px;">
+<section id="so-funktioniert" style="padding:56px 0; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
   <div class="container">
-    <h2 style="font-size:24px; font-weight:600; margin:0 0 6px;">Unsere Kategorien</h2>
-    <p style="font-size:14px; color:var(--text-secondary); margin:0 0 28px;">Zwei Themen, ein Ziel: ein gesundes, selbstbewusstes Lächeln.</p>
-    <div class="category-grid">
-      <a href="zahnaufhellung.html" class="category-tile">
-        <span class="cat-icon">🦷✨</span>
-        <h3>Zahnaufhellung</h3>
-        <p>Strips, Aufhellungs-Sets, LED-Zubehör und Whitening-Zahncreme — schonend und ohne Peroxid.</p>
-        <span class="cat-count">6 Produkte ansehen →</span>
-      </a>
-      <a href="zahnstaerkung.html" class="category-tile">
-        <span class="cat-icon">💊</span>
-        <h3>Zahnstärkung</h3>
-        <p>Calcium, Magnesium, Vitamin D3/K2 &amp; Co. — die Nährstoffe, die Zahnschmelz und Zahnfleisch wirklich brauchen.</p>
-        <span class="cat-count">4 Produkte ansehen →</span>
-      </a>
+    <h2 style="text-align:center; font-size:26px; font-weight:600; margin:0 0 40px;">So einfach funktioniert's</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 style="font-size:16px; margin:0 0 8px;">Set bestellen</h3>
+        <p style="font-size:13.5px; color:var(--text-secondary);">Wird bequem nach Hause geliefert.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 style="font-size:16px; margin:0 0 8px;">Täglich anwenden</h3>
+        <p style="font-size:13.5px; color:var(--text-secondary);">Wenige Minuten pro Tag, laut Anleitung.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 style="font-size:16px; margin:0 0 8px;">Ergebnis genießen</h3>
+        <p style="font-size:13.5px; color:var(--text-secondary);">Sichtbar hellere Zähne nach wenigen Tagen.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section style="padding:64px 0;">
   <div class="container">
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:0 0 24px; flex-wrap:wrap; gap:12px;">
-      <h2 style="font-size:24px; font-weight:600; margin:0;">Bestseller aus beiden Kategorien</h2>
-      <a href="zahnaufhellung.html" style="font-size:13.5px; color:var(--blue); text-decoration:none;">Alle Produkte ansehen →</a>
-    </div>
-    <div class="catalog-grid">
-
-      <div class="catalog-card">
-        <div class="catalog-media">🦷✨</div>
-        <div class="catalog-body">
-          <span class="catalog-badge red">Bestseller</span>
-          <h3>White Class Pro Zahnaufhellungs-Set</h3>
-          <p class="catalog-desc">PAP-Formel ohne Peroxid, Anwendungsschienen &amp; Anleitung für 7–10 Tage.</p>
-          <div class="catalog-stars">★★★★★ 4,7 · 312 Bewertungen</div>
-          <div class="catalog-price-row"><span class="catalog-price-old">49,00 €</span><span class="catalog-price">29,00 €</span></div>
-          <a href="zahnaufhellung.html#white-class-pro" class="btn btn-primary">Ansehen</a>
-        </div>
+    <h2 style="font-size:24px; font-weight:600; margin:0 0 24px;">Was im Set enthalten ist</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px;">
+        <h3 style="font-size:15px; margin:0 0 6px;">Aufhellungs-Gel</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">PAP-Formel, für den täglichen Gebrauch über 7–10 Tage</p>
       </div>
-
-      <div class="catalog-card">
-        <div class="catalog-media">⚫</div>
-        <div class="catalog-body">
-          <span class="catalog-badge">Naturkosmetik</span>
-          <h3>Aktivkohle-Zahnweiß-Pulver</h3>
-          <p class="catalog-desc">Feines Bambuskohle-Pulver für den natürlichen Aufhellungs-Boost zwischendurch.</p>
-          <div class="catalog-stars">★★★★☆ 4,6 · 89 Bewertungen</div>
-          <div class="catalog-price-row"><span class="catalog-price">12,90 €</span></div>
-          <a href="zahnaufhellung.html#aktivkohle" class="btn btn-primary">Ansehen</a>
-        </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px;">
+        <h3 style="font-size:15px; margin:0 0 6px;">Anwendungsschienen</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Universalgröße, flexibel anpassbar</p>
       </div>
-
-      <div class="catalog-card">
-        <div class="catalog-media">😁</div>
-        <div class="catalog-body">
-          <span class="catalog-badge">Neu</span>
-          <h3>Whitening-Strips, 14er-Set</h3>
-          <p class="catalog-desc">Dünne, kaum sichtbare Streifen für die schnelle Auffrischung zwischendurch.</p>
-          <div class="catalog-stars">★★★★★ 4,8 · 54 Bewertungen</div>
-          <div class="catalog-price-row"><span class="catalog-price">14,90 €</span></div>
-          <a href="zahnaufhellung.html#strips" class="btn btn-primary">Ansehen</a>
-        </div>
-      </div>
-
-      <div class="catalog-card">
-        <div class="catalog-media">🪥</div>
-        <div class="catalog-body">
-          <span class="catalog-badge">Doppelt wirksam</span>
-          <h3>Hydroxyapatit-Zahncreme</h3>
-          <p class="catalog-desc">Hellt sichtbar auf und remineralisiert gleichzeitig den Zahnschmelz — fluoridfrei.</p>
-          <div class="catalog-stars">★★★★★ 4,9 · 41 Bewertungen</div>
-          <div class="catalog-price-row"><span class="catalog-price">16,90 €</span></div>
-          <a href="zahnaufhellung.html#hap-zahncreme" class="btn btn-primary">Ansehen</a>
-        </div>
-      </div>
-
-      <div class="catalog-card">
-        <div class="catalog-media">💊</div>
-        <div class="catalog-body">
-          <span class="catalog-badge">Kombi-Präparat</span>
-          <h3>Calcium-Magnesium-Zink + D3/K2</h3>
-          <p class="catalog-desc">90 Kapseln mit der Nährstoffkombination, die für Zahnschmelz &amp; Zahnfleisch empfohlen wird.</p>
-          <div class="catalog-stars">★★★★★ 4,7 · 63 Bewertungen</div>
-          <div class="catalog-price-row"><span class="catalog-price">19,90 €</span></div>
-          <a href="zahnstaerkung.html#kapseln-calcium-magnesium" class="btn btn-primary">Ansehen</a>
-        </div>
-      </div>
-
-      <div class="catalog-card">
-        <div class="catalog-media">🥬</div>
-        <div class="catalog-body">
-          <span class="catalog-badge">Hochdosiert</span>
-          <h3>Magnesium-Citrat-Tabletten</h3>
-          <p class="catalog-desc">Gut bioverfügbares Magnesium — zentral für die Mineralisierung der Zähne.</p>
-          <div class="catalog-stars">★★★★☆ 4,5 · 37 Bewertungen</div>
-          <div class="catalog-price-row"><span class="catalog-price">19,90 €</span></div>
-          <a href="zahnstaerkung.html#magnesium-citrat" class="btn btn-primary">Ansehen</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section style="padding:56px 0; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-  <div class="container expert-section" style="background:none; border:none; padding:0;">
-    <div class="expert-photo">🧑‍⚕️</div>
-    <div>
-      <p style="color:var(--blue); font-size:13px; font-weight:600; letter-spacing:0.03em; margin:0 0 10px;">DIE PERSON HINTER WHITE CLASS PRO</p>
-      <h2 style="font-size:24px; font-weight:600; margin:0 0 14px;">Christian Penz, Zahntechnikermeister</h2>
-      <p style="font-size:14.5px; color:var(--text-secondary); line-height:1.75; margin:0 0 16px; max-width:640px;">
-        Christian Penz ist Zahntechnikermeister mit jahrzehntelanger Berufserfahrung. Über viele Jahre führte er
-        erfolgreich sein eigenes Dentallabor und kennt die Anforderungen an Zahnersatz, Zahnschmelz und Mundgesundheit
-        aus erster Hand. Dieses Fachwissen fließt direkt in die Auswahl und Entwicklung der White-Class-Pro-Produkte ein.
-      </p>
-      <ul class="expert-credentials" style="margin:0 0 20px;">
-        <li>Zahntechnikermeister mit jahrzehntelanger Berufserfahrung</li>
-        <li>Langjährig erfolgreicher Inhaber eines eigenen Dentallabors</li>
-        <li>Geschäftsführer der Dental Elements GmbH</li>
-      </ul>
-      <a href="ueber-uns.html" class="btn btn-primary" style="padding:12px 22px; font-size:14px;">Mehr über Christian Penz erfahren</a>
-    </div>
-  </div>
-</section>
-
-<section id="so-funktioniert" style="padding:56px 0;">
-  <div class="container">
-    <h2 style="text-align:center; font-size:26px; font-weight:600; margin:0 0 40px;">So einfach funktioniert's</h2>
-    <div class="steps-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3 style="font-size:16px; margin:0 0 8px;">Produkt(e) bestellen</h3>
-        <p style="font-size:13.5px; color:var(--text-secondary);">Wird bequem nach Hause geliefert.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3 style="font-size:16px; margin:0 0 8px;">Regelmäßig anwenden</h3>
-        <p style="font-size:13.5px; color:var(--text-secondary);">Wenige Minuten pro Tag, laut Anleitung.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3 style="font-size:16px; margin:0 0 8px;">Ergebnis genießen</h3>
-        <p style="font-size:13.5px; color:var(--text-secondary);">Sichtbar hellere und spürbar widerstandsfähigere Zähne.</p>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px;">
+        <h3 style="font-size:15px; margin:0 0 6px;">Anleitung</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Schritt-für-Schritt, auf Deutsch</p>
       </div>
     </div>
   </div>
@@ -253,7 +170,7 @@
 <section style="padding-bottom:64px;">
   <div class="container" style="border-top:1px solid var(--border); padding-top:48px;">
     <h2 style="font-size:24px; font-weight:600; margin:0 0 24px;">Was Kunden sagen</h2>
-    <div class="testimonial-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px;">
         <div class="stars" style="margin-bottom:8px;">★★★★★</div>
         <p style="font-size:13.5px; color:var(--text-secondary); margin:0;">[Platzhalter-Kundenstimme]</p>
@@ -287,10 +204,6 @@
       <p>Nein. Die PAP-Formel enthält kein Wasserstoffperoxid und unterliegt daher nicht der Abgabebeschränkung für peroxidhaltige Zahnaufheller.</p>
     </details>
     <details class="faq-item">
-      <summary>Kann ich Zahnaufhellung und Nahrungsergänzung kombinieren?</summary>
-      <p>Ja. Viele Kundinnen und Kunden kombinieren ein Whitening-Produkt mit einem der Zahnstärkungs-Präparate, um Aufhellung und Zahnschmelz-Pflege gleichzeitig anzugehen. Bei bestehenden Vorerkrankungen oder Einnahme anderer Präparate empfehlen wir vorab Rücksprache mit einem Arzt oder Apotheker.</p>
-    </details>
-    <details class="faq-item">
       <summary>Was, wenn ich nicht zufrieden bin?</summary>
       <p>Es gilt eine 30-tägige Geld-zurück-Garantie ab Erhalt der Bestellung.</p>
     </details>
@@ -302,19 +215,11 @@
     <div class="footer-cols">
       <div>
         <img src="logo.png" alt="White Class Pro" style="height:38px; margin-bottom:12px;">
-        <p style="color:#8b8f96; font-size:13px; max-width:280px; margin:0 0 14px;">Zahnaufhellung und zahnstärkende Nahrungsergänzung — kuratiert von Zahntechnikermeister Christian Penz.</p>
+        <p style="color:#8b8f96; font-size:13px; max-width:280px; margin:0 0 14px;">Professionelle Zahnaufhellung für Zuhause — mit PAP-Formel, ohne Wasserstoffperoxid.</p>
         <div style="display:flex; gap:10px;">
           <a href="#" style="border:1px solid #3a3f47; border-radius:6px; padding:6px 10px; font-size:12px;">Instagram [Platzhalter]</a>
           <a href="#" style="border:1px solid #3a3f47; border-radius:6px; padding:6px 10px; font-size:12px;">TikTok [Platzhalter]</a>
         </div>
-      </div>
-      <div>
-        <h4>Produkte</h4>
-        <ul>
-          <li><a href="zahnaufhellung.html">Zahnaufhellung</a></li>
-          <li><a href="zahnstaerkung.html">Zahnstärkung</a></li>
-          <li><a href="ueber-uns.html">Über uns</a></li>
-        </ul>
       </div>
       <div>
         <h4>Support</h4>
@@ -340,11 +245,15 @@
           <button class="btn btn-primary" style="padding:8px 14px; font-size:12px;">OK</button>
         </div>
       </div>
+      <div>
+        <h4>Zahlungsarten</h4>
+        <p style="color:#8b8f96; font-size:12px; margin:0 0 8px;">[Platzhalter für Icons]</p>
+        <p style="color:#8b8f96; font-size:12px; margin:0;">PayPal · Kreditkarte · Klarna</p>
+      </div>
     </div>
     <div class="footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>
   </div>
 </footer>
 
-<script src="script.js" defer></script>
 </body>
 </html>

@@ -11,22 +11,15 @@
   --border:#e2e5ea;
 }
 *{box-sizing:border-box;}
-html{ scroll-padding-top:var(--header-h, 176px); }
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
   font-family:'Inter',sans-serif;
-  padding-top:var(--header-h, 176px);
 }
 h1,h2,h3{ font-family:'Space Grotesk',sans-serif; letter-spacing:-0.01em; }
 a{ color:inherit; }
 .container{ max-width:1100px; margin:0 auto; padding:0 24px; }
-
-/* --- Fixierter Kopfbereich (Promo-Banner + Logo + Navigation) --- */
-.site-header-fixed{
-  position:fixed; top:0; left:0; right:0; z-index:100;
-}
 
 .promo-banner{
   background:var(--red);
@@ -37,7 +30,7 @@ a{ color:inherit; }
   font-weight:500;
 }
 header{ border-bottom:1px solid var(--border); background:#fff; }
-.site-logo-row{ text-align:center; padding:26px 0 16px; position:relative; }
+.site-logo-row{ text-align:center; padding:26px 0 16px; }
 .site-logo{ height:99px; }
 .main-nav{ padding:14px 0; border-top:1px solid var(--border); }
 .main-nav .container{ display:flex; align-items:center; gap:30px; }
@@ -47,14 +40,10 @@ header{ border-bottom:1px solid var(--border); background:#fff; }
   font-size:14px; color:var(--text-secondary); padding:0; text-decoration:none;
 }
 .nav-item:hover > button, .main-nav > .container > a:hover{ color:var(--blue); }
-.nav-item{ padding-bottom:14px; margin-bottom:-14px; }
 .dropdown-menu{
-  display:none; position:absolute; top:100%; left:0; margin-top:14px;
+  display:none; position:absolute; top:26px; left:0;
   background:#fff; border:1px solid var(--border); border-radius:8px;
   min-width:230px; padding:8px; box-shadow:0 10px 28px rgba(0,0,0,0.09); z-index:20;
-}
-.dropdown-menu::before{
-  content:""; position:absolute; top:-14px; left:0; right:0; height:14px;
 }
 .nav-item:hover .dropdown-menu{ display:block; }
 .dropdown-menu a{ display:block; padding:9px 10px; border-radius:6px; font-size:14px; color:var(--text); text-decoration:none; }
@@ -63,17 +52,20 @@ header{ border-bottom:1px solid var(--border); background:#fff; }
 .dropdown-menu a.disabled:hover{ background:none; }
 .nav-cta{ margin-left:auto; }
 
-/* --- Sprachauswahl (rechts in der Nav) --- */
-.lang-switch{ margin-left:auto; }
-.lang-switch > button{ display:flex; align-items:center; gap:6px; }
-.lang-switch .dropdown-menu{ left:auto; right:0; min-width:190px; }
+.mobile-bar{ display:none; align-items:center; justify-content:space-between; padding:14px 0; }
+.burger-btn{ background:none; border:none; font-size:24px; line-height:1; cursor:pointer; padding:4px 8px; color:var(--text); }
+.lang-select{ font-size:14px; color:var(--text-secondary); cursor:pointer; display:flex; align-items:center; gap:5px; }
+.mobile-menu{ display:none; flex-direction:column; padding:6px 0 18px; border-top:1px solid var(--border); }
+.mobile-menu.open{ display:flex; }
+.mobile-menu a{ padding:12px 4px; font-size:15px; color:var(--text); text-decoration:none; border-bottom:1px solid var(--border); }
+.mobile-menu a.disabled{ color:#b7bac0; }
+.mobile-menu a.btn{ text-align:center; margin-top:12px; border-bottom:none; }
+.mobile-menu .sub-label{ font-size:12px; color:var(--text-secondary); padding:10px 4px 2px; text-transform:uppercase; letter-spacing:0.03em; }
 
-/* --- Mobile nav toggle (hamburger) --- */
-.nav-toggle{
-  display:none; position:absolute; right:20px; top:50%; transform:translateY(-50%);
-  background:none; border:none; cursor:pointer; padding:8px; z-index:30;
+@media (max-width: 760px){
+  .main-nav{ display:none; }
+  .mobile-bar{ display:flex; }
 }
-.nav-toggle span{ display:block; width:22px; height:2px; background:var(--text); margin:5px 0; border-radius:2px; }
 
 .product-card{ border:1px solid var(--border); border-radius:10px; padding:22px; background:var(--surface); }
 .product-card.placeholder{ opacity:0.55; }
@@ -105,157 +97,3 @@ footer a:hover{ color:#fff; }
 .footer-cols ul{ list-style:none; padding:0; margin:0; }
 .footer-cols li{ margin-bottom:8px; }
 .footer-bottom{ border-top:1px solid #2a2f36; padding-top:18px; color:#8b8f96; font-size:12px; }
-
-/* --- Category tiles (Startseite) --- */
-.category-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
-.category-tile{
-  display:block; text-decoration:none; color:var(--text);
-  background:var(--surface); border:1px solid var(--border); border-radius:14px;
-  padding:28px; position:relative; overflow:hidden; transition:border-color .15s, transform .15s;
-}
-.category-tile:hover{ border-color:var(--blue); transform:translateY(-2px); }
-.category-tile .cat-icon{ font-size:30px; margin-bottom:14px; display:block; }
-.category-tile h3{ font-size:19px; margin:0 0 6px; }
-.category-tile p{ font-size:13.5px; color:var(--text-secondary); margin:0 0 14px; line-height:1.55; }
-.category-tile .cat-count{ font-size:12px; font-weight:600; color:var(--blue); }
-
-/* --- Catalog product cards (Kategorieseiten) --- */
-.catalog-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.catalog-card{
-  background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden;
-  display:flex; flex-direction:column;
-}
-.catalog-card .catalog-media{
-  height:150px; background:var(--surface); display:flex; align-items:center; justify-content:center;
-  font-size:40px; border-bottom:1px solid var(--border);
-}
-.catalog-card .catalog-body{ padding:18px; display:flex; flex-direction:column; flex:1; }
-.catalog-card .catalog-badge{ display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; padding:3px 8px; border-radius:20px; background:#eaf4ff; color:var(--blue); margin-bottom:10px; width:fit-content; }
-.catalog-card .catalog-badge.red{ background:#fdeaea; color:var(--red); }
-.catalog-card h3{ font-size:15.5px; margin:0 0 6px; line-height:1.35; }
-.catalog-card .catalog-desc{ font-size:13px; color:var(--text-secondary); line-height:1.55; margin:0 0 14px; flex:1; }
-.catalog-card .catalog-stars{ color:var(--red); font-size:12.5px; margin-bottom:10px; }
-.catalog-card .catalog-price-row{ display:flex; align-items:baseline; gap:8px; margin-bottom:14px; }
-.catalog-card .catalog-price{ font-size:19px; font-weight:700; }
-.catalog-card .catalog-price-old{ font-size:13px; color:var(--text-secondary); text-decoration:line-through; }
-.catalog-card .btn{ width:100%; text-align:center; padding:10px 0; font-size:13.5px; }
-
-.catalog-intro{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin:0 0 28px; }
-.catalog-intro h1{ font-size:28px; font-weight:600; margin:0 0 8px; }
-.catalog-intro p{ font-size:14px; color:var(--text-secondary); margin:0; max-width:520px; line-height:1.6; }
-.catalog-count{ font-size:13px; color:var(--text-secondary); font-weight:600; white-space:nowrap; }
-
-.cross-link-banner{
-  margin-top:56px; padding:26px 28px; border-radius:12px; background:var(--surface); border:1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
-}
-.cross-link-banner p{ margin:0; font-size:14px; }
-.cross-link-banner p strong{ display:block; font-size:16px; margin-bottom:4px; }
-
-/* --- Expert / Über uns --- */
-.expert-badge{
-  display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border);
-  border-radius:8px; padding:12px 14px; font-size:12.5px; color:var(--text-secondary); line-height:1.4;
-}
-.expert-badge .expert-badge-icon{ font-size:20px; flex:none; }
-.expert-badge strong{ color:var(--text); display:block; font-size:13px; }
-
-.expert-section{
-  display:grid; grid-template-columns:220px 1fr; gap:44px; align-items:start;
-  background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:36px;
-}
-.expert-photo{
-  width:100%; aspect-ratio:1/1; border-radius:50%; background:#e7eaee; border:1px solid var(--border);
-  display:flex; align-items:center; justify-content:center; font-size:56px; color:var(--text-secondary);
-}
-.expert-credentials{ list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:10px; }
-.expert-credentials li{ font-size:13.5px; padding-left:24px; position:relative; color:var(--text-secondary); }
-.expert-credentials li::before{ content:"✓"; position:absolute; left:0; color:var(--blue); font-weight:700; }
-
-.timeline{ margin:0; padding:0; list-style:none; border-left:2px solid var(--border); }
-.timeline li{ position:relative; padding:0 0 28px 26px; }
-.timeline li::before{ content:""; position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:50%; background:var(--blue); border:2px solid #fff; box-shadow:0 0 0 1px var(--border); }
-.timeline li .timeline-year{ font-size:12px; font-weight:700; color:var(--blue); letter-spacing:.02em; }
-.timeline li h4{ font-size:15px; margin:4px 0 4px; }
-.timeline li p{ font-size:13.5px; color:var(--text-secondary); margin:0; line-height:1.6; }
-
-@media (max-width: 860px){
-  .category-grid{ grid-template-columns:1fr; }
-  .catalog-grid{ grid-template-columns:repeat(2,1fr); }
-  .expert-section{ grid-template-columns:1fr; }
-  .expert-photo{ width:140px; }
-}
-@media (max-width: 560px){
-  .catalog-grid{ grid-template-columns:1fr; }
-}
-
-/* ============================================
-   MOBILE (<=780px): Navigation, Grids, Layout
-   ============================================ */
-@media (max-width: 780px){
-  .container{ padding:0 18px; }
-  html{ scroll-padding-top:var(--header-h, 112px); }
-  body{ padding-top:var(--header-h, 112px); }
-
-  /* Header / hamburger nav */
-  .site-logo{ height:56px; }
-  .site-logo-row{ padding:16px 0; }
-  .nav-toggle{ display:block; }
-
-  .main-nav{ padding:0; border-top:none; }
-  .main-nav .container{
-    display:none; flex-direction:row; align-items:center; justify-content:space-between; gap:0;
-    padding:0 18px; max-width:none;
-  }
-  .main-nav.nav-open .container{
-    display:flex; border-top:1px solid var(--border); padding:10px 18px;
-  }
-  .nav-item{ border-bottom:none; position:relative; }
-  .nav-item > button{
-    width:auto; display:flex; align-items:center; gap:5px;
-    padding:8px 2px; font-size:15px;
-  }
-  /* Menü links, Sprachauswahl rechts — Dropdowns öffnen als schwebende Karte
-     darunter statt den ganzen Header aufzublähen */
-  .dropdown-menu{
-    display:none; position:absolute; top:100%; left:0; margin-top:10px;
-    background:#fff; border:1px solid var(--border); border-radius:8px;
-    min-width:210px; max-width:calc(100vw - 36px);
-    max-height:65vh; overflow-y:auto; -webkit-overflow-scrolling:touch;
-    padding:8px; box-shadow:0 10px 28px rgba(0,0,0,0.12);
-  }
-  .nav-item.open .dropdown-menu{ display:block; }
-  .lang-switch{ margin-left:0; }
-  .lang-switch .dropdown-menu{ left:auto; right:0; }
-
-  /* Hero */
-  .hero-grid{ grid-template-columns:1fr !important; gap:28px !important; }
-  .hero-media{ height:240px !important; }
-  .hero-grid h1{ font-size:27px !important; }
-
-  /* Trust row, steps, testimonials */
-  .trust-row{ grid-template-columns:repeat(2,1fr); }
-  .steps-grid{ grid-template-columns:1fr !important; gap:26px; }
-  .testimonial-grid{ grid-template-columns:1fr !important; }
-
-  /* Kontakt */
-  .kontakt-grid{ grid-template-columns:1fr !important; gap:32px !important; }
-
-  /* Bestseller-Grid auf Startseite (3 Spalten inline) */
-  .catalog-grid{ grid-template-columns:1fr 1fr; }
-
-  /* Footer */
-  .footer-cols{ grid-template-columns:1fr 1fr; gap:28px 20px; }
-
-  /* Allgemeine Section-Abstände etwas straffen */
-  section{ padding-left:0; padding-right:0; }
-  .cross-link-banner{ flex-direction:column; align-items:flex-start; text-align:left; }
-  .cross-link-banner .btn{ width:100%; text-align:center; }
-}
-
-@media (max-width: 480px){
-  .catalog-grid{ grid-template-columns:1fr; }
-  .footer-cols{ grid-template-columns:1fr; }
-  .trust-row{ grid-template-columns:1fr 1fr; }
-  .price-new{ font-size:30px; }
-}

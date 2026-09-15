@@ -9,41 +9,41 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="site-header-fixed">
 <header>
   <div class="site-logo-row">
     <a href="index.html"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
-    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
   <nav class="main-nav">
     <div class="container">
       <div class="nav-item">
-        <button>Menü &#9662;</button>
+        <button>Produkte &#9662;</button>
         <div class="dropdown-menu">
-          <a href="zahnaufhellung.html">Zahnaufhellung</a>
-          <a href="zahnstaerkung.html">Zahnstärkung</a>
-          <a href="ueber-uns.html">Über uns</a>
-          <a href="index.html#so-funktioniert">So funktioniert's</a>
-          <a href="index.html#faq">FAQ</a>
-          <a href="kontakt.html">Kontakt</a>
+          <a href="index.html#produkte">White Class Pro</a>
+          <a href="#" class="disabled">Produkt 2 &middot; bald verf&uuml;gbar</a>
+          <a href="#" class="disabled">Produkt 3 &middot; bald verf&uuml;gbar</a>
         </div>
       </div>
-      <div class="nav-item lang-switch">
-        <button>🌐 DE &#9662;</button>
-        <div class="dropdown-menu">
-          <a href="#" class="disabled">English &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Français &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
-        </div>
-      </div>
+      <a href="index.html#so-funktioniert">So funktioniert's</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="index.html#produkt" class="btn btn-primary nav-cta">Jetzt sichern</a>
     </div>
   </nav>
+  <div class="mobile-bar container">
+    <button class="burger-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menü">&#9776;</button>
+    <div class="lang-select">&#127760; DE &#9662;</div>
+  </div>
+  <div id="mobileMenu" class="mobile-menu container">
+    <div class="sub-label">Produkte</div>
+    <a href="index.html#produkte">White Class Pro</a>
+    <a href="#" class="disabled">Produkt 2 &middot; bald verf&uuml;gbar</a>
+    <a href="#" class="disabled">Produkt 3 &middot; bald verf&uuml;gbar</a>
+    <a href="index.html#so-funktioniert">So funktioniert's</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="kontakt.html">Kontakt</a>
+    <a href="index.html#produkt" class="btn btn-primary">Jetzt sichern</a>
+  </div>
 </header>
-</div>
 <section style="padding:56px 0 90px;">
   <div class="container" style="max-width:720px;">
     <h1 style="font-size:28px; font-weight:600; margin:0 0 24px;">Widerrufsbelehrung</h1>
@@ -54,6 +54,5 @@
 <footer>
   <div class="container footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>
 </footer>
-<script src="script.js" defer></script>
 </body>
 </html>
