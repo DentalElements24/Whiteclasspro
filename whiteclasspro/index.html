@@ -14,21 +14,56 @@
 <div class="promo-banner">EINFÜHRUNGSANGEBOT — Starter-Set zum reduzierten Preis, solange der Vorrat reicht</div>
 
 <header>
-  <div class="container">
-    <nav>
-      <a href="index.html"><img src="logo.png" alt="White Class Pro"></a>
-      <ul class="nav-links">
-        <li><a href="index.html#produkt">Produkt</a></li>
-        <li><a href="index.html#so-funktioniert">So funktioniert's</a></li>
-        <li><a href="index.html#faq">FAQ</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
-      </ul>
-      <a href="#produkt" class="btn btn-primary">Jetzt sichern</a>
-    </nav>
+  <div class="site-logo-row">
+    <a href="index.html"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
   </div>
+  <nav class="main-nav">
+    <div class="container">
+      <div class="nav-item">
+        <button>Produkte &#9662;</button>
+        <div class="dropdown-menu">
+          <a href="index.html#produkte">White Class Pro</a>
+          <a href="#" class="disabled">Produkt 2 &middot; bald verf&uuml;gbar</a>
+          <a href="#" class="disabled">Produkt 3 &middot; bald verf&uuml;gbar</a>
+        </div>
+      </div>
+      <a href="index.html#so-funktioniert">So funktioniert's</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="#produkt" class="btn btn-primary nav-cta">Jetzt sichern</a>
+    </div>
+  </nav>
 </header>
 
-<section id="produkt" style="padding:56px 0 64px;">
+<section id="produkte" style="padding:64px 0 20px;">
+  <div class="container">
+    <h2 style="font-size:24px; font-weight:600; margin:0 0 24px;">Unsere Produkte</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+
+      <div class="product-card">
+        <span class="product-badge">Jetzt erhältlich</span>
+        <h3 style="font-size:16px; margin:0 0 8px;">White Class Pro</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0 0 14px;">Zahnaufhellungs-Set mit PAP-Formel, ohne Peroxid.</p>
+        <a href="#produkt" class="btn btn-primary" style="font-size:13px; padding:9px 16px;">Ansehen</a>
+      </div>
+
+      <div class="product-card placeholder">
+        <span class="product-badge">Bald verfügbar</span>
+        <h3 style="font-size:16px; margin:0 0 8px;">Produkt 2</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Platzhalter für ein weiteres Produkt aus dem White Class Pro Sortiment.</p>
+      </div>
+
+      <div class="product-card placeholder">
+        <span class="product-badge">Bald verfügbar</span>
+        <h3 style="font-size:16px; margin:0 0 8px;">Produkt 3</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin:0;">Platzhalter für ein weiteres Produkt aus dem White Class Pro Sortiment.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="produkt" style="padding:36px 0 64px;">
   <div class="container" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
 
     <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; height:440px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); font-size:14px;">
@@ -157,7 +192,11 @@
     <div class="footer-cols">
       <div>
         <img src="logo.png" alt="White Class Pro" style="height:38px; margin-bottom:12px;">
-        <p style="color:#8b8f96; font-size:13px; max-width:280px;">Professionelle Zahnaufhellung für Zuhause — mit PAP-Formel, ohne Wasserstoffperoxid.</p>
+        <p style="color:#8b8f96; font-size:13px; max-width:280px; margin:0 0 14px;">Professionelle Zahnaufhellung für Zuhause — mit PAP-Formel, ohne Wasserstoffperoxid.</p>
+        <div style="display:flex; gap:10px;">
+          <a href="#" style="border:1px solid #3a3f47; border-radius:6px; padding:6px 10px; font-size:12px;">Instagram [Platzhalter]</a>
+          <a href="#" style="border:1px solid #3a3f47; border-radius:6px; padding:6px 10px; font-size:12px;">TikTok [Platzhalter]</a>
+        </div>
       </div>
       <div>
         <h4>Support</h4>
@@ -176,11 +215,9 @@
         </ul>
       </div>
       <div>
-        <h4>White Class Pro</h4>
-        <ul>
-          <li><a href="index.html#produkt">Produkt</a></li>
-          <li><a href="index.html#faq">FAQ</a></li>
-        </ul>
+        <h4>Zahlungsarten</h4>
+        <p style="color:#8b8f96; font-size:12px; margin:0 0 8px;">[Platzhalter für Icons]</p>
+        <p style="color:#8b8f96; font-size:12px; margin:0;">PayPal · Kreditkarte · Klarna</p>
       </div>
     </div>
     <div class="footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>

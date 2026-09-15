@@ -10,18 +10,25 @@
 </head>
 <body>
 <header>
-  <div class="container">
-    <nav>
-      <a href="index.html"><img src="logo.png" alt="White Class Pro"></a>
-      <ul class="nav-links">
-        <li><a href="index.html#produkt">Produkt</a></li>
-        <li><a href="index.html#so-funktioniert">So funktioniert's</a></li>
-        <li><a href="index.html#faq">FAQ</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
-      </ul>
-      <a href="index.html#produkt" class="btn btn-primary">Jetzt sichern</a>
-    </nav>
+  <div class="site-logo-row">
+    <a href="index.html"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
   </div>
+  <nav class="main-nav">
+    <div class="container">
+      <div class="nav-item">
+        <button>Produkte &#9662;</button>
+        <div class="dropdown-menu">
+          <a href="index.html#produkte">White Class Pro</a>
+          <a href="#" class="disabled">Produkt 2 &middot; bald verf&uuml;gbar</a>
+          <a href="#" class="disabled">Produkt 3 &middot; bald verf&uuml;gbar</a>
+        </div>
+      </div>
+      <a href="index.html#so-funktioniert">So funktioniert's</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="index.html#produkt" class="btn btn-primary nav-cta">Jetzt sichern</a>
+    </div>
+  </nav>
 </header>
 
 <section style="padding:56px 0 90px;">
