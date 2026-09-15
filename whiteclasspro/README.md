@@ -36,6 +36,16 @@ auf der Website.
 ## Reine HTML/CSS-Version
 Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Für GitHub Pages: Repo unter Settings → Pages auf den `main`-Branch zeigen lassen, dann ist die Seite direkt live.
 
+## Navigation
+- Links: "Menü ▾" — Dropdown mit allen Bereichen (Zahnaufhellung, Zahnstärkung, Über uns, So funktioniert's, FAQ, Kontakt)
+- Rechts: Sprachauswahl (🌐 DE ▾) — Umschalter für Englisch, Polnisch, Niederländisch, Französisch, Spanisch. Die Sprachen sind aktuell als "bald verfügbar" hinterlegt, da noch keine übersetzten Seiteninhalte existieren — das UI ist vorbereitet, die eigentliche Übersetzung ist ein separater nächster Schritt.
+- Mobil: Hamburger-Menü (`script.js`) klappt die Navigation auf; Untermenüs öffnen sich per Tap statt Hover.
+
+## Mobile Ansicht
+- Alle Seiten wurden bei 375px Breite geprüft (kein horizontales Scrollen mehr)
+- Hero-, Kategorie-, Produkt- und Footer-Grids brechen auf Mobilgeräten in eine bzw. zwei Spalten um
+- Navigation läuft über ein eigenes Hamburger-Menü (`script.js`, keine externen Abhängigkeiten)
+
 ## Offene Punkte
 - Rechtstexte sind Platzhalter, kein finaler Rechtsinhalt
 - Kontaktformular hat noch keine Backend-Anbindung

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>White Class Pro — Zahnaufhellung &amp; Zahnpflege vom Zahntechniker-Meister</title>
-<meta name="description" content="White Class Pro: Zahnaufhellung und zahnstärkende Nahrungsergänzung, entwickelt und kuratiert von Zahntechnikermeister Christian Penz. Made in Germany.">
+<meta name="description" content="White Class Pro: Zahnaufhellung und zahnstärkende Nahrungsergänzung, ausgewählt und empfohlen von Zahntechnikermeister Christian Penz. Made in Germany.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -16,45 +16,57 @@
 <header>
   <div class="site-logo-row">
     <a href="index.html"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
   <nav class="main-nav">
     <div class="container">
       <div class="nav-item">
-        <button>Produkte &#9662;</button>
+        <button>Menü &#9662;</button>
         <div class="dropdown-menu">
           <a href="zahnaufhellung.html">Zahnaufhellung</a>
-          <a href="zahnstaerkung.html">Zahnst&auml;rkung</a>
+          <a href="zahnstaerkung.html">Zahnstärkung</a>
+          <a href="ueber-uns.html">Über uns</a>
+          <a href="index.html#so-funktioniert">So funktioniert's</a>
+          <a href="index.html#faq">FAQ</a>
+          <a href="kontakt.html">Kontakt</a>
         </div>
       </div>
-      <a href="ueber-uns.html">&Uuml;ber uns</a>
-      <a href="index.html#so-funktioniert">So funktioniert's</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="kontakt.html">Kontakt</a>
-      <a href="zahnaufhellung.html" class="btn btn-primary nav-cta">Jetzt shoppen</a>
+      <div class="nav-item lang-switch">
+        <button>🌐 DE &#9662;</button>
+        <div class="dropdown-menu">
+          <a href="#" class="disabled">English &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Français &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+        </div>
+      </div>
     </div>
   </nav>
 </header>
 
 <section id="produkt" style="padding:56px 0 40px;">
-  <div class="container" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
+  <div class="container hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;">
 
-    <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; height:440px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); font-size:14px;">
+    <div class="hero-media" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; height:440px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); font-size:14px;">
       [ Produktbild-Platzhalter: White Class Pro Set ]
     </div>
 
     <div>
       <p style="color:var(--red); font-size:13px; font-weight:600; letter-spacing:0.03em; margin:0 0 12px;">EINFÜHRUNGSANGEBOT · ZEITLICH BEGRENZT</p>
       <h1 style="font-size:36px; font-weight:600; line-height:1.25; margin:0 0 16px;">
-        Sichtbar hellere, stärkere Zähne — entwickelt vom Zahntechniker-Meister.
+        Sichtbar hellere, stärkere Zähne — empfohlen vom Zahntechniker-Meister.
       </h1>
       <p style="font-size:15px; color:var(--text-secondary); line-height:1.7; margin:0 0 18px;">
         White Class Pro startet mit dem Zahnaufhellungs-Set mit PAP-Formel — schonend für Zahnschmelz und Zahnfleisch.
-        Kuratiert von Christian Penz, Zahntechnikermeister mit jahrzehntelanger Laborerfahrung.
+        Ausgewählt und empfohlen von Christian Penz, Zahntechnikermeister mit jahrzehntelanger Laborerfahrung.
       </p>
 
       <div class="expert-badge" style="margin-bottom:20px;">
         <span class="expert-badge-icon">🎓</span>
-        <span><strong>Entwickelt von einem Zahntechniker-Meister</strong>Christian Penz, jahrzehntelange Berufserfahrung &amp; eigenes Dentallabor. <a href="ueber-uns.html" style="color:var(--blue);">Mehr erfahren →</a></span>
+        <span><strong>Empfohlen von einem Zahntechniker-Meister</strong>Christian Penz, jahrzehntelange Berufserfahrung &amp; eigenes Dentallabor. <a href="ueber-uns.html" style="color:var(--blue);">Mehr erfahren →</a></span>
       </div>
 
       <div class="stars">★★★★★ <span style="color:var(--text-secondary); font-size:13px;">4,7 · 312 Bewertungen</span></div>
@@ -216,7 +228,7 @@
 <section id="so-funktioniert" style="padding:56px 0;">
   <div class="container">
     <h2 style="text-align:center; font-size:26px; font-weight:600; margin:0 0 40px;">So einfach funktioniert's</h2>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
+    <div class="steps-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
       <div class="step">
         <div class="step-num">1</div>
         <h3 style="font-size:16px; margin:0 0 8px;">Produkt(e) bestellen</h3>
@@ -239,7 +251,7 @@
 <section style="padding-bottom:64px;">
   <div class="container" style="border-top:1px solid var(--border); padding-top:48px;">
     <h2 style="font-size:24px; font-weight:600; margin:0 0 24px;">Was Kunden sagen</h2>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+    <div class="testimonial-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px;">
         <div class="stars" style="margin-bottom:8px;">★★★★★</div>
         <p style="font-size:13.5px; color:var(--text-secondary); margin:0;">[Platzhalter-Kundenstimme]</p>
@@ -331,5 +343,6 @@
   </div>
 </footer>
 
+<script src="script.js" defer></script>
 </body>
 </html>
