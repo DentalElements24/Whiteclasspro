@@ -40,6 +40,13 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Für GitH
 - Links: "Menü ▾" — Dropdown mit allen Bereichen (Zahnaufhellung, Zahnstärkung, Über uns, So funktioniert's, FAQ, Kontakt)
 - Rechts: Sprachauswahl (🌐 DE ▾) — Umschalter für Englisch, Polnisch, Niederländisch, Französisch, Spanisch. Die Sprachen sind aktuell als "bald verfügbar" hinterlegt, da noch keine übersetzten Seiteninhalte existieren — das UI ist vorbereitet, die eigentliche Übersetzung ist ein separater nächster Schritt.
 - Mobil: Hamburger-Menü (`script.js`) klappt die Navigation auf; Untermenüs öffnen sich per Tap statt Hover.
+- Die Dropdown-Menüs (Desktop) waren zeitweise nicht anklickbar (Hover-Lücke zwischen Button und Menü) — behoben durch eine nahtlose Hover-Brücke in `styles.css`.
+
+## Fixierter Header
+- Promo-Banner, Logo und Navigation sind auf allen 10 Seiten in `.site-header-fixed` zusammengefasst und per `position:fixed` dauerhaft am oberen Bildschirmrand sichtbar, auch beim Scrollen.
+- `script.js` misst die tatsächliche Höhe dieses Bereichs bei jedem Laden/Resize und setzt sie als CSS-Variable `--header-h`, damit der Seiteninhalt exakt darunter beginnt (kein Überlappen, funktioniert unabhängig davon, ob der Promo-Banner ein- oder zweizeilig umbricht).
+- Sprungmarken (`#faq`, `#so-funktioniert` usw.) berücksichtigen den fixierten Header automatisch (`scroll-padding-top`), Ziel-Abschnitte werden also nicht darunter versteckt.
+- Mobil: Wird das aufgeklappte Menü auf einem kurzen Bildschirm höher als der sichtbare Bereich, wird es automatisch intern scrollbar statt über den Viewport hinauszulaufen.
 
 ## Mobile Ansicht
 - Alle Seiten wurden bei 375px Breite geprüft (kein horizontales Scrollen mehr)
