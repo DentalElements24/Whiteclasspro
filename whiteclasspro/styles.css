@@ -329,3 +329,19 @@ footer a:hover{ color:#fff; }
 .login-alt{ font-size:13.5px; color:var(--text-secondary); text-align:center; margin:10px 0 0; }
 
 .catalog-empty{ grid-column:1/-1; padding:36px 20px; text-align:center; color:var(--text-secondary); background:var(--surface); border:1px dashed var(--border); border-radius:10px; margin:0; }
+
+/* --- Kundenkonto: Tabs, Meldungen --- */
+.auth-tabs{ display:flex; border-bottom:1px solid var(--border); margin-bottom:20px; }
+.auth-tabs button{
+  flex:1; background:none; border:none; border-bottom:2px solid transparent; padding:12px 0;
+  font:inherit; font-size:14.5px; font-weight:600; color:var(--text-secondary); cursor:pointer; margin-bottom:-1px;
+}
+.auth-tabs button.active{ color:var(--text); border-bottom-color:var(--red); }
+.form-msg{ margin:4px 0 0; padding:10px 12px; border-radius:8px; font-size:13.5px; line-height:1.5; }
+.form-msg.error{ background:#fdecec; color:#9b1c1c; border:1px solid #f5c2c2; }
+.form-msg.ok{ background:#eaf7ee; color:#1d6b35; border:1px solid #bfe3ca; }
+.form-msg[hidden]{ display:none; }
+.login-form .check{ display:flex; gap:10px; align-items:flex-start; font-weight:400; font-size:13px; line-height:1.5; margin-top:10px; }
+.login-form .check input{ margin-top:3px; padding:0; }
+.link-btn{ background:none; border:none; font:inherit; font-size:13.5px; color:var(--blue); cursor:pointer; padding:8px 0 0; text-align:left; }
+.link-btn:hover{ text-decoration:underline; }

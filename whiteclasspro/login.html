@@ -67,20 +67,68 @@
 <section style="padding:32px 0 80px;">
   <div class="container" style="max-width:440px;">
     <h1 style="margin:0 0 6px;">Kundenbereich</h1>
-    <p style="color:var(--text-secondary); font-size:14.5px; margin:0 0 20px;">Hier kannst du dich künftig anmelden, deine Bestellungen einsehen und deine Daten verwalten.</p>
+    <p style="color:var(--text-secondary); font-size:14.5px; margin:0 0 20px;">Melde dich an oder erstelle ein Konto, um deine Bestellungen einzusehen.</p>
 
-    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:22px; font-size:13.5px; line-height:1.6;">
-      ℹ️ <strong>In Vorbereitung.</strong> Anmeldung und Registrierung sind noch nicht freigeschaltet. Bestellen kannst du bald auch ohne Konto.
+    <div id="setup-note" hidden style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:22px; font-size:13.5px; line-height:1.6;">
+      ℹ️ <strong>In Vorbereitung.</strong> Anmeldung und Registrierung sind noch nicht freigeschaltet.
     </div>
 
-    <form class="login-form" onsubmit="return false;" aria-disabled="true">
-      <label for="login-email">E-Mail-Adresse</label>
-      <input id="login-email" type="email" placeholder="name@beispiel.de" disabled>
-      <label for="login-pass">Passwort</label>
-      <input id="login-pass" type="password" placeholder="••••••••" disabled>
-      <button type="button" class="btn btn-primary" disabled style="width:100%; opacity:.55; cursor:not-allowed;">Anmelden</button>
-      <p class="login-alt">Noch kein Konto? <span>Registrierung folgt</span></p>
-    </form>
+    <div id="login-root" hidden>
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="active" data-tab="login" role="tab" aria-selected="true">Anmelden</button>
+        <button type="button" data-tab="register" role="tab" aria-selected="false">Konto erstellen</button>
+      </div>
+
+      <div id="panel-login" class="auth-panel">
+        <form id="form-login" class="login-form" novalidate>
+          <label for="li-email">E-Mail-Adresse</label>
+          <input id="li-email" name="email" type="email" autocomplete="email" required>
+          <label for="li-pass">Passwort</label>
+          <input id="li-pass" name="password" type="password" autocomplete="current-password" required>
+          <p id="msg-login" class="form-msg error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-primary">Anmelden</button>
+          <button type="button" id="to-forgot" class="link-btn">Passwort vergessen?</button>
+        </form>
+      </div>
+
+      <div id="panel-register" class="auth-panel" hidden>
+        <form id="form-register" class="login-form" novalidate>
+          <label for="rg-email">E-Mail-Adresse</label>
+          <input id="rg-email" name="email" type="email" autocomplete="email" required>
+          <label for="rg-pass">Passwort (mind. 8 Zeichen)</label>
+          <input id="rg-pass" name="password" type="password" autocomplete="new-password" minlength="8" required>
+          <label for="rg-pass2">Passwort wiederholen</label>
+          <input id="rg-pass2" name="password2" type="password" autocomplete="new-password" required>
+          <label class="check"><input type="checkbox" name="consent"> <span>Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> zur Kenntnis genommen.</span></label>
+          <p id="msg-register" class="form-msg error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-primary">Konto erstellen</button>
+        </form>
+      </div>
+
+      <div id="panel-forgot" class="auth-panel" hidden>
+        <h2 style="font-size:18px; margin:0 0 6px;">Passwort zurücksetzen</h2>
+        <p style="font-size:13.5px; color:var(--text-secondary); margin:0 0 14px;">Wir senden dir einen Link zum Festlegen eines neuen Passworts.</p>
+        <form id="form-forgot" class="login-form" novalidate>
+          <label for="fg-email">E-Mail-Adresse</label>
+          <input id="fg-email" name="email" type="email" autocomplete="email" required>
+          <p id="msg-forgot" class="form-msg error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-primary">Link senden</button>
+          <button type="button" id="back-login" class="link-btn">← Zurück zur Anmeldung</button>
+        </form>
+      </div>
+
+      <div id="panel-reset" class="auth-panel" hidden>
+        <h2 style="font-size:18px; margin:0 0 6px;">Neues Passwort festlegen</h2>
+        <form id="form-reset" class="login-form" novalidate>
+          <label for="rs-pass">Neues Passwort (mind. 8 Zeichen)</label>
+          <input id="rs-pass" name="password" type="password" autocomplete="new-password" minlength="8" required>
+          <label for="rs-pass2">Passwort wiederholen</label>
+          <input id="rs-pass2" name="password2" type="password" autocomplete="new-password" required>
+          <p id="msg-reset" class="form-msg error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-primary">Passwort speichern</button>
+        </form>
+      </div>
+    </div>
 
     <p style="margin-top:26px; font-size:14px;"><a href="index.html">← Zurück zur Startseite</a></p>
   </div>
@@ -91,6 +139,9 @@
 </footer>
 <script src="script.js" defer></script>
 <script src="shop.js" defer></script>
+<script src="supabase-config.js" defer></script>
+<script src="auth.js" defer></script>
 <script src="cart.js" defer></script>
+<script src="account.js" defer></script>
 </body>
 </html>

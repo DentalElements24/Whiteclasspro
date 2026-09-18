@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kontakt — White Class Pro</title>
+<title>Mein Konto — White Class Pro</title>
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -63,37 +64,19 @@
 </header>
 </div>
 
-<section style="padding:56px 0 90px;">
-  <div class="container kontakt-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:56px;">
-    <div>
-      <h1 style="font-size:28px; font-weight:600; margin:0 0 20px;">Kontakt</h1>
-      <p style="font-size:15px; color:var(--text-secondary); line-height:1.7; margin:0 0 24px;">
-        Fragen zu deiner Bestellung oder zum Produkt? Wir helfen gerne weiter.
-      </p>
-      <p style="font-size:13px; color:var(--text-secondary); margin:0 0 4px;">E-Mail</p>
-      <p style="font-size:15px; margin:0 0 20px;">kontakt@platzhalter.de</p>
-      <p style="font-size:13px; color:var(--text-secondary); margin:0 0 4px;">Anbieter</p>
-      <p style="font-size:15px; margin:0; line-height:1.6;">Dental Elements GmbH<br>Grüner Weg 2, 24896 Treia</p>
-    </div>
+<section style="padding:32px 0 80px;">
+  <div class="container" style="max-width:640px;">
+    <h1 style="margin:0 0 6px;">Mein Konto</h1>
 
-    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:32px;">
-      <h2 style="font-size:17px; font-weight:600; margin:0 0 20px;">Nachricht senden</h2>
-      <form>
-        <div style="margin-bottom:16px;">
-          <label style="font-size:13px; color:var(--text-secondary); display:block; margin-bottom:6px;">Name</label>
-          <input type="text" style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; font-size:14px; font-family:inherit;">
-        </div>
-        <div style="margin-bottom:16px;">
-          <label style="font-size:13px; color:var(--text-secondary); display:block; margin-bottom:6px;">E-Mail</label>
-          <input type="email" style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; font-size:14px; font-family:inherit;">
-        </div>
-        <div style="margin-bottom:20px;">
-          <label style="font-size:13px; color:var(--text-secondary); display:block; margin-bottom:6px;">Nachricht</label>
-          <textarea rows="4" style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; font-size:14px; font-family:inherit;"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;">Absenden</button>
-        <p style="font-size:12px; color:var(--text-secondary); margin:12px 0 0;">Formular aktuell ohne Backend-Anbindung — folgt in einem späteren Schritt.</p>
-      </form>
+    <div id="account-root" hidden>
+      <p style="color:var(--text-secondary); font-size:14.5px; margin:0 0 24px;">Angemeldet als <strong id="account-email"></strong></p>
+
+      <div class="cart-summary" style="margin:0 0 18px;">
+        <h2 style="font-size:18px; margin:0 0 8px;">Meine Bestellungen</h2>
+        <p class="cart-note" style="margin:0;">Hier erscheinen deine Bestellungen, sobald der Checkout freigeschaltet ist.</p>
+      </div>
+
+      <button type="button" id="logout-btn" class="btn btn-primary" style="background:var(--black);">Abmelden</button>
     </div>
   </div>
 </section>
@@ -106,5 +89,6 @@
 <script src="supabase-config.js" defer></script>
 <script src="auth.js" defer></script>
 <script src="cart.js" defer></script>
+<script src="account.js" defer></script>
 </body>
 </html>
