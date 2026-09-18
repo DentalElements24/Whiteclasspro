@@ -11,27 +11,37 @@
 <body>
 <div class="site-header-fixed">
 <header>
-  <div class="site-logo-row">
-    <a href="index.html"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
-    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+  <div class="header-bar">
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="site-nav">
       <span></span><span></span><span></span>
     </button>
-  </div>
-  <nav class="main-nav">
-    <div class="container">
-      <div class="nav-item">
-        <button>Menü &#9662;</button>
-        <div class="dropdown-menu">
-          <a href="zahnaufhellung.html">Zahnaufhellung</a>
-          <a href="zahnstaerkung.html">Zahnstärkung</a>
-          <a href="ueber-uns.html">Über uns</a>
-          <a href="index.html#so-funktioniert">So funktioniert's</a>
-          <a href="index.html#faq">FAQ</a>
-          <a href="kontakt.html">Kontakt</a>
+    <a href="index.html" class="logo-link" aria-label="White Class Pro – Startseite"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
+    <nav class="main-nav" id="site-nav" aria-label="Hauptnavigation">
+      <a href="zahnaufhellung.html">Zahnaufhellung</a>
+      <a href="zahnstaerkung.html">Zahnstärkung</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="index.html#so-funktioniert">So funktioniert's</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+      <div class="nav-lang-mobile">
+        <span class="nav-lang-label">Sprache</span>
+        <div class="nav-lang-chips">
+          <span class="chip active" aria-current="true">DE</span>
+          <span class="chip disabled" title="bald verfügbar">EN</span>
+          <span class="chip disabled" title="bald verfügbar">PL</span>
+          <span class="chip disabled" title="bald verfügbar">NL</span>
+          <span class="chip disabled" title="bald verfügbar">FR</span>
+          <span class="chip disabled" title="bald verfügbar">ES</span>
         </div>
+        <span class="nav-lang-hint">Weitere Sprachen bald verfügbar</span>
       </div>
+    </nav>
+    <div class="header-actions">
       <div class="nav-item lang-switch">
-        <button>🌐 DE &#9662;</button>
+        <button type="button" aria-label="Sprache wählen" aria-haspopup="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+          DE &#9662;
+        </button>
         <div class="dropdown-menu">
           <a href="#" class="disabled">English &middot; bald verfügbar</a>
           <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
@@ -40,8 +50,16 @@
           <a href="#" class="disabled">Español &middot; bald verfügbar</a>
         </div>
       </div>
+      <a href="login.html" class="account-link" aria-label="Kundenbereich – Anmelden">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span class="account-label">Anmelden</span>
+      </a>
+      <a href="warenkorb.html" class="cart-link" aria-label="Warenkorb">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.8L19.5 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="16.5" cy="19.5" r="1.3"/></svg>
+        <span class="cart-count" style="display:none">0</span>
+      </a>
     </div>
-  </nav>
+  </div>
 </header>
 </div>
 

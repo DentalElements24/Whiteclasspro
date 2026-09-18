@@ -51,13 +51,14 @@
   };
 
   var injectHeaderLink = function () {
-    var row = document.querySelector('.site-logo-row');
+    // Der Warenkorb-Link steht fest im Header-HTML; nur als Fallback einsetzen.
+    var row = document.querySelector('.header-actions');
     if (!row || row.querySelector('.cart-link')) return;
     var a = document.createElement('a');
     a.href = 'warenkorb.html';
     a.className = 'cart-link';
     a.setAttribute('aria-label', 'Warenkorb');
-    a.innerHTML = '🛒<span class="cart-count" style="display:none">0</span>';
+    a.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.8L19.5 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="16.5" cy="19.5" r="1.3"/></svg><span class="cart-count" style="display:none">0</span>';
     row.appendChild(a);
   };
 

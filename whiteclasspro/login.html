@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zahnstärkung — White Class Pro</title>
-<meta name="description" content="Zahnstärkende Nahrungsergänzung von White Class Pro: Calcium, Magnesium, Vitamin D3/K2 & Co. für Zahnschmelz und Zahnfleisch.">
+<title>Kundenbereich — White Class Pro</title>
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -64,28 +64,25 @@
 </header>
 </div>
 
-<section style="padding:24px 0 40px;">
-  <div class="container">
+<section style="padding:32px 0 80px;">
+  <div class="container" style="max-width:440px;">
+    <h1 style="margin:0 0 6px;">Kundenbereich</h1>
+    <p style="color:var(--text-secondary); font-size:14.5px; margin:0 0 20px;">Hier kannst du dich künftig anmelden, deine Bestellungen einsehen und deine Daten verwalten.</p>
 
-    <div class="catalog-intro">
-      <div>
-        <h1>Zahnstärkung</h1>
-        <p>Calcium, Magnesium, Vitamin D3 und K2 gelten als die Nährstoffe, die für den Aufbau und Erhalt von Zahnschmelz am wichtigsten sind. Unsere Auswahl deckt die gängigsten Kombinationen ab.</p>
-      </div>
-      <span class="catalog-count">4 Produkte</span>
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:22px; font-size:13.5px; line-height:1.6;">
+      ℹ️ <strong>In Vorbereitung.</strong> Anmeldung und Registrierung sind noch nicht freigeschaltet. Bestellen kannst du bald auch ohne Konto.
     </div>
 
-    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:28px; font-size:13px; color:var(--text-secondary); line-height:1.6;">
-      ℹ️ Nahrungsergänzungsmittel ersetzen keine ausgewogene Ernährung und keine zahnärztliche Behandlung. Bei bestehenden Erkrankungen, Medikamenteneinnahme, Schwangerschaft oder Stillzeit vor der Einnahme Rücksprache mit einem Arzt oder Apotheker halten.
-    </div>
+    <form class="login-form" onsubmit="return false;" aria-disabled="true">
+      <label for="login-email">E-Mail-Adresse</label>
+      <input id="login-email" type="email" placeholder="name@beispiel.de" disabled>
+      <label for="login-pass">Passwort</label>
+      <input id="login-pass" type="password" placeholder="••••••••" disabled>
+      <button type="button" class="btn btn-primary" disabled style="width:100%; opacity:.55; cursor:not-allowed;">Anmelden</button>
+      <p class="login-alt">Noch kein Konto? <span>Registrierung folgt</span></p>
+    </form>
 
-    <div class="catalog-grid" data-category="zahnstaerkung"></div>
-
-    <div class="cross-link-banner">
-      <p><strong>Von innen und außen kümmern?</strong>Kombiniere deine Nahrungsergänzung mit einem unserer Zahnaufhellungs-Produkte.</p>
-      <a href="zahnaufhellung.html" class="btn btn-primary" style="padding:11px 20px; font-size:13.5px;">Zur Zahnaufhellung →</a>
-    </div>
-
+    <p style="margin-top:26px; font-size:14px;"><a href="index.html">← Zurück zur Startseite</a></p>
   </div>
 </section>
 
