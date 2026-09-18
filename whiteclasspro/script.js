@@ -84,6 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Beim Wechsel auf Desktop-Breite Menüzustand zurücksetzen
   window.addEventListener('resize', function () {
-    if (window.matchMedia('(min-width: 781px)').matches) closeNav();
+    if (window.matchMedia('(min-width: 1101px)').matches) closeNav();
   });
 });

@@ -97,8 +97,6 @@ header{ border-bottom:1px solid var(--border); background:#fff; position:relativ
 .trust-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:28px; }
 .trust-item{ background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; font-size:12.5px; text-align:center; color:var(--text-secondary); }
 
-.step{ text-align:center; padding:0 10px; }
-.step-num{ width:36px; height:36px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; margin:0 auto 12px; }
 
 .faq-item{ border-bottom:1px solid var(--border); padding:18px 0; }
 .faq-item summary{ cursor:pointer; font-weight:600; font-size:15px; }
@@ -114,7 +112,7 @@ footer a:hover{ color:#fff; }
 .footer-bottom{ border-top:1px solid #2a2f36; padding-top:18px; color:#8b8f96; font-size:12px; }
 
 /* --- Category tiles (Startseite) --- */
-.category-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.category-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
 .category-tile{
   display:block; text-decoration:none; color:var(--text);
   background:var(--surface); border:1px solid var(--border); border-radius:14px;
@@ -199,11 +197,8 @@ footer a:hover{ color:#fff; }
 /* ============================================
    MOBILE (<=780px): Navigation, Grids, Layout
    ============================================ */
-@media (max-width: 780px){
-  .container{ padding:0 18px; }
-  html{ scroll-padding-top:var(--header-h, 61px); }
-  body{ padding-top:var(--header-h, 61px); }
-
+/* Burger-Menü ab 1100px abwärts, damit 6 Menüpunkte + Aktionen nie überlappen */
+@media (max-width: 1100px){
   /* Header: Burger links, Logo mittig, Kundenbereich + Warenkorb rechts */
   .header-bar{ display:grid; grid-template-columns:1fr auto 1fr; height:60px; padding:0 8px; gap:0; }
   .site-logo{ height:38px; }
@@ -244,14 +239,20 @@ footer a:hover{ color:#fff; }
   .chip.disabled{ color:#b7bac0; }
   .nav-lang-hint{ display:block; font-size:12px; color:var(--text-secondary); margin-top:10px; }
 
+}
+
+@media (max-width: 780px){
+  .container{ padding:0 18px; }
+  html{ scroll-padding-top:var(--header-h, 61px); }
+  body{ padding-top:var(--header-h, 61px); }
+
   /* Hero */
   .hero-grid{ grid-template-columns:1fr !important; gap:28px !important; }
   .hero-media{ height:240px !important; }
   .hero-grid h1{ font-size:27px !important; }
 
-  /* Trust row, steps, testimonials */
+  /* Trust row, testimonials */
   .trust-row{ grid-template-columns:repeat(2,1fr); }
-  .steps-grid{ grid-template-columns:1fr !important; gap:26px; }
   .testimonial-grid{ grid-template-columns:1fr !important; }
 
   /* Kontakt */
@@ -326,3 +327,5 @@ footer a:hover{ color:#fff; }
 .login-form input:disabled{ cursor:not-allowed; opacity:.7; }
 .login-form .btn{ margin-top:12px; }
 .login-alt{ font-size:13.5px; color:var(--text-secondary); text-align:center; margin:10px 0 0; }
+
+.catalog-empty{ grid-column:1/-1; padding:36px 20px; text-align:center; color:var(--text-secondary); background:var(--surface); border:1px dashed var(--border); border-radius:10px; margin:0; }

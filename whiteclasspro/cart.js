@@ -88,8 +88,7 @@
       var items = read().filter(function (i) { return byId[i.id]; });
       if (!items.length) {
         root.innerHTML = '<div class="cart-empty"><p>Dein Warenkorb ist leer.</p>' +
-          '<a href="zahnaufhellung.html" class="btn btn-primary">Zur Zahnaufhellung</a> ' +
-          '<a href="zahnstaerkung.html" class="btn btn-primary">Zur Zahnstärkung</a></div>';
+          '<a href="index.html#kategorien" class="btn btn-primary">Weiter einkaufen</a></div>';
         return;
       }
       var total = 0;

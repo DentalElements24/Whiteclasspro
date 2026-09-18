@@ -48,8 +48,31 @@
       var list = products.filter(function (p) {
         return (!cat || p.category === cat) && (!onlyFeatured || p.featured);
       });
-      grid.innerHTML = list.map(cardHtml).join('');
+      grid.innerHTML = list.length
+        ? list.map(cardHtml).join('')
+        : '<p class="catalog-empty">Hier entstehen gerade neue Produkte — schau bald wieder vorbei.</p>';
+      // Zähler auf Kategorieseiten passend zur Produktzahl setzen
+      var counter = document.querySelector('.catalog-count');
+      if (cat && counter) counter.textContent = countLabel(list.length);
     });
+  };
+
+  var countLabel = function (n) {
+    return n === 0 ? 'Demnächst' : (n === 1 ? '1 Produkt' : n + ' Produkte');
+  };
+
+  // Kategorie-Kacheln (Startseite): <span data-cat-count="zahnaufhellung">
+  var fillCategoryCounts = function (products) {
+    document.querySelectorAll('[data-cat-count]').forEach(function (el) {
+      var n = products.filter(function (p) { return p.category === el.getAttribute('data-cat-count'); }).length;
+      el.textContent = (n === 0 ? 'Demnächst' : countLabel(n) + ' ansehen') + ' →';
+    });
+  };
+
+  var CATEGORY_NAMES = {
+    zahnaufhellung: 'Zahnaufhellung',
+    zahnstaerkung: 'Zahnstärkung',
+    zahnreinigung: 'Zahnreinigung'
   };
 
   // Detailseite: produkt.html?id=...
@@ -63,7 +86,7 @@
       return;
     }
     document.title = p.name + ' — White Class Pro';
-    var catName = p.category === 'zahnaufhellung' ? 'Zahnaufhellung' : 'Zahnstärkung';
+    var catName = CATEGORY_NAMES[p.category] || 'Produkte';
     var old = p.oldPrice ? '<span class="catalog-price-old">' + eur(p.oldPrice) + '</span>' : '';
     var hint = p.supplement
       ? '<div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:20px; font-size:13px; color:var(--text-secondary); line-height:1.6;">ℹ️ Nahrungsergänzungsmittel ersetzen keine ausgewogene Ernährung und keine zahnärztliche Behandlung. Bei bestehenden Erkrankungen, Medikamenteneinnahme, Schwangerschaft oder Stillzeit vor der Einnahme Rücksprache mit einem Arzt oder Apotheker halten.</div>'
@@ -90,9 +113,10 @@
   window.WCP.loadProducts = loadProducts;
 
   document.addEventListener('DOMContentLoaded', function () {
-    if (!document.querySelector('.catalog-grid[data-category], .catalog-grid[data-featured], #product-detail')) return;
+    if (!document.querySelector('.catalog-grid[data-category], .catalog-grid[data-featured], #product-detail, [data-cat-count]')) return;
     loadProducts().then(function (products) {
       renderGrids(products);
+      fillCategoryCounts(products);
       renderDetail(products);
     }).catch(function () {
       document.querySelectorAll('.catalog-grid[data-category], .catalog-grid[data-featured]').forEach(function (g) {

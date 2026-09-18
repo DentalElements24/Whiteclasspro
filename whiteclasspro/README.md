@@ -4,9 +4,10 @@ Eigenständiger Shop für Zahnaufhellung & zahnstärkende Nahrungsergänzung, un
 Kuratiert von Christian Penz, Zahntechnikermeister mit jahrzehntelanger Berufserfahrung und ehemals eigenem Dentallabor.
 
 ## Struktur
-- `index.html` — Startseite (Hero, Kategorie-Kacheln, Bestseller-Produktgrid, Über-uns-Teaser, So funktioniert's, Testimonials, FAQ)
+- `index.html` — Startseite (Hero, Kategorie-Kacheln, Bestseller-Produktgrid, Über-uns-Teaser, Testimonials, FAQ)
 - `zahnaufhellung.html` — Kategorieseite mit 6 Zahnaufhellungs-Produkten
 - `zahnstaerkung.html` — Kategorieseite mit 4 zahnstärkenden Nahrungsergänzungsmitteln
+- `zahnreinigung.html` — Kategorieseite Zahnreinigung (z. B. Zahnsticks); noch ohne Produkte, zeigt "Produkte folgen"
 - `ueber-uns.html` — Über Christian Penz (Zahntechnikermeister, eigenes Dentallabor)
 - `kontakt.html` — Kontaktseite
 - `impressum.html`, `agb.html`, `datenschutz.html`, `widerruf.html`, `versand.html` — rechtliche Seiten (**Platzhalter — vor Live-Gang juristisch prüfen lassen**)
@@ -37,7 +38,7 @@ auf der Website.
 Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Für GitHub Pages: Repo unter Settings → Pages auf den `main`-Branch zeigen lassen, dann ist die Seite direkt live.
 
 ## Navigation
-- Links: "Menü ▾" — Dropdown mit allen Bereichen (Zahnaufhellung, Zahnstärkung, Über uns, So funktioniert's, FAQ, Kontakt)
+- Links neben dem Logo: direkte Links (Zahnaufhellung, Zahnstärkung, Zahnreinigung, Über uns, FAQ, Kontakt); rechts Sprache, Anmelden (Dummy login.html) und Warenkorb
 - Rechts: Sprachauswahl (🌐 DE ▾) — Umschalter für Englisch, Polnisch, Niederländisch, Französisch, Spanisch. Die Sprachen sind aktuell als "bald verfügbar" hinterlegt, da noch keine übersetzten Seiteninhalte existieren — das UI ist vorbereitet, die eigentliche Übersetzung ist ein separater nächster Schritt.
 - Mobil: Hamburger-Menü (`script.js`) klappt die Navigation auf; "Menü" erscheint dabei links unter dem Logo, die Sprachauswahl gegenüber rechts. Beide öffnen ihr Dropdown per Tap als schwebende Karte darunter (wie am Desktop), nicht als ausklappende Liste, die den Header aufbläht — es ist dabei immer nur eines der beiden Dropdowns gleichzeitig offen.
 - Die Dropdown-Menüs (Desktop) waren zeitweise nicht anklickbar (Hover-Lücke zwischen Button und Menü) — behoben durch eine nahtlose Hover-Brücke in `styles.css`.
@@ -45,7 +46,7 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Für GitH
 ## Fixierter Header
 - Promo-Banner, Logo und Navigation sind auf allen 10 Seiten in `.site-header-fixed` zusammengefasst und per `position:fixed` dauerhaft am oberen Bildschirmrand sichtbar, auch beim Scrollen.
 - `script.js` misst die tatsächliche Höhe dieses Bereichs bei jedem Laden/Resize und setzt sie als CSS-Variable `--header-h`, damit der Seiteninhalt exakt darunter beginnt (kein Überlappen, funktioniert unabhängig davon, ob der Promo-Banner ein- oder zweizeilig umbricht).
-- Sprungmarken (`#faq`, `#so-funktioniert` usw.) berücksichtigen den fixierten Header automatisch (`scroll-padding-top`), Ziel-Abschnitte werden also nicht darunter versteckt.
+- Sprungmarken (`#faq` usw.) berücksichtigen den fixierten Header automatisch (`scroll-padding-top`), Ziel-Abschnitte werden also nicht darunter versteckt.
 - Mobil: Wird das aufgeklappte Menü auf einem kurzen Bildschirm höher als der sichtbare Bereich, wird es automatisch intern scrollbar statt über den Viewport hinauszulaufen.
 
 ## Mobile Ansicht
