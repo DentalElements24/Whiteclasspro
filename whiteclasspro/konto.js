@@ -89,9 +89,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var init = function (s) {
     var meta = (s.user && s.user.user_metadata) || {};
-    byId('account-email').textContent = (s.user && s.user.email) || '';
-    byId('pf-first').value = meta.first_name || '';
-    byId('pf-last').value = meta.last_name || '';
+    var email = (s.user && s.user.email) || '';
+    byId('account-email').textContent = email;
+    byId('sec-email').textContent = email;
+    if (s.user && s.user.new_email) {
+      show(byId('email-pending'), 'Änderung auf ' + s.user.new_email + ' ist noch nicht bestätigt. Bitte klicke auf den Link in der E-Mail, die wir dir geschickt haben.', 'ok');
+    }
     root.hidden = false;
 
     // Tabs
@@ -116,20 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     openTab(location.hash.replace('#', ''));
 
-    // Meine Daten
-    byId('form-profile').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var f = e.target, msg = byId('msg-profile');
-      var first = f.first.value.trim(), last = f.last.value.trim();
-      if (!first || !last) { show(msg, 'Bitte Vor- und Nachnamen eintragen.', 'error'); return; }
-      busy(f, true);
-      auth.updateProfile(first, last).then(function () {
-        show(msg, 'Gespeichert.', 'ok');
-        busy(f, false);
-      }).catch(function (err) { show(msg, err.message, 'error'); busy(f, false); });
-    });
-
-    // Adressen
+    // Persönliche Daten = Hauptadresse (Name, Anschrift, Telefon) + optionale abweichende Adressen
     ['main', 'shipping', 'billing'].forEach(buildFields);
     var diffShip = byId('diff-shipping'), diffBill = byId('diff-billing');
     var syncToggles = function () {
@@ -148,11 +138,11 @@ document.addEventListener('DOMContentLoaded', function () {
       if (by.shipping) { fill('shipping', by.shipping); diffShip.checked = true; }
       if (by.billing) { fill('billing', by.billing); diffBill.checked = true; }
       syncToggles();
-    }).catch(function (err) { show(byId('msg-addr'), err.message, 'error'); });
+    }).catch(function (err) { show(byId('msg-personal'), err.message, 'error'); });
 
-    byId('form-addresses').addEventListener('submit', function (e) {
+    byId('form-personal').addEventListener('submit', function (e) {
       e.preventDefault();
-      var f = e.target, msg = byId('msg-addr');
+      var f = e.target, msg = byId('msg-personal');
       show(msg, '');
       var uid = s.user && s.user.id;
       var kinds = ['main'];
@@ -166,7 +156,11 @@ document.addEventListener('DOMContentLoaded', function () {
         payload.push(Object.assign({ user_id: uid, kind: kinds[i] }, data));
       }
       busy(f, true);
-      auth.rest('POST', '/addresses?on_conflict=user_id,kind', payload, 'resolution=merge-duplicates,return=minimal')
+      // Name der Hauptadresse gilt auch für das Konto (Anzeige im Kopfbereich der Website)
+      var main = payload[0];
+      var nameChanged = main.first_name !== (meta.first_name || '') || main.last_name !== (meta.last_name || '');
+      (nameChanged ? auth.updateProfile(main.first_name, main.last_name).then(function () { meta.first_name = main.first_name; meta.last_name = main.last_name; }) : Promise.resolve())
+        .then(function () { return auth.rest('POST', '/addresses?on_conflict=user_id,kind', payload, 'resolution=merge-duplicates,return=minimal'); })
         .then(function () {
           // Abgewählte abweichende Adressen löschen (dann gilt wieder die Hauptadresse)
           var removals = [];
@@ -176,8 +170,24 @@ document.addEventListener('DOMContentLoaded', function () {
             return chain.then(function () { return auth.rest('DELETE', '/addresses?kind=eq.' + kind); });
           }, Promise.resolve());
         })
-        .then(function () { show(msg, 'Adressen gespeichert.', 'ok'); busy(f, false); })
+        .then(function () { show(msg, 'Deine Daten wurden gespeichert.', 'ok'); busy(f, false); })
         .catch(function (err) { show(msg, err.message, 'error'); busy(f, false); });
+    });
+
+    // E-Mail-Adresse ändern
+    byId('form-email').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = e.target, msg = byId('msg-email');
+      show(msg, '');
+      var next = f.email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(next)) { show(msg, 'Bitte gib eine gültige E-Mail-Adresse ein.', 'error'); return; }
+      if (next.toLowerCase() === email.toLowerCase()) { show(msg, 'Das ist bereits deine aktuelle E-Mail-Adresse.', 'error'); return; }
+      busy(f, true);
+      auth.changeEmail(next).then(function () {
+        f.reset();
+        show(msg, 'Wir haben dir eine E-Mail geschickt. Deine Adresse ändert sich, sobald du den Link darin bestätigt hast. Je nach Einstellung erhältst du auch an deine bisherige Adresse eine Bestätigungs-Mail.', 'ok');
+        busy(f, false);
+      }).catch(function (err) { show(msg, err.message, 'error'); busy(f, false); });
     });
 
     // Passwort ändern

@@ -24,7 +24,10 @@
     over_email_send_rate_limit: 'Zu viele Anfragen. Bitte warte kurz und versuche es erneut.',
     over_request_rate_limit: 'Zu viele Anfragen. Bitte warte kurz und versuche es erneut.',
     same_password: 'Das neue Passwort muss sich vom alten unterscheiden.',
-    user_already_exists: 'Für diese E-Mail-Adresse gibt es bereits ein Konto.'
+    user_already_exists: 'Für diese E-Mail-Adresse gibt es bereits ein Konto.',
+    email_exists: 'Diese E-Mail-Adresse wird bereits verwendet.',
+    email_address_invalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
+    validation_failed: 'Bitte prüfe deine Eingabe.'
   };
 
   var request = function (path, options) {
@@ -133,6 +136,18 @@
     return m && m.first_name ? String(m.first_name).trim() : '';
   };
 
+  // Neue E-Mail-Adresse: Supabase schickt einen Bestätigungslink; erst danach gilt sie.
+  var changeEmail = function (email) {
+    var s = readSession();
+    if (!s) return Promise.reject(new Error('Bitte melde dich erneut an.'));
+    return request('/auth/v1/user?redirect_to=' + redirectTo('login.html'), { method: 'PUT', token: s.access_token, body: { email: email } })
+      .then(function (user) {
+        s.user = user;
+        writeSession(s);
+        return user;
+      });
+  };
+
   var updateProfile = function (firstName, lastName) {
     var s = readSession();
     if (!s) return Promise.reject(new Error('Bitte melde dich erneut an.'));
@@ -172,7 +187,7 @@
     var type = q.get('type');
     if (!tokenHash || !type) return Promise.resolve();
     history.replaceState(null, '', location.pathname);
-    if (!configured || (type !== 'signup' && type !== 'recovery')) { linkError = true; return Promise.resolve(); }
+    if (!configured || (type !== 'signup' && type !== 'recovery' && type !== 'email_change')) { linkError = true; return Promise.resolve(); }
     return request('/auth/v1/verify', { body: { type: type, token_hash: tokenHash } }).then(function (d) {
       if (!d.access_token) { linkError = true; return; }
       writeSession(toSession(d));
@@ -230,6 +245,7 @@
     configured: configured,
     signUp: signUp, signIn: signIn, signOut: signOut,
     recover: recover, updatePassword: updatePassword, updateProfile: updateProfile, displayName: displayName,
+    changeEmail: changeEmail,
     rest: rest,
     getSession: getSession, readSession: readSession,
     linkError: function () { return linkError; },

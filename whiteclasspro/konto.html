@@ -72,66 +72,43 @@
       <p style="color:var(--text-secondary); font-size:14.5px; margin:0 0 20px;">Angemeldet als <strong id="account-email"></strong></p>
 
       <div class="auth-tabs k-tabs" role="tablist">
-        <button type="button" class="active" data-ktab="daten" role="tab" aria-selected="true">Meine Daten</button>
-        <button type="button" data-ktab="adressen" role="tab" aria-selected="false">Adressen</button>
-        <button type="button" data-ktab="zahlung" role="tab" aria-selected="false">Zahlungsarten</button>
-        <button type="button" data-ktab="bestellungen" role="tab" aria-selected="false">Bestellungen</button>
+        <button type="button" class="active" data-ktab="daten" role="tab" aria-selected="true">Persönliche Daten</button>
         <button type="button" data-ktab="sicherheit" role="tab" aria-selected="false">Sicherheit</button>
+        <button type="button" data-ktab="bestellungen" role="tab" aria-selected="false">Meine Bestellungen</button>
       </div>
 
-      <!-- Meine Daten -->
+      <!-- Persönliche Daten -->
       <div class="k-panel" id="kp-daten">
-        <form id="form-profile" class="login-form" novalidate>
-          <h2 class="k-h">Meine Daten</h2>
-          <div class="two-col">
-            <div class="field"><label for="pf-first">Vorname</label><input id="pf-first" name="first" type="text" autocomplete="given-name" maxlength="50" required></div>
-            <div class="field"><label for="pf-last">Nachname</label><input id="pf-last" name="last" type="text" autocomplete="family-name" maxlength="50" required></div>
-          </div>
-          <p id="msg-profile" class="form-msg ok" role="status" hidden></p>
+        <form id="form-personal" class="login-form" novalidate>
+          <h2 class="k-h">Persönliche Daten</h2>
+          <p class="k-sub">Name, Adresse und Telefonnummer. Diese Angaben verwenden wir für Lieferung und Rechnung, solange du keine abweichende Adresse angibst.</p>
+          <div id="addr-main"></div>
+
+          <label class="check"><input type="checkbox" id="diff-shipping"> <span>Die Lieferadresse weicht von dieser Adresse ab</span></label>
+          <div id="addr-shipping" class="addr-block" hidden><h3 class="k-h3">Abweichende Lieferadresse</h3></div>
+
+          <label class="check"><input type="checkbox" id="diff-billing"> <span>Die Rechnungsadresse weicht von dieser Adresse ab</span></label>
+          <div id="addr-billing" class="addr-block" hidden><h3 class="k-h3">Abweichende Rechnungsadresse</h3></div>
+
+          <p class="k-sub" style="margin-top:14px;">Wir liefern derzeit nur innerhalb Deutschlands.</p>
+          <p id="msg-personal" class="form-msg ok" role="status" hidden></p>
           <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Speichern</button>
         </form>
       </div>
 
-      <!-- Adressen -->
-      <div class="k-panel" id="kp-adressen" hidden>
-        <form id="form-addresses" class="login-form" novalidate>
-          <h2 class="k-h">Hauptadresse</h2>
-          <p class="k-sub">Diese Adresse verwenden wir für Lieferung und Rechnung, solange du keine abweichende Adresse angibst.</p>
-          <div id="addr-main"></div>
-
-          <label class="check"><input type="checkbox" id="diff-shipping"> <span>Die Lieferadresse weicht von der Hauptadresse ab</span></label>
-          <div id="addr-shipping" class="addr-block" hidden><h3 class="k-h3">Abweichende Lieferadresse</h3></div>
-
-          <label class="check"><input type="checkbox" id="diff-billing"> <span>Die Rechnungsadresse weicht von der Hauptadresse ab</span></label>
-          <div id="addr-billing" class="addr-block" hidden><h3 class="k-h3">Abweichende Rechnungsadresse</h3></div>
-
-          <p class="k-sub" style="margin-top:14px;">Wir liefern derzeit nur innerhalb Deutschlands.</p>
-          <p id="msg-addr" class="form-msg ok" role="status" hidden></p>
-          <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Adressen speichern</button>
-        </form>
-      </div>
-
-      <!-- Zahlungsarten -->
-      <div class="k-panel" id="kp-zahlung" hidden>
-        <h2 class="k-h">Zahlungsarten</h2>
-        <div class="cart-summary" style="margin:0 0 14px;">
-          <p style="margin:0 0 10px;">🔒 <strong>Wir speichern keine Zahlungsdaten.</strong></p>
-          <p class="cart-note" style="margin:0 0 10px;">Karten- und Kontodaten gibst du bei jeder Bestellung direkt beim Zahlungsdienstleister <strong>Stripe</strong> ein. Sie gelangen nie auf unsere Server. Zur Auswahl stehen die Zahlungsarten, die Stripe an der Kasse anzeigt, zum Beispiel Karte, PayPal, Klarna und SEPA-Lastschrift.</p>
-          <p class="cart-note" style="margin:0;">Das dauerhafte Speichern von Zahlungsmitteln für schnellere Bestellungen bieten wir künftig über Stripe an.</p>
-        </div>
-      </div>
-
-      <!-- Bestellungen -->
-      <div class="k-panel" id="kp-bestellungen" hidden>
-        <h2 class="k-h">Meine Bestellungen</h2>
-        <div class="cart-summary" style="margin:0;">
-          <p class="cart-note" style="margin:0;">Hier erscheinen deine Bestellungen, sobald die Bestellübersicht freigeschaltet ist. Bis dahin findest du Details zu deinen Käufen in den Bestätigungs-E-Mails.</p>
-        </div>
-      </div>
-
       <!-- Sicherheit -->
       <div class="k-panel" id="kp-sicherheit" hidden>
-        <form id="form-password" class="login-form" novalidate>
+        <form id="form-email" class="login-form" novalidate>
+          <h2 class="k-h">E-Mail-Adresse ändern</h2>
+          <p class="k-sub">Aktuelle Adresse: <strong id="sec-email"></strong></p>
+          <p id="email-pending" class="form-msg ok" role="status" hidden></p>
+          <label for="em-new">Neue E-Mail-Adresse</label>
+          <input id="em-new" name="email" type="email" autocomplete="email" required>
+          <p id="msg-email" class="form-msg ok" role="status" hidden></p>
+          <button type="submit" class="btn btn-primary" style="align-self:flex-start;">E-Mail-Adresse ändern</button>
+        </form>
+
+        <form id="form-password" class="login-form" novalidate style="margin-top:32px;">
           <h2 class="k-h">Passwort ändern</h2>
           <label for="pw-new">Neues Passwort (mind. 8 Zeichen)</label>
           <input id="pw-new" name="password" type="password" autocomplete="new-password" minlength="8" required>
@@ -146,6 +123,14 @@
 
         <div style="margin-top:28px;">
           <button type="button" id="logout-btn" class="btn btn-primary" style="background:var(--black);">Abmelden</button>
+        </div>
+      </div>
+
+      <!-- Meine Bestellungen -->
+      <div class="k-panel" id="kp-bestellungen" hidden>
+        <h2 class="k-h">Meine Bestellungen</h2>
+        <div class="cart-summary" style="margin:0;">
+          <p class="cart-note" style="margin:0;">Hier erscheinen deine Bestellungen, sobald die Bestellübersicht freigeschaltet ist. Bis dahin findest du Details zu deinen Käufen in den Bestätigungs-E-Mails.</p>
         </div>
       </div>
     </div>
