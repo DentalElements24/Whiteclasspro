@@ -356,3 +356,5 @@ footer a:hover{ color:#fff; }
 
 .login-form[hidden]{ display:none; }
 #register-done .link-btn{ display:block; padding-top:10px; }
+
+.account-label{ max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }

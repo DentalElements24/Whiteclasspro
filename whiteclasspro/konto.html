@@ -70,6 +70,15 @@
 
     <div id="account-root" hidden>
       <p style="color:var(--text-secondary); font-size:14.5px; margin:0 0 24px;">Angemeldet als <strong id="account-email"></strong></p>
+      <form id="form-profile" class="login-form" novalidate style="margin:0 0 22px;">
+        <h2 style="font-size:18px; margin:0 0 4px;">Meine Daten</h2>
+        <label for="pf-first">Vorname</label>
+        <input id="pf-first" name="first" type="text" autocomplete="given-name" maxlength="50" required>
+        <label for="pf-last">Nachname</label>
+        <input id="pf-last" name="last" type="text" autocomplete="family-name" maxlength="50" required>
+        <p id="msg-profile" class="form-msg ok" role="status" hidden></p>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Speichern</button>
+      </form>
 
       <div class="cart-summary" style="margin:0 0 18px;">
         <h2 style="font-size:18px; margin:0 0 8px;">Meine Bestellungen</h2>

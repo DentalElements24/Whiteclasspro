@@ -33,8 +33,22 @@ document.addEventListener('DOMContentLoaded', function () {
     auth.ready.then(function () { return auth.getSession(); }).then(function (s) {
       if (!s) { location.replace('login.html'); return; }
       var email = (s.user && s.user.email) || '';
+      var meta = (s.user && s.user.user_metadata) || {};
       byId('account-email').textContent = email;
+      byId('pf-first').value = meta.first_name || '';
+      byId('pf-last').value = meta.last_name || '';
       accountRoot.hidden = false;
+    });
+    byId('form-profile').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = e.target, msg = byId('msg-profile');
+      var first = f.first.value.trim(), last = f.last.value.trim();
+      if (!first || !last) { show(msg, 'Bitte Vor- und Nachnamen eintragen.', 'error'); return; }
+      busy(f, true);
+      auth.updateProfile(first, last).then(function () {
+        show(msg, 'Gespeichert.', 'ok');
+        busy(f, false);
+      }).catch(function (err) { show(msg, err.message, 'error'); busy(f, false); });
     });
     byId('logout-btn').addEventListener('click', function () {
       auth.signOut().then(function () { location.href = 'index.html'; });
@@ -100,11 +114,13 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     var f = e.target, msg = byId('msg-register');
     show(msg, '');
+    var first = f.first.value.trim(), last = f.last.value.trim();
+    if (!first || !last) { show(msg, 'Bitte gib deinen Vor- und Nachnamen an.'); return; }
     if (f.password.value.length < 8) { show(msg, 'Das Passwort muss mindestens 8 Zeichen lang sein.'); return; }
     if (f.password.value !== f.password2.value) { show(msg, 'Die Passwörter stimmen nicht überein.'); return; }
     if (!f.consent.checked) { show(msg, 'Bitte bestätige die Kenntnisnahme der Datenschutzerklärung.'); return; }
     busy(f, true);
-    auth.signUp(f.email.value.trim(), f.password.value).then(function (r) {
+    auth.signUp(f.email.value.trim(), f.password.value, { first_name: first, last_name: last }).then(function (r) {
       if (r.confirmed) { location.href = afterLoginPage(); return; }
       // Eingabefelder ausblenden, nur die Bestätigung bleibt sichtbar
       f.reset();

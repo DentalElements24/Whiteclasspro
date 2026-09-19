@@ -67,8 +67,9 @@
     return encodeURIComponent(location.origin + location.pathname.replace(/[^\/]*$/, '') + page);
   };
 
-  var signUp = function (email, password) {
-    return request('/auth/v1/signup?redirect_to=' + redirectTo('login.html'), { body: { email: email, password: password } })
+  // profile: { first_name, last_name } wird als Nutzer-Metadaten bei Supabase gespeichert.
+  var signUp = function (email, password, profile) {
+    return request('/auth/v1/signup?redirect_to=' + redirectTo('login.html'), { body: { email: email, password: password, data: profile || {} } })
       .then(function (d) {
         if (d.access_token) { writeSession(toSession(d)); return { confirmed: true }; }
         return { confirmed: false };
@@ -89,6 +90,23 @@
 
   var recover = function (email) {
     return request('/auth/v1/recover?redirect_to=' + redirectTo('login.html'), { body: { email: email } });
+  };
+
+  // Vorname des angemeldeten Kunden (leer, wenn noch keiner hinterlegt ist)
+  var displayName = function (s) {
+    var m = s && s.user && s.user.user_metadata;
+    return m && m.first_name ? String(m.first_name).trim() : '';
+  };
+
+  var updateProfile = function (firstName, lastName) {
+    var s = readSession();
+    if (!s) return Promise.reject(new Error('Bitte melde dich erneut an.'));
+    return request('/auth/v1/user', { method: 'PUT', token: s.access_token, body: { data: { first_name: firstName, last_name: lastName } } })
+      .then(function (user) {
+        s.user = user;
+        writeSession(s);
+        return user;
+      });
   };
 
   var updatePassword = function (password) {
@@ -157,9 +175,10 @@
     document.querySelectorAll('.account-link').forEach(function (a) {
       var label = a.querySelector('.account-label');
       if (s) {
+        var name = displayName(s);
         a.setAttribute('href', 'konto.html');
-        a.setAttribute('aria-label', 'Mein Konto');
-        if (label) label.textContent = 'Mein Konto';
+        a.setAttribute('aria-label', name ? 'Mein Konto – ' + name : 'Mein Konto');
+        if (label) label.textContent = name || 'Mein Konto';
       } else {
         a.setAttribute('href', 'login.html');
         a.setAttribute('aria-label', 'Kundenbereich – Anmelden');
@@ -175,7 +194,7 @@
   window.WCP.auth = {
     configured: configured,
     signUp: signUp, signIn: signIn, signOut: signOut,
-    recover: recover, updatePassword: updatePassword,
+    recover: recover, updatePassword: updatePassword, updateProfile: updateProfile, displayName: displayName,
     getSession: getSession, readSession: readSession,
     linkError: function () { return linkError; },
     ready: null

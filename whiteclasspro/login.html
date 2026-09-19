@@ -93,6 +93,10 @@
 
       <div id="panel-register" class="auth-panel" hidden>
         <form id="form-register" class="login-form" novalidate>
+          <label for="rg-first">Vorname</label>
+          <input id="rg-first" name="first" type="text" autocomplete="given-name" maxlength="50" required>
+          <label for="rg-last">Nachname</label>
+          <input id="rg-last" name="last" type="text" autocomplete="family-name" maxlength="50" required>
           <label for="rg-email">E-Mail-Adresse</label>
           <input id="rg-email" name="email" type="email" autocomplete="email" required>
           <label for="rg-pass">Passwort (mind. 8 Zeichen)</label>
