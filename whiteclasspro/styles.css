@@ -393,3 +393,7 @@ mark.todo{ background:#fff3bf; color:#5b4a00; padding:1px 5px; border-radius:4px
   font:inherit; font-size:14px; color:var(--red); padding:9px 10px; border-radius:6px;
 }
 .account-dropdown .menu-logout:hover{ background:var(--surface); }
+
+/* Footer immer am Seitenende, auch auf kurzen Seiten */
+body{ display:flex; flex-direction:column; min-height:100vh; }
+body > footer{ margin-top:auto; }
