@@ -107,8 +107,33 @@
       .then(function (d) { var n = toSession(d); writeSession(n); return n; }, function () { writeSession(null); return null; });
   };
 
+  // Wird gesetzt, wenn ein E-Mail-Link ungültig oder abgelaufen war.
+  var linkError = false;
+
+  // Link aus unseren deutschen Mail-Vorlagen: login.html?token_hash=...&type=signup|recovery.
+  // Der Token wird erst hier per POST eingelöst — Virenscanner der Mail-Anbieter rufen
+  // Links nur per GET auf und verbrauchen ihn deshalb nicht.
+  var consumeTokenHash = function () {
+    var q = new URLSearchParams(location.search);
+    var tokenHash = q.get('token_hash');
+    var type = q.get('type');
+    if (!tokenHash || !type) return Promise.resolve();
+    history.replaceState(null, '', location.pathname);
+    if (!configured || (type !== 'signup' && type !== 'recovery')) { linkError = true; return Promise.resolve(); }
+    return request('/auth/v1/verify', { body: { type: type, token_hash: tokenHash } }).then(function (d) {
+      if (!d.access_token) { linkError = true; return; }
+      writeSession(toSession(d));
+      if (type === 'recovery') { try { sessionStorage.setItem('wcp_recovery', '1'); } catch (e) {} }
+    }).catch(function () { linkError = true; });
+  };
+
   // Rückkehr aus E-Mail-Links (Bestätigung / Passwort-Reset): Token steht im URL-Hash.
   var consumeHash = function () {
+    if (/error_code=|error=/.test(location.hash) && !/access_token=/.test(location.hash)) {
+      linkError = true;
+      history.replaceState(null, '', location.pathname + location.search);
+      return Promise.resolve();
+    }
     if (!/access_token=/.test(location.hash)) return Promise.resolve();
     var p = new URLSearchParams(location.hash.replace(/^#/, ''));
     var token = p.get('access_token');
@@ -152,8 +177,9 @@
     signUp: signUp, signIn: signIn, signOut: signOut,
     recover: recover, updatePassword: updatePassword,
     getSession: getSession, readSession: readSession,
+    linkError: function () { return linkError; },
     ready: null
   };
 
-  window.WCP.auth.ready = consumeHash().then(updateHeader);
+  window.WCP.auth.ready = consumeTokenHash().then(consumeHash).then(updateHeader);
 })();

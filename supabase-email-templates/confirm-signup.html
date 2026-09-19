@@ -1,0 +1,12 @@
+<div style="font-family:Arial,Helvetica,sans-serif; max-width:520px; margin:0 auto; color:#14181c; line-height:1.6;">
+  <h2 style="margin:0 0 12px;">Willkommen bei White Class Pro!</h2>
+  <p>Schön, dass du dabei bist. Bitte bestätige deine E-Mail-Adresse, um dein Kundenkonto zu aktivieren:</p>
+  <p style="margin:24px 0;">
+    <a href="{{ .SiteURL }}/login.html?token_hash={{ .TokenHash }}&type=signup"
+       style="display:inline-block; background:#fb1215; color:#ffffff; padding:13px 26px; border-radius:6px; text-decoration:none; font-weight:bold;">E-Mail-Adresse bestätigen</a>
+  </p>
+  <p style="font-size:13px; color:#5c6570;">Falls der Button nicht funktioniert, kopiere diesen Link in die Adresszeile deines Browsers:<br>
+    {{ .SiteURL }}/login.html?token_hash={{ .TokenHash }}&type=signup</p>
+  <p style="font-size:13px; color:#5c6570;">Du hast dich nicht bei White Class Pro registriert? Dann kannst du diese E-Mail einfach ignorieren.</p>
+  <p>Viele Grüße<br>Dein Team von White Class Pro</p>
+</div>

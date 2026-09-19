@@ -69,6 +69,9 @@ document.addEventListener('DOMContentLoaded', function () {
     try { recovery = sessionStorage.getItem('wcp_recovery') === '1'; } catch (e) {}
     if (s && recovery) { showPanel('reset'); loginRoot.hidden = false; return; }
     if (s) { location.replace('konto.html'); return; }
+    if (auth.linkError()) {
+      show(byId('msg-login'), 'Der Link aus der E-Mail ist ungültig oder abgelaufen. Bitte melde dich an oder fordere über „Passwort vergessen?“ einen neuen Link an.');
+    }
     loginRoot.hidden = false;
   });
 
