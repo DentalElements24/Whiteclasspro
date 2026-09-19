@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AGB — White Class Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -31,7 +32,10 @@
           <span class="chip disabled" title="bald verfügbar">PL</span>
           <span class="chip disabled" title="bald verfügbar">NL</span>
           <span class="chip disabled" title="bald verfügbar">FR</span>
-          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="Türkçe – bald verfügbar">TR</span>
+          <span class="chip disabled" title="Українська – bald verfügbar">UK</span>
+          <span class="chip disabled" title="العربية – bald verfügbar">AR</span>
         </div>
         <span class="nav-lang-hint">Weitere Sprachen bald verfügbar</span>
       </div>
@@ -47,7 +51,10 @@
           <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
           <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
           <a href="#" class="disabled">Français &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="tr">Türkçe &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="uk">Українська &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="ar">العربية &middot; bald verfügbar</a>
         </div>
       </div>
       <a href="login.html" class="account-link" aria-label="Kundenbereich – Anmelden">
@@ -64,13 +71,71 @@
 </div>
 <section style="padding:56px 0 90px;">
   <div class="container" style="max-width:720px;">
-    <h1 style="font-size:28px; font-weight:600; margin:0 0 24px;">Allgemeine Geschäftsbedingungen</h1>
-    
-<p style="color:var(--text-secondary); line-height:1.7;">[Platzhalter — AGB-Text vor Veröffentlichung von einem Anwalt für E-Commerce-Recht prüfen lassen. Sollte u. a. Vertragsschluss, Zahlungsarten, Lieferbedingungen, Gewährleistung enthalten.]</p>
+    <div class="legal">
+      <h1>Allgemeine Geschäftsbedingungen</h1>
+
+      <h2>§ 1 Geltungsbereich und Anbieter</h2>
+      <p>(1) Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Bestellungen, die Verbraucher über den Online-Shop „White Class Pro“ abschließen.</p>
+      <p>(2) Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB).</p>
+      <p>(3) Vertragspartner ist Christian Penz, handelnd unter Dental Elements, Grüner Weg 2, 24896 Treia (nachfolgend „wir“). Kontaktdaten finden Sie im <a href="impressum.html">Impressum</a>.</p>
+      <p>(4) Wir liefern ausschließlich an Lieferadressen innerhalb Deutschlands.</p>
+
+      <h2>§ 2 Kundenkonto</h2>
+      <p>(1) Bestellungen sind nur mit einem Kundenkonto möglich. Für die Registrierung sind wahrheitsgemäße und vollständige Angaben erforderlich.</p>
+      <p>(2) Zugangsdaten sind vertraulich zu behandeln und vor dem Zugriff Dritter zu schützen. Bei Verdacht auf Missbrauch bitten wir um umgehende Information.</p>
+      <p>(3) Sie können Ihr Konto jederzeit löschen lassen; wenden Sie sich dazu an uns. Gesetzliche Aufbewahrungspflichten bleiben unberührt.</p>
+
+      <h2>§ 3 Vertragsschluss</h2>
+      <p>(1) Die Darstellung der Produkte im Online-Shop ist kein rechtlich bindendes Angebot, sondern eine Aufforderung zur Abgabe einer Bestellung.</p>
+      <p>(2) Sie legen die gewünschten Produkte in den Warenkorb und können dort Mengen ändern und Produkte entfernen. Mit Klick auf den Button „Zahlungspflichtig bestellen“ und dem anschließenden Abschluss der Zahlung beim Zahlungsdienstleister geben Sie ein verbindliches Angebot zum Kauf der Waren im Warenkorb ab. Vor Abschluss der Bestellung können Sie Ihre Angaben jederzeit prüfen und korrigieren.</p>
+      <p>(3) Wir bestätigen den Eingang Ihrer Bestellung per E-Mail. Diese Bestätigung stellt noch keine Annahme dar. Der Kaufvertrag kommt zustande, wenn wir Ihr Angebot durch eine Auftragsbestätigung oder durch den Versand der Ware annehmen.</p>
+      <p>(4) Die Vertragssprache ist Deutsch. Die Bestelldaten und diese AGB erhalten Sie mit der Bestellbestätigung per E-Mail. <mark class="todo">Sicherstellen, dass die Bestätigungs-E-Mail tatsächlich versendet wird</mark></p>
+
+      <h2>§ 4 Preise und Versandkosten</h2>
+      <p>(1) Alle angegebenen Preise sind Endpreise und enthalten die gesetzliche Umsatzsteuer.</p>
+      <p>(2) Für den Versand innerhalb Deutschlands berechnen wir pauschal 4,90 €. Ab einem Warenwert von 50,00 € liefern wir versandkostenfrei. Die Versandkosten werden vor Abschluss der Bestellung ausgewiesen.</p>
+
+      <h2>§ 5 Zahlung</h2>
+      <p>(1) Die Zahlung erfolgt über unseren Zahlungsdienstleister Stripe. Die im Bezahlvorgang angebotenen Zahlungsarten werden Ihnen dort angezeigt, zum Beispiel Kreditkarte, PayPal, Klarna oder SEPA-Lastschrift. <mark class="todo">Angebotene Zahlungsarten mit den in Stripe aktivierten abgleichen</mark></p>
+      <p>(2) Der Kaufpreis ist mit Abschluss der Bestellung fällig. Für einzelne Zahlungsarten gelten ergänzend die Bedingungen des jeweiligen Zahlungsanbieters.</p>
+
+      <h2>§ 6 Lieferung</h2>
+      <p>(1) Die Lieferung erfolgt an die von Ihnen angegebene Lieferadresse. Die Lieferzeit beträgt in der Regel <mark class="todo">X–Y</mark> Werktage nach Zahlungseingang, sofern bei dem Produkt nichts anderes angegeben ist.</p>
+      <p>(2) Ist ein bestellter Artikel nicht verfügbar, informieren wir Sie unverzüglich und erstatten bereits geleistete Zahlungen für diesen Artikel unverzüglich.</p>
+      <p>(3) Teillieferungen sind zulässig, soweit sie für Sie zumutbar sind. Zusätzliche Versandkosten entstehen dadurch nicht.</p>
+
+      <h2>§ 7 Widerrufsrecht</h2>
+      <p>Verbrauchern steht ein gesetzliches Widerrufsrecht zu. Einzelheiten ergeben sich aus unserer <a href="widerruf.html">Widerrufsbelehrung</a>.</p>
+
+      <h2>§ 8 Mängelhaftung</h2>
+      <p>(1) Es gilt die gesetzliche Mängelhaftung. Bei neuen Waren beträgt die Verjährungsfrist für Mängelansprüche zwei Jahre ab Ablieferung der Ware.</p>
+      <p>(2) Offensichtliche Transportschäden bitten wir, unverzüglich beim Zusteller zu reklamieren und uns zu informieren. Ihre gesetzlichen Rechte werden dadurch nicht eingeschränkt.</p>
+
+      <h2>§ 9 Hinweise zur Anwendung der Produkte</h2>
+      <p>(1) Bitte beachten Sie die Anwendungs- und Sicherheitshinweise, die dem jeweiligen Produkt beiliegen.</p>
+      <p>(2) Nahrungsergänzungsmittel ersetzen keine ausgewogene und abwechslungsreiche Ernährung und keine ärztliche oder zahnärztliche Behandlung. Bei bestehenden Erkrankungen, Medikamenteneinnahme, Schwangerschaft oder Stillzeit halten Sie bitte vor der Anwendung Rücksprache mit Ihrer Ärztin, Ihrem Arzt oder Ihrem Apotheker. Die empfohlene tägliche Verzehrmenge darf nicht überschritten werden. Nahrungsergänzungsmittel sind außerhalb der Reichweite von kleinen Kindern aufzubewahren.</p>
+      <p>(3) Bei bestehenden Zahn- oder Zahnfleischerkrankungen sollte vor der Anwendung von Zahnaufhellungsprodukten zahnärztlicher Rat eingeholt werden.</p>
+
+      <h2>§ 10 Haftung</h2>
+      <p>(1) Wir haften unbeschränkt bei Vorsatz und grober Fahrlässigkeit, bei der Verletzung von Leben, Körper oder Gesundheit, nach dem Produkthaftungsgesetz sowie im Umfang einer von uns übernommenen Garantie.</p>
+      <p>(2) Bei leicht fahrlässiger Verletzung wesentlicher Vertragspflichten, also solcher Pflichten, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung Sie regelmäßig vertrauen dürfen, ist unsere Haftung auf den vorhersehbaren, vertragstypischen Schaden begrenzt. Im Übrigen ist die Haftung bei leichter Fahrlässigkeit ausgeschlossen.</p>
+
+      <h2>§ 11 Datenschutz</h2>
+      <p>Informationen zur Verarbeitung Ihrer personenbezogenen Daten finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+
+      <h2>§ 12 Verbraucherstreitbeilegung</h2>
+      <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. <mark class="todo">Entscheidung bestätigen</mark></p>
+
+      <h2>§ 13 Schlussbestimmungen</h2>
+      <p>(1) Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts.</p>
+      <p>(2) Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.</p>
+
+      <p class="legal-stand">Stand: September 2026</p>
+    </div>
   </div>
 </section>
 <footer>
-  <div class="container footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>
+  <div class="container footer-bottom">© 2026 White Class Pro — ein Angebot von Dental Elements, Inhaber Christian Penz, Grüner Weg 2, 24896 Treia</div>
 </footer>
 <script src="script.js" defer></script>
 <script src="shop.js" defer></script>

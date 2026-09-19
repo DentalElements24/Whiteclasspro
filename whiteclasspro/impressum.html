@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Impressum — White Class Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -31,7 +32,10 @@
           <span class="chip disabled" title="bald verfügbar">PL</span>
           <span class="chip disabled" title="bald verfügbar">NL</span>
           <span class="chip disabled" title="bald verfügbar">FR</span>
-          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="Türkçe – bald verfügbar">TR</span>
+          <span class="chip disabled" title="Українська – bald verfügbar">UK</span>
+          <span class="chip disabled" title="العربية – bald verfügbar">AR</span>
         </div>
         <span class="nav-lang-hint">Weitere Sprachen bald verfügbar</span>
       </div>
@@ -47,7 +51,10 @@
           <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
           <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
           <a href="#" class="disabled">Français &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="tr">Türkçe &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="uk">Українська &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="ar">العربية &middot; bald verfügbar</a>
         </div>
       </div>
       <a href="login.html" class="account-link" aria-label="Kundenbereich – Anmelden">
@@ -64,22 +71,37 @@
 </div>
 <section style="padding:56px 0 90px;">
   <div class="container" style="max-width:720px;">
-    <h1 style="font-size:28px; font-weight:600; margin:0 0 24px;">Impressum</h1>
-    
-<p style="color:var(--text-secondary); line-height:1.7;">
-[Platzhalter — gemäß §5 TMG zu vervollständigen]<br><br>
-Dental Elements GmbH<br>
-Christian Penz (Geschäftsführer)<br>
-Grüner Weg 2<br>
-24896 Treia<br><br>
-E-Mail: kontakt@platzhalter.de<br>
-Handelsregister: [einfügen]<br>
-USt-IdNr.: [einfügen]
-</p>
+    <div class="legal">
+      <h1>Impressum</h1>
+
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>Dental Elements<br>Inhaber: Christian Penz<br>Grüner Weg 2<br>24896 Treia</p>
+      <p>White Class Pro ist ein Angebot von Dental Elements.</p>
+
+      <h2>Kontakt</h2>
+      <p>Telefon: <mark class="todo">Telefonnummer ergänzen</mark><br>E-Mail: <mark class="todo">E-Mail-Adresse ergänzen</mark></p>
+
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: <mark class="todo">USt-IdNr. ergänzen</mark></p>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>Christian Penz, Anschrift wie oben</p>
+
+      <h2>Streitbeilegung</h2>
+      <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. <mark class="todo">Entscheidung bestätigen</mark></p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Bei Bekanntwerden entsprechender Rechtsverletzungen entfernen wir diese Inhalte umgehend.</p>
+
+      <h2>Haftung für Links</h2>
+      <p>Unser Angebot enthält gegebenenfalls Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte übernehmen wir keine Gewähr. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.</p>
+
+      <p class="legal-stand">Stand: September 2026</p>
+    </div>
   </div>
 </section>
 <footer>
-  <div class="container footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>
+  <div class="container footer-bottom">© 2026 White Class Pro — ein Angebot von Dental Elements, Inhaber Christian Penz, Grüner Weg 2, 24896 Treia</div>
 </footer>
 <script src="script.js" defer></script>
 <script src="shop.js" defer></script>

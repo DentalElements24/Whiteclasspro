@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datenschutz — White Class Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -31,7 +32,10 @@
           <span class="chip disabled" title="bald verfügbar">PL</span>
           <span class="chip disabled" title="bald verfügbar">NL</span>
           <span class="chip disabled" title="bald verfügbar">FR</span>
-          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="Türkçe – bald verfügbar">TR</span>
+          <span class="chip disabled" title="Українська – bald verfügbar">UK</span>
+          <span class="chip disabled" title="العربية – bald verfügbar">AR</span>
         </div>
         <span class="nav-lang-hint">Weitere Sprachen bald verfügbar</span>
       </div>
@@ -47,7 +51,10 @@
           <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
           <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
           <a href="#" class="disabled">Français &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="tr">Türkçe &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="uk">Українська &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="ar">العربية &middot; bald verfügbar</a>
         </div>
       </div>
       <a href="login.html" class="account-link" aria-label="Kundenbereich – Anmelden">
@@ -64,13 +71,59 @@
 </div>
 <section style="padding:56px 0 90px;">
   <div class="container" style="max-width:720px;">
-    <h1 style="font-size:28px; font-weight:600; margin:0 0 24px;">Datenschutzerklärung</h1>
-    
-<p style="color:var(--text-secondary); line-height:1.7;">[Platzhalter — DSGVO-konforme Datenschutzerklärung vor Veröffentlichung erstellen lassen. Sollte u. a. Cookie-Einsatz, Tracking, Zahlungsdienstleister und Kontaktdaten des Verantwortlichen benennen.]</p>
+    <div class="legal">
+      <h1>Datenschutzerklärung</h1>
+      <p>Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber, welche Daten wir beim Besuch unserer Website und bei einer Bestellung verarbeiten, wofür wir sie nutzen und welche Rechte Sie haben.</p>
+
+      <h2>1. Verantwortlicher</h2>
+      <p>Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
+      <p>Christian Penz, handelnd unter Dental Elements<br>Grüner Weg 2<br>24896 Treia<br>E-Mail: <mark class="todo">E-Mail-Adresse ergänzen</mark><br>Telefon: <mark class="todo">Telefonnummer ergänzen</mark></p>
+      <p>Einen Datenschutzbeauftragten haben wir nicht benannt, da wir hierzu gesetzlich nicht verpflichtet sind.</p>
+
+      <h2>2. Hosting und Server-Logfiles</h2>
+      <p>Unsere Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA, betrieben. Beim Aufruf der Website werden technisch notwendige Daten in Server-Logfiles verarbeitet, insbesondere IP-Adresse, Datum und Uhrzeit des Abrufs, aufgerufene Seite, Browsertyp und Betriebssystem. Die Verarbeitung ist zur sicheren und stabilen Bereitstellung der Website erforderlich (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse).</p>
+      <p>Mit Vercel besteht ein Vertrag zur Auftragsverarbeitung. Soweit Daten in die USA übermittelt werden, geschieht dies auf Grundlage von Standardvertragsklauseln der EU-Kommission bzw. eines Angemessenheitsbeschlusses. <mark class="todo">Aktuellen Übermittlungsmechanismus von Vercel prüfen (Data Privacy Framework / Standardvertragsklauseln)</mark></p>
+
+      <h2>3. Schriftarten</h2>
+      <p>Die auf dieser Website verwendeten Schriftarten werden von unserem eigenen Server ausgeliefert. Es findet keine Verbindung zu Servern von Google oder anderen Schriftenanbietern statt.</p>
+
+      <h2>4. Kundenkonto</h2>
+      <p>Wenn Sie ein Kundenkonto anlegen, verarbeiten wir Ihre E-Mail-Adresse, Ihr Passwort (nur in verschlüsselter Form), Ihren Namen sowie, sofern Sie diese im Konto hinterlegen, Ihre Anschrift, abweichende Liefer- und Rechnungsadresse und Telefonnummer. Die Verarbeitung erfolgt zur Bereitstellung des Kundenkontos und zur Abwicklung Ihrer Bestellungen (Art. 6 Abs. 1 lit. b DSGVO).</p>
+      <p>Das Kundenkonto wird über den Dienst Supabase betrieben (Supabase Inc., USA). Die Daten werden in einer Datenbank gespeichert, auf die nur Sie mit Ihrem Konto und wir zugreifen können. Mit Supabase besteht ein Vertrag zur Auftragsverarbeitung; Serverstandort: <mark class="todo">Region des Supabase-Projekts eintragen (z. B. Frankfurt, EU)</mark>. Soweit eine Übermittlung in Drittländer erfolgt, stützen wir sie auf Standardvertragsklauseln.</p>
+      <p>Die Bestätigung Ihrer E-Mail-Adresse und Nachrichten zur Passwort-Wiederherstellung versenden wir über den Authentifizierungsdienst von Supabase. <mark class="todo">Nach Einrichtung eines eigenen E-Mail-Anbieters diesen hier nennen</mark></p>
+      <p>Ihre Daten löschen wir, sobald Sie Ihr Konto löschen lassen, es sei denn, gesetzliche Aufbewahrungspflichten stehen entgegen.</p>
+
+      <h2>5. Bestellung, Zahlung und Versand</h2>
+      <p>Bei einer Bestellung verarbeiten wir Ihre Kontaktdaten, Lieferadresse, gegebenenfalls Rechnungsadresse, die bestellten Produkte und Zahlungsinformationen zur Erfüllung des Kaufvertrags (Art. 6 Abs. 1 lit. b DSGVO) sowie zur Erfüllung handels- und steuerrechtlicher Pflichten (Art. 6 Abs. 1 lit. c DSGVO).</p>
+      <p><strong>Zahlungsabwicklung:</strong> Die Zahlung erfolgt über Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Grand Canal Dock, Dublin, D02 H210, Irland (mit möglicher Datenübermittlung an die Stripe, Inc., USA). Ihre Zahlungsdaten (z. B. Kartennummer, IBAN) geben Sie direkt bei Stripe ein; sie werden nicht auf unseren Servern gespeichert. Stripe verarbeitet Daten auch in eigener Verantwortung, etwa zur Betrugsprävention; Näheres entnehmen Sie der Datenschutzerklärung von Stripe. Je nach gewählter Zahlungsart können weitere Zahlungsanbieter beteiligt sein, zum Beispiel PayPal (Europe) S.à r.l. et Cie, S.C.A., 22–24 Boulevard Royal, L-2449 Luxemburg, oder Klarna Bank AB (publ), Sveavägen 46, 111 34 Stockholm, Schweden.</p>
+      <p><strong>Versand:</strong> Zur Lieferung geben wir Ihren Namen, Ihre Lieferadresse und, soweit für die Zustellung erforderlich, Ihre Telefonnummer oder E-Mail-Adresse an das mit dem Versand beauftragte Unternehmen weiter. <mark class="todo">Versanddienstleister bzw. Lieferanten benennen</mark></p>
+
+      <h2>6. Kontaktaufnahme</h2>
+      <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b oder lit. f DSGVO). Die Daten löschen wir, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+
+      <h2>7. Speicherung im Browser (Warenkorb und Anmeldung)</h2>
+      <p>Unsere Website speichert im Browser Ihres Geräts (Local Storage) technisch notwendige Informationen, zum Beispiel den Inhalt Ihres Warenkorbs und Ihre Anmeldung im Kundenkonto. Diese Speicherung ist erforderlich, damit der von Ihnen ausdrücklich gewünschte Dienst funktioniert (§ 25 Abs. 2 Nr. 2 TDDDG). Wir setzen keine Tracking- oder Analyse-Werkzeuge und keine Werbe-Cookies ein.</p>
+
+      <h2>8. Speicherdauer</h2>
+      <p>Wir speichern personenbezogene Daten nur so lange, wie es für die genannten Zwecke erforderlich ist. Bestell- und Rechnungsdaten müssen wir aufgrund handels- und steuerrechtlicher Vorgaben bis zu zehn Jahre aufbewahren. Server-Logfiles werden nach kurzer Zeit automatisch gelöscht.</p>
+
+      <h2>9. Ihre Rechte</h2>
+      <p>Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch gegen die Verarbeitung (Art. 21). Beruht eine Verarbeitung auf Ihrer Einwilligung, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3).</p>
+      <p>Sie haben außerdem das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Zuständig für uns ist das Unabhängige Landeszentrum für Datenschutz Schleswig-Holstein, Holstenstraße 98, 24103 Kiel.</p>
+      <p>Zur Ausübung Ihrer Rechte wenden Sie sich bitte an die oben genannten Kontaktdaten.</p>
+
+      <h2>10. Erforderlichkeit der Angaben</h2>
+      <p>Die Bereitstellung Ihrer Daten ist für den Vertragsschluss erforderlich. Ohne diese Angaben können wir Ihre Bestellung nicht ausführen. Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt.</p>
+
+      <h2>11. Änderungen dieser Erklärung</h2>
+      <p>Wir passen diese Datenschutzerklärung an, wenn sich unser Angebot oder die rechtlichen Vorgaben ändern. Es gilt die jeweils aktuelle Fassung auf dieser Seite.</p>
+
+      <p class="legal-stand">Stand: September 2026</p>
+    </div>
   </div>
 </section>
 <footer>
-  <div class="container footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>
+  <div class="container footer-bottom">© 2026 White Class Pro — ein Angebot von Dental Elements, Inhaber Christian Penz, Grüner Weg 2, 24896 Treia</div>
 </footer>
 <script src="script.js" defer></script>
 <script src="shop.js" defer></script>

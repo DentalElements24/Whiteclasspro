@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Widerrufsrecht — White Class Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -31,7 +32,10 @@
           <span class="chip disabled" title="bald verfügbar">PL</span>
           <span class="chip disabled" title="bald verfügbar">NL</span>
           <span class="chip disabled" title="bald verfügbar">FR</span>
-          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="bald verfügbar">ES</span>
+          <span class="chip disabled" title="Türkçe – bald verfügbar">TR</span>
+          <span class="chip disabled" title="Українська – bald verfügbar">UK</span>
+          <span class="chip disabled" title="العربية – bald verfügbar">AR</span>
         </div>
         <span class="nav-lang-hint">Weitere Sprachen bald verfügbar</span>
       </div>
@@ -47,7 +51,10 @@
           <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
           <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
           <a href="#" class="disabled">Français &middot; bald verfügbar</a>
-          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="tr">Türkçe &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="uk">Українська &middot; bald verfügbar</a>
+          <a href="#" class="disabled" lang="ar">العربية &middot; bald verfügbar</a>
         </div>
       </div>
       <a href="login.html" class="account-link" aria-label="Kundenbereich – Anmelden">
@@ -64,13 +71,49 @@
 </div>
 <section style="padding:56px 0 90px;">
   <div class="container" style="max-width:720px;">
-    <h1 style="font-size:28px; font-weight:600; margin:0 0 24px;">Widerrufsbelehrung</h1>
-    
-<p style="color:var(--text-secondary); line-height:1.7;">[Platzhalter — gesetzliche Widerrufsbelehrung für Fernabsatzverträge (14 Tage) vor Veröffentlichung final formulieren lassen.]</p>
+    <div class="legal">
+      <h1>Widerrufsbelehrung</h1>
+
+      <h2>Widerrufsrecht</h2>
+      <p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
+      <p>Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat. Haben Sie mehrere Waren im Rahmen einer einheitlichen Bestellung bestellt, die getrennt geliefert werden, beträgt die Widerrufsfrist vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die letzte Ware in Besitz genommen haben bzw. hat.</p>
+      <p>Um Ihr Widerrufsrecht auszuüben, müssen Sie uns</p>
+      <p style="padding-left:16px;">Dental Elements, Inhaber Christian Penz<br>Grüner Weg 2, 24896 Treia<br>E-Mail: <mark class="todo">E-Mail-Adresse ergänzen</mark><br>Telefon: <mark class="todo">Telefonnummer ergänzen</mark></p>
+      <p>mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.</p>
+      <p>Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.</p>
+
+      <h2>Folgen des Widerrufs</h2>
+      <p>Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.</p>
+      <p>Wir können die Rückzahlung verweigern, bis wir die Waren wieder zurückerhalten haben oder bis Sie den Nachweis erbracht haben, dass Sie die Waren zurückgesandt haben, je nachdem, welches der frühere Zeitpunkt ist.</p>
+      <p>Sie haben die Waren unverzüglich und in jedem Fall spätestens binnen vierzehn Tagen ab dem Tag, an dem Sie uns über den Widerruf dieses Vertrags unterrichten, an uns zurückzusenden oder zu übergeben. Die Frist ist gewahrt, wenn Sie die Waren vor Ablauf der Frist von vierzehn Tagen absenden.</p>
+      <p>Sie tragen die unmittelbaren Kosten der Rücksendung der Waren. <mark class="todo">Entscheidung bestätigen: Rücksendekosten trägt der Kunde (gesetzlicher Regelfall) oder wir übernehmen sie</mark></p>
+      <p>Sie müssen für einen etwaigen Wertverlust der Waren nur aufkommen, wenn dieser Wertverlust auf einen zum Prüfen der Beschaffenheit, Eigenschaften und Funktionsweise der Waren nicht notwendigen Umgang mit ihnen zurückzuführen ist.</p>
+
+      <h2>Ausschluss des Widerrufsrechts</h2>
+      <p>Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung versiegelter Waren, die aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind, wenn ihre Versiegelung nach der Lieferung entfernt wurde.</p>
+      <p>Das kann insbesondere bei geöffneten Zahnaufhellungsprodukten, Zahnpflege- und Zahnreinigungsartikeln sowie Nahrungsergänzungsmitteln der Fall sein.</p>
+
+      <hr class="legal-hr">
+
+      <h2>Muster-Widerrufsformular</h2>
+      <p>(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)</p>
+      <p style="padding-left:16px;">
+        An: Dental Elements, Inhaber Christian Penz, Grüner Weg 2, 24896 Treia, E-Mail: <mark class="todo">E-Mail-Adresse ergänzen</mark><br><br>
+        Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*) / die Erbringung der folgenden Dienstleistung (*)<br><br>
+        Bestellt am (*) / erhalten am (*)<br><br>
+        Name des/der Verbraucher(s)<br><br>
+        Anschrift des/der Verbraucher(s)<br><br>
+        Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)<br><br>
+        Datum<br><br>
+        (*) Unzutreffendes streichen.
+      </p>
+
+      <p class="legal-stand">Stand: September 2026</p>
+    </div>
   </div>
 </section>
 <footer>
-  <div class="container footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>
+  <div class="container footer-bottom">© 2026 White Class Pro — ein Angebot von Dental Elements, Inhaber Christian Penz, Grüner Weg 2, 24896 Treia</div>
 </footer>
 <script src="script.js" defer></script>
 <script src="shop.js" defer></script>
