@@ -219,20 +219,78 @@
     }).catch(function () {});
   };
 
-  // Header: "Anmelden" wird zu "Mein Konto", sobald jemand eingeloggt ist.
+  // --- Header: Abgemeldet = Link "Anmelden"; angemeldet = Name mit Dropdown-Menü ---
+  var ACCOUNT_ICON = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>';
+  var ACCOUNT_MENU = [
+    ['Meine Daten', 'konto.html#daten'],
+    ['Bestellungen', 'konto.html#bestellungen'],
+    ['Sicherheit', 'konto.html#sicherheit']
+  ];
+
+  var buildLoginLink = function () {
+    var a = document.createElement('a');
+    a.href = 'login.html';
+    a.className = 'account-link';
+    a.setAttribute('aria-label', 'Kundenbereich – Anmelden');
+    a.innerHTML = ACCOUNT_ICON + '<span class="account-label">Anmelden</span>';
+    return a;
+  };
+
+  var buildAccountMenu = function () {
+    var wrap = document.createElement('div');
+    wrap.className = 'nav-item account-item';
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'account-link';
+    btn.setAttribute('aria-haspopup', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = ACCOUNT_ICON + '<span class="account-label"></span>';
+
+    var menu = document.createElement('div');
+    menu.className = 'dropdown-menu account-dropdown';
+    ACCOUNT_MENU.forEach(function (entry) {
+      var link = document.createElement('a');
+      link.href = entry[1];
+      link.textContent = entry[0];
+      menu.appendChild(link);
+    });
+    var sep = document.createElement('div');
+    sep.className = 'menu-sep';
+    menu.appendChild(sep);
+    var out = document.createElement('button');
+    out.type = 'button';
+    out.className = 'menu-logout';
+    out.textContent = 'Abmelden';
+    out.addEventListener('click', function () {
+      signOut().then(function () { location.href = 'index.html'; });
+    });
+    menu.appendChild(out);
+
+    // Öffnen/Schließen per Klick und Schließen bei Klick daneben oder Escape übernimmt
+    // die zentrale Dropdown-Behandlung in script.js (am Desktop öffnet zusätzlich der Hover).
+    wrap.appendChild(btn);
+    wrap.appendChild(menu);
+    return wrap;
+  };
+
   var updateHeader = function () {
     var s = readSession();
-    document.querySelectorAll('.account-link').forEach(function (a) {
-      var label = a.querySelector('.account-label');
+    document.querySelectorAll('.header-actions').forEach(function (bar) {
+      var current = bar.querySelector('.account-item') || bar.querySelector('a.account-link');
+      if (!current) return;
+      var isMenu = current.classList.contains('account-item');
       if (s) {
+        if (!isMenu) {
+          var menu = buildAccountMenu();
+          current.replaceWith(menu);
+          current = menu;
+        }
         var name = displayName(s);
-        a.setAttribute('href', 'konto.html');
-        a.setAttribute('aria-label', name ? 'Mein Konto – ' + name : 'Mein Konto');
-        if (label) label.textContent = name || 'Mein Konto';
-      } else {
-        a.setAttribute('href', 'login.html');
-        a.setAttribute('aria-label', 'Kundenbereich – Anmelden');
-        if (label) label.textContent = 'Anmelden';
+        current.querySelector('.account-label').textContent = name || 'Mein Konto';
+        current.querySelector('button.account-link').setAttribute('aria-label', name ? 'Mein Konto – ' + name : 'Mein Konto');
+      } else if (isMenu) {
+        current.replaceWith(buildLoginLink());
       }
     });
   };

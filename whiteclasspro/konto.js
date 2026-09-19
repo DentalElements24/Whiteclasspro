@@ -118,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
     openTab(location.hash.replace('#', ''));
+    // Auch wenn das Konto-Menü im Header auf der Kontoseite selbst benutzt wird
+    window.addEventListener('hashchange', function () { openTab(location.hash.replace('#', '')); });
 
     // Persönliche Daten = Hauptadresse (Name, Anschrift, Telefon) + optionale abweichende Adressen
     ['main', 'shipping', 'billing'].forEach(buildFields);

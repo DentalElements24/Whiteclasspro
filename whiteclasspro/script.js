@@ -57,24 +57,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Sprach-Dropdown: per Tap/Klick öffnen (Hover gibt es auf Touch nicht) ---
-  document.querySelectorAll('.nav-item').forEach(function (item) {
-    var btn = item.querySelector('button');
-    if (!btn) return;
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var willOpen = !item.classList.contains('open');
-      document.querySelectorAll('.nav-item.open').forEach(function (o) { o.classList.remove('open'); });
-      if (willOpen) item.classList.add('open');
-    });
-  });
+  // Dropdowns (Sprache, Kontomenü): per Tap/Klick öffnen, denn Hover gibt es auf Touch nicht.
+  // Eine zentrale Behandlung für alle Dropdowns, damit auch später eingefügte (z. B. das
+  // Kontomenü nach dem Anmelden) funktionieren.
+  var closeDropdowns = function () {
+    document.querySelectorAll('.nav-item.open').forEach(function (o) { o.classList.remove('open'); });
+    document.querySelectorAll('.nav-item > button[aria-expanded]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+  };
 
   // Klick daneben oder Escape schließt Menü und Dropdowns
   var closeAll = function () {
     closeNav();
-    document.querySelectorAll('.nav-item.open').forEach(function (o) { o.classList.remove('open'); });
+    closeDropdowns();
   };
   document.addEventListener('click', function (e) {
+    var trigger = e.target.closest('.nav-item > button');
+    if (trigger) {
+      var item = trigger.parentElement;
+      var willOpen = !item.classList.contains('open');
+      closeDropdowns();
+      if (willOpen) {
+        item.classList.add('open');
+        if (trigger.hasAttribute('aria-expanded')) trigger.setAttribute('aria-expanded', 'true');
+      }
+      return;
+    }
     if (nav && nav.contains(e.target)) return;
     closeAll();
   });

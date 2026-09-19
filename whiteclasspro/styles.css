@@ -382,3 +382,14 @@ footer a:hover{ color:#fff; }
 .legal-hr{ border:none; border-top:1px solid var(--border); margin:34px 0 4px; }
 .legal-stand{ font-size:12.5px !important; margin-top:34px !important; }
 mark.todo{ background:#fff3bf; color:#5b4a00; padding:1px 5px; border-radius:4px; font-size:.95em; }
+
+/* --- Kontomenü im Header (angemeldet) --- */
+.account-item > button.account-link{ background:none; border:none; font:inherit; font-size:14px; font-weight:500; cursor:pointer; color:var(--text); }
+.account-item:hover > button.account-link, .account-item.open > button.account-link{ background:var(--surface); color:var(--blue); }
+.account-dropdown{ left:auto; right:0; min-width:210px; }
+.account-dropdown .menu-sep{ height:1px; background:var(--border); margin:6px 4px; }
+.account-dropdown .menu-logout{
+  display:block; width:100%; text-align:left; background:none; border:none; cursor:pointer;
+  font:inherit; font-size:14px; color:var(--red); padding:9px 10px; border-radius:6px;
+}
+.account-dropdown .menu-logout:hover{ background:var(--surface); }
