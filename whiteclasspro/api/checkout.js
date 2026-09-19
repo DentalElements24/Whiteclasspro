@@ -75,13 +75,25 @@ module.exports = async (req, res) => {
   params.set('success_url', `${origin}/bestellung-erfolgreich.html?session_id={CHECKOUT_SESSION_ID}`);
   params.set('cancel_url', `${origin}/warenkorb.html`);
 
-  try {
+  const createSession = async (body) => {
     const r = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
       headers: { Authorization: `Bearer ${secret}`, 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params
+      body
     });
-    const data = await r.json();
+    return { r, data: await r.json() };
+  };
+
+  try {
+    // Nur Euro: Stripes automatische Umrechnung in Landeswährungen (Adaptive Pricing) abschalten.
+    params.set('adaptive_pricing[enabled]', 'false');
+    let { r, data } = await createSession(params);
+    // Ältere Stripe-API-Versionen kennen den Parameter nicht — dann ohne ihn erneut versuchen
+    // (Adaptive Pricing lässt sich zusätzlich im Stripe-Dashboard abschalten).
+    if (r.status === 400 && data && data.error && /adaptive_pricing/.test(data.error.param || data.error.message || '')) {
+      params.delete('adaptive_pricing[enabled]');
+      ({ r, data } = await createSession(params));
+    }
     if (!r.ok || !data.url) {
       console.error('Stripe-Fehler:', r.status, JSON.stringify(data && data.error));
       return fail(res, 502, 'Die Zahlung konnte gerade nicht gestartet werden. Bitte versuche es später erneut.');
