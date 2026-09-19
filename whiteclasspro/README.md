@@ -59,5 +59,5 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Für GitH
 - Kontaktformular hat noch keine Backend-Anbindung
 - Produktbilder sind Emoji-/Text-Platzhalter — echte Produktfotos vor Live-Gang einsetzen
 - Kundenstimmen und Bewertungszahlen sind Platzhalter — durch echte Reviews ersetzen, sobald vorhanden
-- Kein Warenkorb/Checkout — "Zur Bestellung"-Buttons verlinken aktuell auf die Kontaktseite
+- Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: `shipping.json` (4,90 €, kostenlos ab 50 €, nur DE). Bestellungen sind vorerst nur im Stripe-Dashboard sichtbar (kein Webhook)
 - Verkaufspreise sind vorläufig, keine Wirkversprechen zu den Nahrungsergänzungsmitteln ungeprüft übernehmen (Health-Claims-Verordnung beachten)

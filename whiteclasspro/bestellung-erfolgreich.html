@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vielen Dank — White Class Pro</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="site-header-fixed">
+<header>
+  <div class="header-bar">
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="logo-link" aria-label="White Class Pro – Startseite"><img src="logo.png" alt="White Class Pro" class="site-logo"></a>
+    <nav class="main-nav" id="site-nav" aria-label="Hauptnavigation">
+      <a href="zahnaufhellung.html">Zahnaufhellung</a>
+      <a href="zahnstaerkung.html">Zahnstärkung</a>
+      <a href="zahnreinigung.html">Zahnreinigung</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="kontakt.html">Kontakt</a>
+      <div class="nav-lang-mobile">
+        <span class="nav-lang-label">Sprache</span>
+        <div class="nav-lang-chips">
+          <span class="chip active" aria-current="true">DE</span>
+          <span class="chip disabled" title="bald verfügbar">EN</span>
+          <span class="chip disabled" title="bald verfügbar">PL</span>
+          <span class="chip disabled" title="bald verfügbar">NL</span>
+          <span class="chip disabled" title="bald verfügbar">FR</span>
+          <span class="chip disabled" title="bald verfügbar">ES</span>
+        </div>
+        <span class="nav-lang-hint">Weitere Sprachen bald verfügbar</span>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <div class="nav-item lang-switch">
+        <button type="button" aria-label="Sprache wählen" aria-haspopup="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+          DE &#9662;
+        </button>
+        <div class="dropdown-menu">
+          <a href="#" class="disabled">English &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Polski &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Nederlands &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Français &middot; bald verfügbar</a>
+          <a href="#" class="disabled">Español &middot; bald verfügbar</a>
+        </div>
+      </div>
+      <a href="login.html" class="account-link" aria-label="Kundenbereich – Anmelden">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span class="account-label">Anmelden</span>
+      </a>
+      <a href="warenkorb.html" class="cart-link" aria-label="Warenkorb">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.8L19.5 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="16.5" cy="19.5" r="1.3"/></svg>
+        <span class="cart-count" style="display:none">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+</div>
+
+<section style="padding:48px 0 90px;">
+  <div class="container" style="max-width:560px; text-align:center;">
+    <div style="font-size:56px; margin-bottom:8px;">✅</div>
+    <h1 style="margin:0 0 10px;">Vielen Dank für deine Bestellung!</h1>
+    <p style="color:var(--text-secondary); font-size:15px; line-height:1.7; margin:0 0 26px;">
+      Deine Zahlung wurde übermittelt und deine Bestellung ist bei uns eingegangen.
+      Bei Fragen erreichst du uns über die <a href="kontakt.html" style="color:var(--blue);">Kontaktseite</a>.
+    </p>
+    <a href="index.html" class="btn btn-primary">Weiter einkaufen</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-bottom">© 2026 White Class Pro — ein Produkt der Dental Elements GmbH, Christian Penz, Grüner Weg 2, 24896 Treia</div>
+</footer>
+<script src="script.js" defer></script>
+<script src="shop.js" defer></script>
+<script src="supabase-config.js" defer></script>
+<script src="auth.js" defer></script>
+<script src="cart.js" defer></script>
+<script>
+// Nach erfolgreicher Weiterleitung von Stripe den Warenkorb leeren.
+document.addEventListener('DOMContentLoaded', function () {
+  if (/[?&]session_id=/.test(location.search) && window.WCP && window.WCP.cart) window.WCP.cart.clear();
+});
+</script>
+</body>
+</html>

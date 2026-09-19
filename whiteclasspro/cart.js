@@ -79,10 +79,17 @@
     });
   };
 
+  // Versandregeln aus shipping.json (dieselbe Datei nutzt der Server beim Checkout)
+  var loadShipping = function () {
+    return fetch('shipping.json').then(function (r) { return r.json(); })
+      .catch(function () { return { flat: 490, freeFrom: 5000 }; });
+  };
+
   var renderCartPage = function () {
     var root = document.getElementById('cart-root');
     if (!root || !window.WCP || !window.WCP.loadProducts) return;
-    window.WCP.loadProducts().then(function (products) {
+    Promise.all([window.WCP.loadProducts(), loadShipping()]).then(function (res) {
+      var products = res[0], shipping = res[1];
       var byId = {};
       products.forEach(function (p) { byId[p.id] = p; });
       var items = read().filter(function (i) { return byId[i.id]; });
@@ -109,16 +116,57 @@
           '<button type="button" class="cart-remove" data-act="rm" data-id="' + esc(p.id) + '" aria-label="Entfernen">✕</button>' +
         '</div>';
       }).join('');
+      var eur = window.WCP.eur;
+      var ship = total >= shipping.freeFrom ? 0 : shipping.flat;
       root.innerHTML = rows +
         '<div class="cart-summary">' +
-          '<div class="cart-total"><span>Zwischensumme (inkl. MwSt.)</span><strong>' + window.WCP.eur(total) + '</strong></div>' +
-          '<p class="cart-note">Versandkosten werden an der Kasse berechnet. Siehe <a href="versand.html">Versand</a>.</p>' +
-          '<button type="button" class="btn btn-primary" id="checkout-btn" disabled style="width:100%; opacity:.6; cursor:not-allowed;">Zur Kasse — folgt im nächsten Schritt</button>' +
+          '<div class="cart-total cart-sub"><span>Zwischensumme</span><span>' + eur(total) + '</span></div>' +
+          '<div class="cart-total cart-sub"><span>Versand</span><span>' + (ship ? eur(ship) : 'kostenlos') + '</span></div>' +
+          (ship ? '<p class="cart-note">Noch ' + eur(shipping.freeFrom - total) + ' bis zum kostenlosen Versand (ab ' + eur(shipping.freeFrom) + ').</p>' : '') +
+          '<div class="cart-total cart-grand"><span>Gesamt (inkl. MwSt.)</span><strong>' + eur(total + ship) + '</strong></div>' +
+          '<label class="cart-agree"><input type="checkbox" id="agree"> <span>Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB</a>, die <a href="widerruf.html" target="_blank" rel="noopener">Widerrufsbelehrung</a> und die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.</span></label>' +
+          '<p id="checkout-msg" class="form-msg error" role="alert" hidden></p>' +
+          '<button type="button" class="btn btn-primary" id="checkout-btn" style="width:100%;">Zahlungspflichtig bestellen</button>' +
+          '<p class="cart-note" style="margin:10px 0 0;">Sichere Bezahlung über Stripe · Lieferung nach Deutschland · <a href="versand.html">Versandinfos</a></p>' +
         '</div>';
     });
   };
 
+  // --- Zur Kasse: Warenkorb an die Serverfunktion senden und zu Stripe weiterleiten ---
+  var startCheckout = function (btn) {
+    var msg = document.getElementById('checkout-msg');
+    var say = function (t) { msg.textContent = t; msg.hidden = !t; };
+    say('');
+    if (!document.getElementById('agree').checked) {
+      say('Bitte bestätige die AGB, die Widerrufsbelehrung und die Datenschutzerklärung.');
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Weiterleitung zur Kasse …';
+    fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: read() })
+    }).then(function (r) {
+      return r.json().then(function (d) {
+        if (!r.ok || !d.url) { var err = new Error(d.error || ''); err.friendly = !!d.error; throw err; }
+        return d;
+      });
+    }).then(function (d) {
+      location.href = d.url;
+    }).catch(function (err) {
+      say(err.friendly ? err.message : 'Die Kasse ist gerade nicht erreichbar. Bitte versuche es später erneut.');
+      btn.disabled = false;
+      btn.textContent = 'Zahlungspflichtig bestellen';
+    });
+  };
+
+  // Zurück-Button aus Stripe: Seite frisch aufbauen, damit der Bestell-Button wieder aktiv ist
+  window.addEventListener('pageshow', function (e) { if (e.persisted) renderCartPage(); });
+
   document.addEventListener('click', function (e) {
+    var checkoutBtn = e.target.closest('#checkout-btn');
+    if (checkoutBtn) { startCheckout(checkoutBtn); return; }
     var addBtn = e.target.closest('[data-add-to-cart]');
     if (addBtn) {
       e.preventDefault();
