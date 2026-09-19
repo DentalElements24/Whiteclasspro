@@ -86,7 +86,13 @@
 
   var signOut = function () {
     var s = readSession();
-    var done = function () { writeSession(null); };
+    // Beim Abmelden auch den Warenkorb leeren: Er liegt nur im Browser und soll nach dem
+    // Abmelden nicht für den Nächsten am selben Gerät sichtbar bleiben.
+    var done = function () {
+      writeSession(null);
+      if (window.WCP && window.WCP.cart) window.WCP.cart.clear();
+      else { try { localStorage.removeItem('wcp_cart'); } catch (e) {} }
+    };
     if (!s || !configured) { done(); return Promise.resolve(); }
     return request('/auth/v1/logout', { token: s.access_token }).then(done, done);
   };
