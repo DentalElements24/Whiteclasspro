@@ -353,3 +353,6 @@ footer a:hover{ color:#fff; }
 .cart-agree input{ margin-top:3px; flex-shrink:0; }
 .cart-summary .form-msg{ margin:0 0 12px; }
 .cart-summary .btn:disabled{ opacity:.6; cursor:wait; }
+
+.login-form[hidden]{ display:none; }
+#register-done .link-btn{ display:block; padding-top:10px; }

@@ -51,6 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
   tabs.forEach(function (t) { t.addEventListener('click', function () { showPanel(t.getAttribute('data-tab')); }); });
   byId('to-forgot').addEventListener('click', function () { showPanel('forgot'); });
   byId('back-login').addEventListener('click', function () { showPanel('login'); });
+  byId('done-to-login').addEventListener('click', function () {
+    // Registrierungsformular für einen späteren Besuch des Tabs wieder einblenden
+    byId('form-register').hidden = false;
+    byId('register-done').hidden = true;
+    showPanel('login');
+  });
 
   if (!auth.configured) {
     byId('setup-note').hidden = false;
@@ -86,9 +92,11 @@ document.addEventListener('DOMContentLoaded', function () {
     busy(f, true);
     auth.signUp(f.email.value.trim(), f.password.value).then(function (r) {
       if (r.confirmed) { location.href = 'konto.html'; return; }
+      // Eingabefelder ausblenden, nur die Bestätigung bleibt sichtbar
       f.reset();
-      show(msg, 'Fast geschafft! Wir haben dir eine E-Mail geschickt. Bitte bestätige deine Adresse über den Link darin, danach kannst du dich anmelden.', 'ok');
       busy(f, false);
+      f.hidden = true;
+      byId('register-done').hidden = false;
     }).catch(function (err) { show(msg, err.message); busy(f, false); });
   });
 
