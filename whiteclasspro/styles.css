@@ -358,3 +358,17 @@ footer a:hover{ color:#fff; }
 #register-done .link-btn{ display:block; padding-top:10px; }
 
 .account-label{ max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* --- Mein Konto --- */
+.k-tabs{ overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; }
+.k-tabs button{ flex:0 0 auto; padding:12px 16px; }
+.k-h{ font-size:18px; margin:0 0 6px; }
+.k-h3{ font-size:15px; margin:0 0 6px; }
+.k-sub{ font-size:13.5px; color:var(--text-secondary); line-height:1.6; margin:0 0 14px; }
+.two-col{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.two-col.plz-ort{ grid-template-columns:120px 1fr; }
+.field{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+.field input{ min-width:0; }
+.addr-block{ border:1px solid var(--border); border-radius:10px; padding:16px; margin:4px 0 8px; background:var(--surface); }
+.addr-block .field input{ background:#fff; }
+.k-panel .login-form > div + div{ margin-top:8px; }

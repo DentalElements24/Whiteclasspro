@@ -1,4 +1,4 @@
-// White Class Pro — Logik für login.html und konto.html
+// White Class Pro — Logik für login.html (Kundenkonto siehe konto.js)
 document.addEventListener('DOMContentLoaded', function () {
   var auth = window.WCP && window.WCP.auth;
   if (!auth) return;
@@ -26,35 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var busy = function (form, on) {
     form.querySelectorAll('button[type="submit"], input').forEach(function (el) { el.disabled = on; });
   };
-
-  // ---------- Kundenkonto (konto.html) ----------
-  var accountRoot = byId('account-root');
-  if (accountRoot) {
-    auth.ready.then(function () { return auth.getSession(); }).then(function (s) {
-      if (!s) { location.replace('login.html'); return; }
-      var email = (s.user && s.user.email) || '';
-      var meta = (s.user && s.user.user_metadata) || {};
-      byId('account-email').textContent = email;
-      byId('pf-first').value = meta.first_name || '';
-      byId('pf-last').value = meta.last_name || '';
-      accountRoot.hidden = false;
-    });
-    byId('form-profile').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var f = e.target, msg = byId('msg-profile');
-      var first = f.first.value.trim(), last = f.last.value.trim();
-      if (!first || !last) { show(msg, 'Bitte Vor- und Nachnamen eintragen.', 'error'); return; }
-      busy(f, true);
-      auth.updateProfile(first, last).then(function () {
-        show(msg, 'Gespeichert.', 'ok');
-        busy(f, false);
-      }).catch(function (err) { show(msg, err.message, 'error'); busy(f, false); });
-    });
-    byId('logout-btn').addEventListener('click', function () {
-      auth.signOut().then(function () { location.href = 'index.html'; });
-    });
-    return;
-  }
 
   // ---------- Anmeldung / Registrierung (login.html) ----------
   var loginRoot = byId('login-root');

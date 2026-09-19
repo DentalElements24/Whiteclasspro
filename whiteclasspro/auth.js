@@ -92,6 +92,41 @@
     return request('/auth/v1/recover?redirect_to=' + redirectTo('login.html'), { body: { email: email } });
   };
 
+  // Zugriff auf die Datenbank (PostgREST) mit dem Token des angemeldeten Kunden.
+  // Welche Zeilen sichtbar/änderbar sind, entscheidet Row Level Security in Supabase.
+  var rest = function (method, path, body, prefer) {
+    if (!configured) return Promise.reject(new Error('Der Kundenbereich ist noch nicht eingerichtet.'));
+    return getSession().then(function (s) {
+      if (!s) throw new Error('Bitte melde dich erneut an.');
+      var headers = { 'apikey': cfg.key, 'Authorization': 'Bearer ' + s.access_token, 'Content-Type': 'application/json' };
+      if (prefer) headers['Prefer'] = prefer;
+      return fetch(base + '/rest/v1' + path, {
+        method: method,
+        headers: headers,
+        body: body ? JSON.stringify(body) : undefined
+      }).then(function (r) {
+        return r.text().then(function (text) {
+          var data = null;
+          try { data = text ? JSON.parse(text) : null; } catch (e) {}
+          if (!r.ok) {
+            var code = (data && data.code) || '';
+            var msg = 'Das hat leider nicht geklappt. Bitte versuche es erneut.';
+            if (code === 'PGRST205' || code === '42P01') msg = 'Diese Funktion ist noch nicht eingerichtet.';
+            else if (code === '23514') msg = 'Bitte prüfe deine Eingaben (z. B. fünfstellige PLZ).';
+            else if (r.status === 401 || code === 'PGRST301') msg = 'Bitte melde dich erneut an.';
+            var err = new Error(msg);
+            err.code = code;
+            err.status = r.status;
+            throw err;
+          }
+          return data;
+        });
+      }, function () {
+        throw new Error('Keine Verbindung zum Server. Bitte prüfe deine Internetverbindung.');
+      });
+    });
+  };
+
   // Vorname des angemeldeten Kunden (leer, wenn noch keiner hinterlegt ist)
   var displayName = function (s) {
     var m = s && s.user && s.user.user_metadata;
@@ -195,6 +230,7 @@
     configured: configured,
     signUp: signUp, signIn: signIn, signOut: signOut,
     recover: recover, updatePassword: updatePassword, updateProfile: updateProfile, displayName: displayName,
+    rest: rest,
     getSession: getSession, readSession: readSession,
     linkError: function () { return linkError; },
     ready: null
