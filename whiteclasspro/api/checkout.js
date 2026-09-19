@@ -5,10 +5,35 @@
 const products = require('../products.json');
 const shipping = require('../shipping.json');
 
+// Öffentliche Supabase-Werte (URL + Publishable Key) aus derselben Datei wie im Browser,
+// damit sie nur an einer Stelle gepflegt werden. Die Datei setzt window.WCP_SUPABASE.
+const loadSupabaseConfig = () => {
+  const hadWindow = 'window' in global;
+  if (!hadWindow) global.window = {};
+  try {
+    require('../supabase-config.js');
+    return global.window.WCP_SUPABASE || {};
+  } finally {
+    if (!hadWindow) delete global.window;
+  }
+};
+const supabase = loadSupabaseConfig();
+
 const MAX_QTY = 10;
 const MAX_LINES = 20;
 
-const fail = (res, status, error) => res.status(status).json({ error });
+const fail = (res, status, error, extra) => res.status(status).json(Object.assign({ error }, extra));
+
+// Prüft das Anmelde-Token bei Supabase. Liefert den Nutzer oder null (ungültig/abgelaufen).
+// Wirft bei Netzwerkfehlern, damit diese nicht als "nicht angemeldet" missverstanden werden.
+const verifyUser = async (token) => {
+  const r = await fetch(`${String(supabase.url).replace(/\/$/, '')}/auth/v1/user`, {
+    headers: { apikey: supabase.key, Authorization: `Bearer ${token}` }
+  });
+  if (!r.ok) return null;
+  const user = await r.json();
+  return user && user.id && user.email ? user : null;
+};
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -21,6 +46,24 @@ module.exports = async (req, res) => {
     console.error('STRIPE_SECRET_KEY ist nicht gesetzt');
     return fail(res, 500, 'Die Kasse ist noch nicht eingerichtet.');
   }
+
+  // --- Nur angemeldete Kunden dürfen bestellen ---
+  if (!supabase.url || !supabase.key) {
+    console.error('Supabase-Konfiguration fehlt');
+    return fail(res, 500, 'Die Kasse ist noch nicht eingerichtet.');
+  }
+  const header = req.headers.authorization || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7).trim() : '';
+  const notLoggedIn = () => fail(res, 401, 'Bitte melde dich an, um zu bestellen.', { login: true });
+  if (!token) return notLoggedIn();
+  let user;
+  try {
+    user = await verifyUser(token);
+  } catch (err) {
+    console.error('Supabase nicht erreichbar:', err && err.message);
+    return fail(res, 502, 'Die Anmeldung konnte gerade nicht geprüft werden. Bitte versuche es später erneut.');
+  }
+  if (!user) return notLoggedIn();
 
   // --- Warenkorb prüfen und Mengen je Produkt zusammenfassen ---
   const items = req.body && req.body.items;
@@ -70,6 +113,10 @@ module.exports = async (req, res) => {
 
   params.set('custom_text[submit][message]', 'Mit Klick auf „Bezahlen“ gibst du eine zahlungspflichtige Bestellung ab. Es gelten unsere AGB und die Widerrufsbelehrung.');
   params.set('metadata[cart]', lines.map(({ p, qty }) => `${p.id}:${qty}`).join(',').slice(0, 500));
+  // Bestellung dem Kundenkonto zuordnen (E-Mail vorbelegt, Konto-ID für spätere Auswertung)
+  params.set('customer_email', user.email);
+  params.set('client_reference_id', user.id);
+  params.set('metadata[user_id]', user.id);
 
   const origin = process.env.SITE_URL || `https://${req.headers.host}`;
   params.set('success_url', `${origin}/bestellung-erfolgreich.html?session_id={CHECKOUT_SESSION_ID}`);

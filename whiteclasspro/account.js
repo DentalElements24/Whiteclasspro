@@ -4,6 +4,17 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!auth) return;
 
   var byId = function (id) { return document.getElementById(id); };
+  // Nach dem Anmelden zurück in den Warenkorb, wenn der Kunde von dort kam (?next=warenkorb.html).
+  // Nur diese eine feste Zielseite ist erlaubt, damit die Adresse nicht missbraucht werden kann.
+  // Das Ziel wird beim Laden gemerkt, damit es auch nach Registrierung + E-Mail-Bestätigung gilt.
+  try {
+    if (new URLSearchParams(location.search).get('next') === 'warenkorb.html') localStorage.setItem('wcp_next', 'warenkorb.html');
+  } catch (e) {}
+  var afterLoginPage = function () {
+    var next = null;
+    try { next = localStorage.getItem('wcp_next'); localStorage.removeItem('wcp_next'); } catch (e) {}
+    return next === 'warenkorb.html' ? 'warenkorb.html' : 'konto.html';
+  };
 
   var show = function (el, text, kind) {
     if (!el) return;
@@ -68,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var recovery = false;
     try { recovery = sessionStorage.getItem('wcp_recovery') === '1'; } catch (e) {}
     if (s && recovery) { showPanel('reset'); loginRoot.hidden = false; return; }
-    if (s) { location.replace('konto.html'); return; }
+    if (s) { location.replace(afterLoginPage()); return; }
     if (auth.linkError()) {
       show(byId('msg-login'), 'Der Link aus der E-Mail ist ungültig oder abgelaufen. Bitte melde dich an oder fordere über „Passwort vergessen?“ einen neuen Link an.');
     }
@@ -81,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     show(msg, '');
     busy(f, true);
     auth.signIn(f.email.value.trim(), f.password.value)
-      .then(function () { location.href = 'konto.html'; })
+      .then(function () { location.href = afterLoginPage(); })
       .catch(function (err) { show(msg, err.message); busy(f, false); });
   });
 
@@ -94,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!f.consent.checked) { show(msg, 'Bitte bestätige die Kenntnisnahme der Datenschutzerklärung.'); return; }
     busy(f, true);
     auth.signUp(f.email.value.trim(), f.password.value).then(function (r) {
-      if (r.confirmed) { location.href = 'konto.html'; return; }
+      if (r.confirmed) { location.href = afterLoginPage(); return; }
       // Eingabefelder ausblenden, nur die Bestätigung bleibt sichtbar
       f.reset();
       busy(f, false);
@@ -123,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     busy(f, true);
     auth.updatePassword(f.password.value).then(function () {
       try { sessionStorage.removeItem('wcp_recovery'); } catch (e2) {}
-      location.href = 'konto.html';
+      location.href = afterLoginPage();
     }).catch(function (err) { show(msg, err.message); busy(f, false); });
   });
 });

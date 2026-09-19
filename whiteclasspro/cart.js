@@ -88,8 +88,10 @@
   var renderCartPage = function () {
     var root = document.getElementById('cart-root');
     if (!root || !window.WCP || !window.WCP.loadProducts) return;
-    Promise.all([window.WCP.loadProducts(), loadShipping()]).then(function (res) {
-      var products = res[0], shipping = res[1];
+    var sessionP = (window.WCP.auth ? window.WCP.auth.getSession() : Promise.resolve(null))
+      .catch(function () { return null; });
+    Promise.all([window.WCP.loadProducts(), loadShipping(), sessionP]).then(function (res) {
+      var products = res[0], shipping = res[1], loggedIn = !!res[2];
       var byId = {};
       products.forEach(function (p) { byId[p.id] = p; });
       var items = read().filter(function (i) { return byId[i.id]; });
@@ -118,16 +120,21 @@
       }).join('');
       var eur = window.WCP.eur;
       var ship = total >= shipping.freeFrom ? 0 : shipping.flat;
+      // Bestellen ist nur mit Kundenkonto möglich (der Server prüft das ebenfalls)
+      var checkoutHtml = loggedIn
+        ? '<label class="cart-agree"><input type="checkbox" id="agree"> <span>Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB</a>, die <a href="widerruf.html" target="_blank" rel="noopener">Widerrufsbelehrung</a> und die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.</span></label>' +
+          '<p id="checkout-msg" class="form-msg error" role="alert" hidden></p>' +
+          '<button type="button" class="btn btn-primary" id="checkout-btn" style="width:100%;">Zahlungspflichtig bestellen</button>' +
+          '<p class="cart-note" style="margin:10px 0 0;">Sichere Bezahlung über Stripe · Lieferung nach Deutschland · <a href="versand.html">Versandinfos</a></p>'
+        : '<p class="form-msg ok" style="margin:0 0 12px;">🔒 Zum Bestellen brauchst du ein Kundenkonto. Dein Warenkorb bleibt dabei erhalten.</p>' +
+          '<a href="login.html?next=warenkorb.html" class="btn btn-primary" style="width:100%; text-align:center;">Anmelden oder Konto erstellen</a>';
       root.innerHTML = rows +
         '<div class="cart-summary">' +
           '<div class="cart-total cart-sub"><span>Zwischensumme</span><span>' + eur(total) + '</span></div>' +
           '<div class="cart-total cart-sub"><span>Versand</span><span>' + (ship ? eur(ship) : 'kostenlos') + '</span></div>' +
           (ship ? '<p class="cart-note">Noch ' + eur(shipping.freeFrom - total) + ' bis zum kostenlosen Versand (ab ' + eur(shipping.freeFrom) + ').</p>' : '') +
           '<div class="cart-total cart-grand"><span>Gesamt (inkl. MwSt.)</span><strong>' + eur(total + ship) + '</strong></div>' +
-          '<label class="cart-agree"><input type="checkbox" id="agree"> <span>Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB</a>, die <a href="widerruf.html" target="_blank" rel="noopener">Widerrufsbelehrung</a> und die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.</span></label>' +
-          '<p id="checkout-msg" class="form-msg error" role="alert" hidden></p>' +
-          '<button type="button" class="btn btn-primary" id="checkout-btn" style="width:100%;">Zahlungspflichtig bestellen</button>' +
-          '<p class="cart-note" style="margin:10px 0 0;">Sichere Bezahlung über Stripe · Lieferung nach Deutschland · <a href="versand.html">Versandinfos</a></p>' +
+          checkoutHtml +
         '</div>';
     });
   };
@@ -143,17 +150,22 @@
     }
     btn.disabled = true;
     btn.textContent = 'Weiterleitung zur Kasse …';
-    fetch('/api/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: read() })
-    }).then(function (r) {
-      return r.json().then(function (d) {
-        if (!r.ok || !d.url) { var err = new Error(d.error || ''); err.friendly = !!d.error; throw err; }
-        return d;
+    var goLogin = function () { location.href = 'login.html?next=warenkorb.html'; };
+    (window.WCP.auth ? window.WCP.auth.getSession() : Promise.resolve(null)).then(function (s) {
+      if (!s) { goLogin(); return null; }
+      return fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + s.access_token },
+        body: JSON.stringify({ items: read() })
+      }).then(function (r) {
+        return r.json().then(function (d) {
+          if (r.status === 401) { goLogin(); return null; }
+          if (!r.ok || !d.url) { var err = new Error(d.error || ''); err.friendly = !!d.error; throw err; }
+          return d;
+        });
       });
     }).then(function (d) {
-      location.href = d.url;
+      if (d) location.href = d.url;
     }).catch(function (err) {
       say(err.friendly ? err.message : 'Die Kasse ist gerade nicht erreichbar. Bitte versuche es später erneut.');
       btn.disabled = false;
@@ -185,6 +197,7 @@
   });
 
   document.addEventListener('wcp:cart-changed', renderCartPage);
+  document.addEventListener('wcp:auth-changed', renderCartPage);
   // Änderungen aus einem anderen Tab übernehmen
   window.addEventListener('storage', function (e) { if (e.key === KEY) { updateBadge(); renderCartPage(); } });
 
