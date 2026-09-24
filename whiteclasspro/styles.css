@@ -489,3 +489,8 @@ body > footer{ margin-top:auto; }
 .todo-box{ background:#fff8db; border:1px solid #f0d878; border-radius:10px; padding:18px 20px; }
 .todo-box p{ font-size:14px; line-height:1.7; color:var(--text-secondary); margin:0 0 12px; }
 .todo-box h3{ font-size:15px; margin:18px 0 6px; color:var(--text); }
+
+/* Rechtstexte (AGB, Datenschutz, Impressum, Widerruf, Versand): rein weißer Hintergrund ohne Foto, dunkler Text — volle Lesbarkeit */
+body.plain-bg::before{ display:none; }
+body.plain-bg .legal p, body.plain-bg .legal li{ color:var(--text); }
+body.plain-bg .todo-box p{ color:var(--text); }

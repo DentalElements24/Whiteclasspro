@@ -1,5 +1,5 @@
 // Vor dem Live-Gang ausführen:   node pruefe-platzhalter.js
-// Listet alle noch offenen Platzhalter in den Seiten und Datendateien auf. Endet mit Fehlercode 1,
+// Listet alle noch offenen Platzhalter und gelben Hinweise (mark.todo) in den Seiten und Datendateien auf. Endet mit Fehlercode 1,
 // solange noch welche da sind. (Emoji-Produktbilder erkennt das Skript nicht — siehe README-Checkliste.)
 const fs = require('fs');
 const path = require('path');
@@ -9,7 +9,7 @@ let found = 0;
 
 files.forEach((f) => {
   fs.readFileSync(path.join(__dirname, f), 'utf8').split(/\r?\n/).forEach((line, i) => {
-    if (/platzhalter/i.test(line)) {
+    if (/platzhalter|class="todo"/i.test(line)) {
       found++;
       const text = line.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
       console.log(f + ':' + (i + 1) + '  ' + text.slice(0, 140));
