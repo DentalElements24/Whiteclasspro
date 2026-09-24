@@ -39,21 +39,59 @@
       '</div>';
   };
 
+  // Sortieroptionen für die Katalog-Toolbar (Kategorieseiten)
+  var SORTS = {
+    'preis-auf': function (a, b) { return a.price - b.price; },
+    'preis-ab': function (a, b) { return b.price - a.price; },
+    bewertung: function (a, b) { return b.rating - a.rating; }
+  };
+
   // Kategorieseiten / Startseite: <div class="catalog-grid" data-category="zahnaufhellung">
-  // data-featured="true" zeigt nur Produkte mit "featured": true.
+  // data-featured="true" zeigt nur Produkte mit "featured": true. Echte Kategorieseiten
+  // bekommen zusätzlich eine Such-/Sortierleiste; die Bestseller-Kachel auf der Startseite nicht.
   var renderGrids = function (products) {
     document.querySelectorAll('.catalog-grid[data-category], .catalog-grid[data-featured]').forEach(function (grid) {
       var cat = grid.getAttribute('data-category');
       var onlyFeatured = grid.getAttribute('data-featured') === 'true';
-      var list = products.filter(function (p) {
+      var base = products.filter(function (p) {
         return (!cat || p.category === cat) && (!onlyFeatured || p.featured);
       });
-      grid.innerHTML = list.length
-        ? list.map(cardHtml).join('')
-        : '<p class="catalog-empty">Hier entstehen gerade neue Produkte — schau bald wieder vorbei.</p>';
-      // Zähler auf Kategorieseiten passend zur Produktzahl setzen
-      var counter = document.querySelector('.catalog-count');
-      if (cat && counter) counter.textContent = countLabel(list.length);
+
+      var toolbar = null;
+      if (cat) {
+        toolbar = document.createElement('div');
+        toolbar.className = 'catalog-toolbar';
+        toolbar.innerHTML =
+          '<input type="search" class="catalog-search" placeholder="Produkte durchsuchen …" aria-label="Produkte durchsuchen">' +
+          '<select class="catalog-sort" aria-label="Sortieren">' +
+            '<option value="empfehlung">Empfehlung</option>' +
+            '<option value="preis-auf">Preis aufsteigend</option>' +
+            '<option value="preis-ab">Preis absteigend</option>' +
+            '<option value="bewertung">Beste Bewertung</option>' +
+          '</select>';
+        grid.parentNode.insertBefore(toolbar, grid);
+      }
+
+      var draw = function () {
+        var q = toolbar ? toolbar.querySelector('.catalog-search').value.trim().toLowerCase() : '';
+        var list = base.filter(function (p) { return !q || p.name.toLowerCase().indexOf(q) !== -1; });
+        var cmp = toolbar && SORTS[toolbar.querySelector('.catalog-sort').value];
+        if (cmp) list = list.slice().sort(cmp);
+        grid.innerHTML = list.length
+          ? list.map(cardHtml).join('')
+          : q
+            ? '<p class="catalog-empty">Keine Produkte gefunden für „' + esc(q) + '“.</p>'
+            : '<p class="catalog-empty">Hier entstehen gerade neue Produkte — schau bald wieder vorbei.</p>';
+        // Zähler auf Kategorieseiten passend zur Produktzahl setzen
+        var counter = document.querySelector('.catalog-count');
+        if (cat && counter) counter.textContent = countLabel(list.length);
+      };
+
+      if (toolbar) {
+        toolbar.querySelector('.catalog-search').addEventListener('input', draw);
+        toolbar.querySelector('.catalog-sort').addEventListener('change', draw);
+      }
+      draw();
     });
   };
 
@@ -106,6 +144,20 @@
           hint +
         '</div>' +
       '</div>';
+    renderRelated(products, p);
+  };
+
+  // "Das könnte dir auch gefallen": erst aus derselben Kategorie auffüllen, sonst mit
+  // anderen Produkten ergänzen — so gibt es auch bei kleinen Kategorien einen Vorschlag.
+  var renderRelated = function (products, current) {
+    var root = document.getElementById('related-products');
+    if (!root) return;
+    var sameCategory = products.filter(function (p) { return p.id !== current.id && p.category === current.category; });
+    var others = products.filter(function (p) { return p.id !== current.id && p.category !== current.category; });
+    var list = sameCategory.concat(others).slice(0, 3);
+    root.innerHTML = list.length
+      ? '<h2>Das könnte dir auch gefallen</h2><div class="catalog-grid">' + list.map(cardHtml).join('') + '</div>'
+      : '';
   };
 
   window.WCP = window.WCP || {};

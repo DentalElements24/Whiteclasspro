@@ -131,6 +131,27 @@ document.addEventListener('DOMContentLoaded', function () {
     diffShip.addEventListener('change', syncToggles);
     diffBill.addEventListener('change', syncToggles);
 
+    // Bestellungen laden (Supabase RLS zeigt jedem Kunden nur seine eigenen Zeilen)
+    var eur = window.WCP && window.WCP.eur ? window.WCP.eur : function (c) { return (c / 100).toFixed(2) + ' €'; };
+    auth.rest('GET', '/orders?select=*&order=created_at.desc').then(function (orders) {
+      var list = byId('orders-list');
+      if (!orders || !orders.length) {
+        list.innerHTML = '<div class="cart-summary" style="margin:0;"><p class="cart-note" style="margin:0;">Du hast noch keine Bestellung aufgegeben.</p></div>';
+        return;
+      }
+      list.innerHTML = orders.map(function (o) {
+        var date = new Date(o.created_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        var rows = (o.items || []).map(function (it) {
+          return '<div class="cart-total cart-sub"><span>' + it.qty + '× ' + (it.name || 'Produkt') + '</span><span>' + eur(it.amount) + '</span></div>';
+        }).join('');
+        return '<div class="cart-summary" style="margin:0 0 16px;">' +
+          '<div class="cart-total cart-sub" style="font-weight:600; color:var(--text);"><span>Bestellung vom ' + date + '</span><span>Bezahlt</span></div>' +
+          rows +
+          '<div class="cart-total cart-grand"><span>Gesamt</span><strong>' + eur(o.amount_total) + '</strong></div>' +
+        '</div>';
+      }).join('');
+    }).catch(function (err) { show(byId('orders-msg'), err.message, 'error'); });
+
     // Gespeicherte Adressen laden; ohne Eintrag den Namen aus dem Profil vorbelegen
     fill('main', { first_name: meta.first_name, last_name: meta.last_name });
     auth.rest('GET', '/addresses?select=*').then(function (rows) {

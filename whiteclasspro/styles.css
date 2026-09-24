@@ -150,6 +150,19 @@ footer a:hover{ color:#fff; }
 .catalog-intro p{ font-size:14px; color:var(--text-secondary); margin:0; max-width:520px; line-height:1.6; }
 .catalog-count{ font-size:13px; color:var(--text-secondary); font-weight:600; white-space:nowrap; }
 
+.catalog-toolbar{ display:flex; gap:10px; margin:0 0 20px; flex-wrap:wrap; }
+.catalog-toolbar .catalog-search{
+  flex:1; min-width:180px; padding:11px 14px; border:1px solid var(--border); border-radius:8px;
+  font:inherit; font-size:14px; background:var(--surface);
+}
+.catalog-toolbar .catalog-sort{
+  padding:11px 14px; border:1px solid var(--border); border-radius:8px; font:inherit; font-size:14px;
+  background:var(--surface); color:var(--text);
+}
+
+.related-products{ margin-top:56px; }
+.related-products h2{ font-size:20px; font-weight:600; margin:0 0 18px; }
+
 .cross-link-banner{
   margin-top:56px; padding:26px 28px; border-radius:12px; background:var(--surface); border:1px solid var(--border);
   display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
@@ -353,6 +366,13 @@ footer a:hover{ color:#fff; }
 .cart-agree input{ margin-top:3px; flex-shrink:0; }
 .cart-summary .form-msg{ margin:0 0 12px; }
 .cart-summary .btn:disabled{ opacity:.6; cursor:wait; }
+.cart-coupon{ display:flex; gap:8px; margin:14px 0 4px; }
+.cart-coupon input{
+  flex:1; min-width:0; padding:11px 14px; border:1px solid var(--border); border-radius:8px;
+  font:inherit; font-size:14px; background:#fff;
+}
+.cart-coupon button{ white-space:nowrap; padding:0 18px; font-size:13.5px; }
+.cart-discount span:last-child{ color:#1d6b35; font-weight:600; }
 
 .login-form[hidden]{ display:none; }
 #register-done .link-btn{ display:block; padding-top:10px; }

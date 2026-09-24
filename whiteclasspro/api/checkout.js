@@ -91,6 +91,27 @@ module.exports = async (req, res) => {
   }
   const shippingCost = subtotal >= shipping.freeFrom ? 0 : shipping.flat;
 
+  // --- Rabattcode erneut gegen Stripe prüfen (dem Client wird nicht vertraut) ---
+  let promotionCodeId = null;
+  const rawCode = req.body && req.body.promotionCode;
+  if (typeof rawCode === 'string' && rawCode.trim()) {
+    const promoParams = new URLSearchParams({ code: rawCode.trim(), active: 'true', limit: '1' });
+    let promoData;
+    try {
+      const promoRes = await fetch('https://api.stripe.com/v1/promotion_codes?' + promoParams, {
+        headers: { Authorization: `Bearer ${secret}` }
+      });
+      promoData = await promoRes.json();
+      if (!promoRes.ok) throw new Error('promo lookup failed');
+    } catch (err) {
+      console.error('Stripe nicht erreichbar (Rabattcode):', err && err.message);
+      return fail(res, 502, 'Die Zahlung konnte gerade nicht gestartet werden. Bitte versuche es später erneut.');
+    }
+    const promo = promoData && Array.isArray(promoData.data) && promoData.data[0];
+    if (!promo) return fail(res, 400, 'Der Rabattcode ist nicht mehr gültig. Bitte entferne ihn und versuche es erneut.');
+    promotionCodeId = promo.id;
+  }
+
   // --- Stripe-Parameter (form-encoded) ---
   const params = new URLSearchParams();
   params.set('mode', 'payment');
@@ -110,6 +131,8 @@ module.exports = async (req, res) => {
   params.set('shipping_options[0][shipping_rate_data][display_name]', shippingCost === 0 ? 'Versandkostenfrei' : 'Standardversand');
   params.set('shipping_options[0][shipping_rate_data][fixed_amount][amount]', String(shippingCost));
   params.set('shipping_options[0][shipping_rate_data][fixed_amount][currency]', 'eur');
+
+  if (promotionCodeId) params.set('discounts[0][promotion_code]', promotionCodeId);
 
   params.set('custom_text[submit][message]', 'Mit Klick auf „Bezahlen“ gibst du eine zahlungspflichtige Bestellung ab. Es gelten unsere AGB und die Widerrufsbelehrung.');
   params.set('metadata[cart]', lines.map(({ p, qty }) => `${p.id}:${qty}`).join(',').slice(0, 500));

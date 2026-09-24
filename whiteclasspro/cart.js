@@ -3,6 +3,9 @@
 (function () {
   var KEY = 'wcp_cart';
   var MAX_QTY = 10;
+  // Rabattcode gilt nur für die aktuelle Seitenladung; api/checkout.js prüft ihn beim Bezahlen
+  // ohnehin erneut gegen Stripe, ein Client kann sich hier also keinen Rabatt "ausdenken".
+  var appliedCoupon = null;
 
   var read = function () {
     try {
@@ -120,6 +123,19 @@
       }).join('');
       var eur = window.WCP.eur;
       var ship = total >= shipping.freeFrom ? 0 : shipping.flat;
+      var discount = 0;
+      if (appliedCoupon) {
+        discount = appliedCoupon.percentOff ? Math.round(total * appliedCoupon.percentOff / 100) : Math.min(appliedCoupon.amountOff, total);
+      }
+      var grandTotal = Math.max(0, total + ship - discount);
+      var couponHtml = '<div class="cart-coupon">' +
+          '<input type="text" id="coupon-code" placeholder="Rabattcode" maxlength="40"' +
+            (appliedCoupon ? ' value="' + esc(appliedCoupon.code) + '" disabled' : '') + '>' +
+          (appliedCoupon
+            ? '<button type="button" class="btn" id="coupon-remove">Entfernen</button>'
+            : '<button type="button" class="btn" id="coupon-apply">Anwenden</button>') +
+        '</div>' +
+        '<p id="coupon-msg" class="form-msg error" role="alert" hidden></p>';
       // Bestellen ist nur mit Kundenkonto möglich (der Server prüft das ebenfalls)
       var checkoutHtml = loggedIn
         ? '<label class="cart-agree"><input type="checkbox" id="agree"> <span>Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB</a>, die <a href="widerruf.html" target="_blank" rel="noopener">Widerrufsbelehrung</a> und die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.</span></label>' +
@@ -133,7 +149,9 @@
           '<div class="cart-total cart-sub"><span>Zwischensumme</span><span>' + eur(total) + '</span></div>' +
           '<div class="cart-total cart-sub"><span>Versand</span><span>' + (ship ? eur(ship) : 'kostenlos') + '</span></div>' +
           (ship ? '<p class="cart-note">Noch ' + eur(shipping.freeFrom - total) + ' bis zum kostenlosen Versand (ab ' + eur(shipping.freeFrom) + ').</p>' : '') +
-          '<div class="cart-total cart-grand"><span>Gesamt (inkl. MwSt.)</span><strong>' + eur(total + ship) + '</strong></div>' +
+          (discount ? '<div class="cart-total cart-sub cart-discount"><span>Rabatt (' + esc(appliedCoupon.code) + ')</span><span>−' + eur(discount) + '</span></div>' : '') +
+          couponHtml +
+          '<div class="cart-total cart-grand"><span>Gesamt (inkl. MwSt.)</span><strong>' + eur(grandTotal) + '</strong></div>' +
           checkoutHtml +
         '</div>';
     });
@@ -156,7 +174,7 @@
       return fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + s.access_token },
-        body: JSON.stringify({ items: read() })
+        body: JSON.stringify({ items: read(), promotionCode: appliedCoupon ? appliedCoupon.code : undefined })
       }).then(function (r) {
         return r.json().then(function (d) {
           if (r.status === 401) { goLogin(); return null; }
@@ -173,12 +191,47 @@
     });
   };
 
+  // --- Rabattcode anwenden: Server prüft den Code live gegen Stripe (api/coupon.js) ---
+  var applyCoupon = function () {
+    var input = document.getElementById('coupon-code');
+    var msg = document.getElementById('coupon-msg');
+    var say = function (t) { msg.textContent = t; msg.hidden = !t; };
+    var code = input.value.trim();
+    say('');
+    if (!code) { say('Bitte einen Rabattcode eingeben.'); return; }
+    input.disabled = true;
+    fetch('/api/coupon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: code })
+    }).then(function (r) {
+      return r.text().then(function (text) {
+        var d = {};
+        try { d = text ? JSON.parse(text) : {}; } catch (e) {}
+        if (!r.ok) throw new Error(d.error || 'Dieser Rabattcode ist ungültig oder abgelaufen.');
+        return d;
+      });
+    }, function () {
+      throw new Error('Keine Verbindung zum Server. Bitte prüfe deine Internetverbindung.');
+    }).then(function (d) {
+      appliedCoupon = d;
+      renderCartPage();
+    }).catch(function (err) {
+      input.disabled = false;
+      say(err.message);
+    });
+  };
+
   // Zurück-Button aus Stripe: Seite frisch aufbauen, damit der Bestell-Button wieder aktiv ist
   window.addEventListener('pageshow', function (e) { if (e.persisted) renderCartPage(); });
 
   document.addEventListener('click', function (e) {
     var checkoutBtn = e.target.closest('#checkout-btn');
     if (checkoutBtn) { startCheckout(checkoutBtn); return; }
+    var couponApply = e.target.closest('#coupon-apply');
+    if (couponApply) { applyCoupon(); return; }
+    var couponRemove = e.target.closest('#coupon-remove');
+    if (couponRemove) { appliedCoupon = null; renderCartPage(); return; }
     var addBtn = e.target.closest('[data-add-to-cart]');
     if (addBtn) {
       e.preventDefault();
