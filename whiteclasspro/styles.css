@@ -28,6 +28,8 @@ a{ color:inherit; }
   position:fixed; top:0; left:0; right:0; z-index:100;
 }
 
+a.promo-banner{ display:block; text-decoration:none; cursor:pointer; }
+a.promo-banner:hover{ text-decoration:underline; }
 .promo-banner{
   background:var(--red);
   color:#fff;
