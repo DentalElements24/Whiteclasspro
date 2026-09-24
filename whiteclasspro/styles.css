@@ -28,6 +28,7 @@ a{ color:inherit; }
   position:fixed; top:0; left:0; right:0; z-index:100;
 }
 
+.review-cta{ text-align:center; background:rgba(247,248,250,.85); border:1px solid var(--border); border-radius:14px; padding:36px 24px; }
 a.promo-banner{ display:block; text-decoration:none; cursor:pointer; }
 a.promo-banner:hover{ text-decoration:underline; }
 .promo-banner{
@@ -281,9 +282,8 @@ body::before{
   .hero-media{ height:240px !important; }
   .hero-grid h1{ font-size:27px !important; }
 
-  /* Trust row, testimonials */
+  /* Trust row */
   .trust-row{ grid-template-columns:repeat(2,1fr); }
-  .testimonial-grid{ grid-template-columns:1fr !important; }
 
   /* Kontakt */
   .kontakt-grid{ grid-template-columns:1fr !important; gap:32px !important; }

@@ -65,7 +65,8 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout,
 - Rechtstexte sind Platzhalter, kein finaler Rechtsinhalt
 - Kontaktformular hat noch keine Backend-Anbindung
 - Produktbilder sind Emoji-/Text-Platzhalter — echte Produktfotos vor Live-Gang einsetzen
-- Kundenstimmen und Bewertungszahlen sind Platzhalter — durch echte Reviews ersetzen, sobald vorhanden
+- Presselogos und Kundenstimmen wurden von der Startseite entfernt (gab es nicht); dort steht jetzt "Sind Sie mit uns zufrieden? … Hier abgeben" (`.review-cta` in `index.html`), der Button zeigt vorerst auf `kontakt.html` — auf den echten Bewertungslink (z. B. Google/Trustpilot) umstellen
+- Sternebewertungen/Bewertungszahlen bei den Produkten (`rating`/`reviews` in `products.json`) sind weiterhin Platzhalter — vor Live-Gang entfernen oder durch echte Reviews ersetzen
 - Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: `shipping.json` (4,90 €, kostenlos ab 50 €, nur DE).
 - Rabattcodes: Eingabefeld im Warenkorb + `api/coupon.js`/`api/checkout.js` prüfen den Code live gegen Stripe. Damit ein Code funktioniert, muss er vorher im Stripe-Dashboard unter Produkte → Gutscheincodes (Coupon + zugehöriger Promotion Code) angelegt werden.
 
