@@ -3,6 +3,10 @@
 // Suchmaschinen-Snippets kein JavaScript ausführen und sonst nur den generischen
 // Platzhalter-Titel/Text sähen. Die eigentliche Seite bleibt clientseitig (shop.js);
 // diese Funktion ersetzt nur die Meta-Tags im <head>, bevor die HTML-Datei ausgeliefert wird.
+//
+// Die Vorlage heißt bewusst "produkt-template.html", nicht "produkt.html": Vercel liefert eine
+// vorhandene statische Datei IMMER vor einem vercel.json-Rewrite aus, ein gleichnamiges
+// produkt.html hätte die Weiterleitung hierher also stillschweigend blockiert.
 const fs = require('fs');
 const path = require('path');
 const products = require('../products.json');
@@ -52,7 +56,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const filePath = path.join(__dirname, '..', 'produkt.html');
+    const filePath = path.join(__dirname, '..', 'produkt-template.html');
     let html = fs.readFileSync(filePath, 'utf8');
     html = html.replace('<title>Produkt — White Class Pro</title>', '<title>' + esc(title) + '</title>');
     html = html.replace('<!--SEO-->', seoTags);
