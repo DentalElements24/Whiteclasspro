@@ -195,6 +195,12 @@ body::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background:linear-gradient(rgba(255,255,255,.86), rgba(255,255,255,.86)), url('hero-bg.jpg') center/cover no-repeat;
 }
+/* Desktop: Überlagerung schwächer, damit das Bild kräftiger durchkommt */
+@media (min-width:901px){
+  body::before{
+    background:linear-gradient(rgba(255,255,255,.62), rgba(255,255,255,.62)), url('hero-bg.jpg') center/cover no-repeat;
+  }
+}
 .expert-credentials{ list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:10px; }
 .expert-credentials li{ font-size:13.5px; padding-left:24px; position:relative; color:var(--text-secondary); }
 .expert-credentials li::before{ content:"✓"; position:absolute; left:0; color:var(--blue); font-weight:700; }
