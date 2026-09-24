@@ -189,14 +189,11 @@ footer a:hover{ color:#fff; }
 }
 .expert-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-/* Startseiten-Hero: fixiertes Hintergrundbild (bleibt beim Scrollen stehen), mit heller Überlagerung für Lesbarkeit */
-.hero-bg{
-  background:linear-gradient(rgba(255,255,255,.86), rgba(255,255,255,.86)), url('hero-bg.jpg') center/cover;
-  background-attachment:fixed;
-}
-/* iOS/Touch-Browser unterstützen "fixed" nicht zuverlässig — dort normal mitscrollen lassen */
-@media (max-width:900px), (hover:none){
-  .hero-bg{ background-attachment:scroll; }
+/* Seitenweites, fixiertes Hintergrundbild: bleibt beim Scrollen stehen, mit heller Überlagerung für Lesbarkeit.
+   Als fixiertes Pseudo-Element statt background-attachment:fixed, weil das auch auf iOS zuverlässig funktioniert. */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(rgba(255,255,255,.86), rgba(255,255,255,.86)), url('hero-bg.jpg') center/cover no-repeat;
 }
 .expert-credentials{ list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:10px; }
 .expert-credentials li{ font-size:13.5px; padding-left:24px; position:relative; color:var(--text-secondary); }
