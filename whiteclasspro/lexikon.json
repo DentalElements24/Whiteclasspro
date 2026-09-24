@@ -1,0 +1,312 @@
+[
+  {
+    "id": "baking-soda",
+    "term": "Baking Soda (Natron)",
+    "question": "Was ist Baking Soda?",
+    "summary": "Ein mildes Salz (Natriumhydrogencarbonat), das in der Zahnpflege als sanftes Putzmittel gegen Oberflächenverfärbungen eingesetzt wird.",
+    "body": [
+      "Baking Soda, auf Deutsch Natron oder Speisenatron, ist chemisch Natriumhydrogencarbonat (NaHCO₃). Es ist ein feines, weißes, leicht basisches Salz, das sich in Wasser löst und auch als Backtriebmittel verwendet wird. Nicht zu verwechseln mit Backpulver, das zusätzlich Säuerungsmittel enthält.",
+      "In der Zahnpflege dient Baking Soda vor allem als mildes Putzmittel: Die feinen Kristalle können oberflächliche Beläge und Verfärbungen, etwa durch Kaffee, Tee oder Rotwein, mechanisch lösen. Zusätzlich wirkt es leicht säureneutralisierend im Mund. Baking Soda bleicht nicht — es entfernt Auflagerungen auf der Oberfläche, es hellt den Zahn nicht von innen auf.",
+      "Reines Natronpulver ist stärker abrasiv als eine gut abgestimmte Zahnpasta. Es sollte deshalb nicht täglich und nicht mit viel Druck angewendet werden; Zahnpasten mit Natron-Zusatz sind in der Regel schonender abgestimmt. Bei freiliegenden Zahnhälsen oder empfindlichen Zähnen vorher zahnärztlichen Rat einholen."
+    ],
+    "keywords": ["natron", "speisenatron", "natriumhydrogencarbonat", "natriumbicarbonat", "bicarbonat", "backpulver", "sodium bicarbonate", "bicarbonate of soda", "baking soda"],
+    "related": ["abrasivitaet-rda", "verfaerbungen", "aktivkohle"],
+    "products": []
+  },
+  {
+    "id": "hydroxylapatit",
+    "term": "Hydroxylapatit (Hydroxyapatit)",
+    "question": "Was ist Hydroxylapatit?",
+    "summary": "Das Mineral, aus dem Zahnschmelz überwiegend besteht — in Zahncremes als fluoridfreie Pflegekomponente eingesetzt.",
+    "body": [
+      "Hydroxylapatit (auch Hydroxyapatit, kurz HAP) ist ein Calciumphosphat-Mineral mit der Formel Ca₅(PO₄)₃(OH). Es ist der Hauptbestandteil von Zahnschmelz und Zahnbein und kommt auch in Knochen vor. Zahnschmelz besteht zu etwa 95 Prozent aus mineralischer Substanz, überwiegend aus Hydroxylapatit.",
+      "In Zahnpflegeprodukten wird Hydroxylapatit als synthetisch hergestelltes, sehr feines Pulver eingesetzt. Die winzigen Partikel können sich an die Zahnoberfläche anlagern und kleine Unebenheiten glätten. Dadurch kann die Oberfläche glatter wirken, und Zähne können heller erscheinen.",
+      "Hydroxylapatit-Zahncremes werden häufig als fluoridfreie Alternative angeboten. Die Studienlage wird weiter ausgebaut; zahnärztliche Fachgesellschaften empfehlen zur Kariesvorbeugung weiterhin fluoridhaltige Zahnpasta. Wer sich für eine fluoridfreie Pflege entscheidet, bespricht das am besten mit der Zahnärztin oder dem Zahnarzt."
+    ],
+    "keywords": ["hydroxyapatit", "hydroxil apatit", "hydroxi apatit", "hydroxyl apatit", "hydroxylapatit", "hap", "nano-hydroxyapatit", "calciumphosphat"],
+    "related": ["zahnschmelz", "remineralisierung", "fluorid"],
+    "products": ["hap-zahncreme"]
+  },
+  {
+    "id": "pap",
+    "term": "PAP (Phthalimidoperoxycapronsäure)",
+    "question": "Was ist PAP?",
+    "summary": "Ein Aufhellungswirkstoff, der ohne Wasserstoffperoxid auskommt.",
+    "body": [
+      "PAP steht für Phthalimidoperoxycapronsäure. Der Wirkstoff gehört zu den organischen Peroxycarbonsäuren und wird als „peroxidfreie“ Alternative zur Zahnaufhellung angeboten, weil er kein Wasserstoffperoxid enthält. Er arbeitet aber ebenfalls über Oxidation: Er baut Farbstoffmoleküle ab, die Verfärbungen verursachen.",
+      "Herstellerangaben zufolge ist PAP für Zahnfleisch und Zahnschmelz besser verträglich und löst seltener Zahnempfindlichkeit aus. Aussagekräftige unabhängige Langzeitstudien sind bisher begrenzt. Empfindliche Personen sollten das Produkt zunächst vorsichtig testen und die Anwendungshinweise genau befolgen."
+    ],
+    "keywords": ["phthalimidoperoxycapronsaeure", "phthalimidoperoxyhexansaeure", "peroxidfrei", "peroxidfreie zahnaufhellung", "aufhellungsgel", "ohne peroxid"],
+    "related": ["wasserstoffperoxid", "bleaching", "zahnsensibilitaet"],
+    "products": ["white-class-pro"]
+  },
+  {
+    "id": "wasserstoffperoxid",
+    "term": "Wasserstoffperoxid (H₂O₂)",
+    "question": "Was ist Wasserstoffperoxid?",
+    "summary": "Der klassische Bleichwirkstoff in der Zahnaufhellung.",
+    "body": [
+      "Wasserstoffperoxid (H₂O₂) ist der am häufigsten eingesetzte Wirkstoff beim Zahn-Bleaching. Beim Zerfall entstehen reaktive Sauerstoffverbindungen, die Farbstoffmoleküle im Zahn aufspalten. Auch Carbamidperoxid, das in vielen Aufhellungsgelen steckt, setzt Wasserstoffperoxid frei.",
+      "In der EU ist die Konzentration geregelt: Produkte für Verbraucher dürfen höchstens 0,1 Prozent Wasserstoffperoxid enthalten oder freisetzen. Höhere Konzentrationen bis 6 Prozent sind Zahnärztinnen und Zahnärzten vorbehalten.",
+      "Als mögliche Nebenwirkungen sind vorübergehende Zahnempfindlichkeit und gereiztes Zahnfleisch bekannt."
+    ],
+    "keywords": ["peroxid", "h2o2", "carbamidperoxid", "bleichmittel", "bleichgel", "wasserstoffperoxyd"],
+    "related": ["pap", "bleaching", "zahnsensibilitaet"],
+    "products": []
+  },
+  {
+    "id": "zahnschmelz",
+    "term": "Zahnschmelz",
+    "question": "Was ist Zahnschmelz?",
+    "summary": "Die harte, äußerste Schutzschicht der Zahnkrone.",
+    "body": [
+      "Zahnschmelz (englisch: Enamel) überzieht die sichtbare Zahnkrone und ist die härteste Substanz des menschlichen Körpers. Er besteht zu etwa 95 Prozent aus Mineralien, überwiegend aus Hydroxylapatit.",
+      "Zahnschmelz enthält keine lebenden Zellen und wächst deshalb nicht nach. Verlorene Substanz kann der Körper nicht neu bilden; angegriffene Oberflächen lassen sich aber durch Mineralien aus Speichel und Pflegeprodukten teilweise wieder festigen (Remineralisierung).",
+      "Belastet wird der Schmelz vor allem durch Säuren aus Ernährung und Bakterien sowie durch mechanischen Abrieb. Er ist leicht durchscheinend; die darunterliegende, gelbliche Schicht (Dentin, Zahnbein) bestimmt wesentlich die Zahnfarbe."
+    ],
+    "keywords": ["enamel", "schmelz", "zahnhartsubstanz", "dentin", "zahnbein"],
+    "related": ["hydroxylapatit", "remineralisierung", "verfaerbungen"],
+    "products": []
+  },
+  {
+    "id": "remineralisierung",
+    "term": "Remineralisierung",
+    "question": "Was bedeutet Remineralisierung?",
+    "summary": "Die Wiedereinlagerung von Mineralien in den Zahnschmelz.",
+    "body": [
+      "Zahnschmelz verliert durch Säuren im Mund immer wieder Mineralien (Demineralisierung) und nimmt sie aus dem Speichel wieder auf (Remineralisierung). Im Gleichgewicht bleibt der Schmelz intakt.",
+      "Calcium, Phosphat und Fluorid aus Speichel und Zahnpflegeprodukten unterstützen die Wiedereinlagerung. Überwiegen dauerhaft die Säureangriffe, kann es zu Schäden wie Karies kommen.",
+      "Remineralisierung betrifft nur oberflächliche, frühe Schmelzdefekte; ein Loch im Zahn lässt sich dadurch nicht mehr schließen."
+    ],
+    "keywords": ["demineralisierung", "mineralisierung", "mineralisieren", "remineralisieren"],
+    "related": ["zahnschmelz", "hydroxylapatit", "fluorid", "calcium"],
+    "products": ["hap-zahncreme"]
+  },
+  {
+    "id": "aktivkohle",
+    "term": "Aktivkohle (Bambuskohle)",
+    "question": "Was ist Aktivkohle in der Zahnpflege?",
+    "summary": "Fein gemahlene, poröse Kohle, die Farbstoffe an der Zahnoberfläche binden soll.",
+    "body": [
+      "Aktivkohle wird aus kohlenstoffreichen Materialien wie Bambus oder Kokosnussschalen hergestellt und besitzt eine sehr große, poröse Oberfläche. Diese kann Farbstoffe und andere Stoffe binden (Adsorption).",
+      "In Zahnpflegepulvern soll Aktivkohle Verfärbungen auf der Zahnoberfläche, etwa durch Kaffee oder Tee, aufnehmen und abtragen. Sie bleicht den Zahn nicht, sie wirkt an der Oberfläche.",
+      "Durch ihre Körnung kann Aktivkohle abrasiv wirken. Deshalb sollte sie nur wie vom Hersteller angegeben und nicht täglich angewendet werden. Wissenschaftliche Belege für Wirksamkeit und Unbedenklichkeit bei Dauergebrauch sind begrenzt."
+    ],
+    "keywords": ["bambuskohle", "kohle", "charcoal", "aktivkohlepulver", "kokoskohle", "zahnpulver"],
+    "related": ["abrasivitaet-rda", "verfaerbungen", "baking-soda"],
+    "products": ["aktivkohle"]
+  },
+  {
+    "id": "fluorid",
+    "term": "Fluorid / fluoridfrei",
+    "question": "Was ist Fluorid und was bedeutet „fluoridfrei“?",
+    "summary": "Ein Mineralstoff, der den Zahnschmelz widerstandsfähiger gegen Säuren machen kann.",
+    "body": [
+      "Fluorid wird in den Zahnschmelz eingebaut und kann ihn widerstandsfähiger gegen Säureangriffe machen. Es ist der Standardwirkstoff in den meisten Zahnpasten.",
+      "„Fluoridfrei“ bedeutet, dass ein Produkt kein Fluorid enthält. Manche Menschen wählen das bewusst, etwa aus persönlicher Überzeugung.",
+      "Zahnärztliche Fachgesellschaften empfehlen zur Kariesvorbeugung fluoridhaltige Zahnpasta. Wer fluoridfrei putzt, sollte das mit der Zahnärztin oder dem Zahnarzt besprechen."
+    ],
+    "keywords": ["fluoridfrei", "fluoridfreie zahnpasta", "fluoridierung", "fluor"],
+    "related": ["hydroxylapatit", "remineralisierung", "zahnschmelz"],
+    "products": ["hap-zahncreme"]
+  },
+  {
+    "id": "vitamin-d3",
+    "term": "Vitamin D3",
+    "question": "Was ist Vitamin D3?",
+    "summary": "Ein fettlösliches Vitamin, das die Calciumaufnahme im Darm unterstützt.",
+    "body": [
+      "Vitamin D3 (Cholecalciferol) bildet der Körper unter Sonnenlicht selbst in der Haut; kleine Mengen stammen aus der Nahrung. In Nahrungsergänzungsmitteln wird es meist als D3 angeboten.",
+      "Vitamin D trägt zu einer normalen Aufnahme und Verwertung von Calcium und Phosphor bei sowie zur Erhaltung normaler Knochen und Zähne.",
+      "Wichtig: Vitamin D ist fettlöslich und kann sich im Körper anreichern. Die empfohlene Tagesverzehrmenge nicht überschreiten; bei Erkrankungen oder Medikamenteneinnahme vorher ärztlichen Rat einholen."
+    ],
+    "keywords": ["d3", "cholecalciferol", "sonnenvitamin", "vitamin d"],
+    "related": ["vitamin-k2", "calcium", "nahrungsergaenzungsmittel"],
+    "products": ["d3-k2", "kapseln-calcium-magnesium"]
+  },
+  {
+    "id": "vitamin-k2",
+    "term": "Vitamin K2",
+    "question": "Was ist Vitamin K2?",
+    "summary": "Eine Vitamin-K-Form, die am Calciumstoffwechsel beteiligt ist.",
+    "body": [
+      "Vitamin K2 (Menachinon) gehört zur Vitamin-K-Gruppe. Es kommt in fermentierten Lebensmitteln und tierischen Produkten vor und wird in Ergänzungsmitteln oft zusammen mit Vitamin D3 angeboten.",
+      "Vitamin K trägt zur normalen Blutgerinnung und zur Erhaltung normaler Knochen bei. Es ist an der Aktivierung von Eiweißen beteiligt, die im Calciumstoffwechsel eine Rolle spielen. Ob und wie stark sich das direkt auf die Zähne auswirkt, ist wissenschaftlich noch nicht abschließend geklärt.",
+      "Wer blutgerinnungshemmende Medikamente einnimmt, sollte Vitamin K nur nach Rücksprache mit der Ärztin oder dem Arzt ergänzen."
+    ],
+    "keywords": ["k2", "menachinon", "mk-7", "mk7", "vitamin k"],
+    "related": ["vitamin-d3", "calcium"],
+    "products": ["d3-k2", "kapseln-calcium-magnesium"]
+  },
+  {
+    "id": "calcium",
+    "term": "Calcium",
+    "question": "Was ist Calcium und wofür braucht der Körper es?",
+    "summary": "Der mengenmäßig wichtigste Mineralstoff in Knochen und Zähnen.",
+    "body": [
+      "Calcium ist Hauptbestandteil von Knochen und Zähnen; rund 99 Prozent des Calciums im Körper sind dort gespeichert. Außerdem wird es für Muskeln und Nerven gebraucht.",
+      "Calcium trägt zur Erhaltung normaler Knochen und Zähne bei. Wichtig ist eine ausreichende Zufuhr über die Ernährung, zum Beispiel über Milchprodukte, calciumreiche Mineralwässer oder grünes Gemüse. Ergänzungen sollten die empfohlene Menge nicht überschreiten."
+    ],
+    "keywords": ["kalzium", "mineralstoff"],
+    "related": ["vitamin-d3", "magnesium", "zahnschmelz"],
+    "products": ["kapseln-calcium-magnesium", "patches"]
+  },
+  {
+    "id": "magnesium",
+    "term": "Magnesium (Magnesiumcitrat)",
+    "question": "Was ist Magnesium und was ist Magnesiumcitrat?",
+    "summary": "Ein Mineralstoff für viele Stoffwechselvorgänge, ein Teil davon sitzt in Knochen und Zähnen.",
+    "body": [
+      "Magnesium ist an vielen Stoffwechselvorgängen beteiligt; ein großer Teil des Körpermagnesiums ist in Knochen und Zähnen gespeichert. Magnesium trägt zur Erhaltung normaler Knochen und Zähne bei.",
+      "Magnesiumcitrat ist die Verbindung von Magnesium mit Zitronensäure. Sie löst sich gut in Wasser und gilt in Studien als gut aufnehmbar (bioverfügbar). In höheren Mengen kann Magnesium abführend wirken."
+    ],
+    "keywords": ["magnesiumcitrat", "mg", "magnesium citrat"],
+    "related": ["calcium", "bioverfuegbarkeit"],
+    "products": ["magnesium-citrat", "kapseln-calcium-magnesium", "patches"]
+  },
+  {
+    "id": "zink",
+    "term": "Zink",
+    "question": "Was ist Zink?",
+    "summary": "Ein Spurenelement für Immunsystem, Zellschutz und Knochen.",
+    "body": [
+      "Zink ist ein lebenswichtiges Spurenelement, das der Körper nicht selbst herstellen kann. Es trägt unter anderem zu einer normalen Funktion des Immunsystems, zum Schutz der Zellen vor oxidativem Stress und zur Erhaltung normaler Knochen bei.",
+      "Die Zufuhr sollte die empfohlene Tagesmenge nicht dauerhaft überschreiten, da sehr hohe Zinkmengen die Aufnahme von Kupfer stören können."
+    ],
+    "keywords": ["zinc", "spurenelement", "zinkgluconat"],
+    "related": ["calcium", "magnesium"],
+    "products": ["kapseln-calcium-magnesium", "patches"]
+  },
+  {
+    "id": "bioverfuegbarkeit",
+    "term": "Bioverfügbarkeit",
+    "question": "Was bedeutet Bioverfügbarkeit?",
+    "summary": "Der Anteil eines Nährstoffs, den der Körper tatsächlich aufnehmen und nutzen kann.",
+    "body": [
+      "Nicht alles, was in einer Kapsel oder Tablette steckt, gelangt tatsächlich ins Blut. Die Bioverfügbarkeit beschreibt, welcher Anteil eines Nährstoffs aufgenommen und im Körper genutzt werden kann.",
+      "Sie hängt von der chemischen Verbindung ab (zum Beispiel Citrat oder Oxid), von der Kombination mit anderen Stoffen, von der Einnahme mit oder ohne Mahlzeit und vom einzelnen Menschen."
+    ],
+    "keywords": ["bioverfügbar", "aufnahme", "resorption", "aufnehmbar"],
+    "related": ["magnesium", "vitamin-d3", "transdermale-patches"],
+    "products": ["magnesium-citrat"]
+  },
+  {
+    "id": "transdermale-patches",
+    "term": "Transdermale Pflaster (Patches)",
+    "question": "Was sind transdermale Pflaster (Patches)?",
+    "summary": "Pflaster, die Inhaltsstoffe über die Haut abgeben sollen.",
+    "body": [
+      "„Transdermal“ bedeutet „durch die Haut“. Ein Patch wird auf die Haut geklebt und soll Inhaltsstoffe über einen längeren Zeitraum abgeben. Aus der Medizin sind solche Pflaster zum Beispiel als Schmerz- oder Nikotinpflaster bekannt.",
+      "Bei Nahrungsergänzungs-Patches mit Mineralstoffen ist die Aufnahme über die Haut deutlich weniger gut untersucht als bei Kapseln oder Tabletten. Sie sind eine Option für Menschen, die keine Kapseln schlucken möchten, und ersetzen keine ausgewogene Ernährung."
+    ],
+    "keywords": ["patch", "pflaster", "hautpflaster", "transdermal", "patches"],
+    "related": ["nahrungsergaenzungsmittel", "bioverfuegbarkeit"],
+    "products": ["patches"]
+  },
+  {
+    "id": "led-blaulicht",
+    "term": "LED- / Blaulicht-Beschleuniger",
+    "question": "Was bringt LED- oder Blaulicht bei der Zahnaufhellung?",
+    "summary": "Ein Licht, das die Wirkung des Aufhellungsgels aktivieren oder beschleunigen soll.",
+    "body": [
+      "Bei einigen Home-Whitening-Sets wird ein LED-Licht mit blauem Licht (etwa 450 bis 470 Nanometer Wellenlänge) auf das Aufhellungsgel gerichtet. Es soll die Wirkstoffe aktivieren oder die Reaktion beschleunigen.",
+      "Die Studienlage zum zusätzlichen Nutzen ist uneinheitlich: Einige Untersuchungen sehen keinen oder nur einen geringen Zusatzeffekt gegenüber dem Gel allein. Das Licht ist deshalb eher als optionale Ergänzung zu verstehen.",
+      "Die Hinweise des Herstellers zu Anwendungsdauer und Schutz, etwa der Augen, sollten beachtet werden."
+    ],
+    "keywords": ["led", "blaulicht", "led-lampe", "led-schiene", "beschleuniger", "lichtaktivierung", "lampe"],
+    "related": ["bleaching", "anwendungsschiene"],
+    "products": ["led-kit", "led-lampe"]
+  },
+  {
+    "id": "zahnfarbskala",
+    "term": "Zahnfarbskala",
+    "question": "Was ist eine Zahnfarbskala?",
+    "summary": "Eine Vergleichsleiste, mit der sich der Zahnfarbton bestimmen und der Fortschritt festhalten lässt.",
+    "body": [
+      "Eine Zahnfarbskala (englisch: Shade Guide) ist eine Leiste mit Farbmustern von hell bis dunkel. In Zahnarztpraxen und Dentallaboren wird sie genutzt, um Zahnfarben zu bestimmen, zum Beispiel für Zahnersatz.",
+      "Bei der Zahnaufhellung zuhause hilft sie, den Ausgangston festzuhalten und das Ergebnis vorher und nachher zu vergleichen. Die zuverlässigste Einschätzung gelingt bei Tageslicht und vor neutralem Hintergrund."
+    ],
+    "keywords": ["farbskala", "shade guide", "zahnfarbe", "farbring", "farbton"],
+    "related": ["bleaching", "verfaerbungen"],
+    "products": ["led-kit"]
+  },
+  {
+    "id": "nahrungsergaenzungsmittel",
+    "term": "Nahrungsergänzungsmittel",
+    "question": "Was sind Nahrungsergänzungsmittel?",
+    "summary": "Lebensmittel, die die normale Ernährung ergänzen — keine Arzneimittel.",
+    "body": [
+      "Nahrungsergänzungsmittel sind Lebensmittel, die die allgemeine Ernährung ergänzen und Nährstoffe wie Vitamine und Mineralstoffe in konzentrierter Form enthalten. Es sind keine Arzneimittel; sie dürfen keine Krankheiten heilen oder ihnen vorbeugen.",
+      "Sie ersetzen keine ausgewogene, abwechslungsreiche Ernährung. Die angegebene empfohlene Tagesverzehrmenge sollte nicht überschritten werden. Bei Schwangerschaft, Stillzeit, Erkrankungen oder Medikamenteneinnahme vor der Einnahme ärztlichen Rat einholen."
+    ],
+    "keywords": ["nem", "supplement", "supplements", "ergänzung", "kapseln", "tabletten"],
+    "related": ["bioverfuegbarkeit", "transdermale-patches"],
+    "products": ["kapseln-calcium-magnesium", "d3-k2", "magnesium-citrat", "patches"]
+  },
+  {
+    "id": "anwendungsschiene",
+    "term": "Anwendungsschiene (Tray)",
+    "question": "Was ist eine Anwendungsschiene?",
+    "summary": "Eine Schiene, die das Aufhellungsgel gleichmäßig am Zahn hält.",
+    "body": [
+      "Anwendungs- oder Aufhellungsschienen (englisch: Trays) werden über die Zähne gesetzt und nehmen das Aufhellungsgel auf. So liegt das Gel gleichmäßig an den Zähnen an und bleibt möglichst vom Zahnfleisch fern.",
+      "Vorgeformte Schienen aus dem Set sind ein praktischer Kompromiss. Im Dentallabor individuell angefertigte Schienen sitzen passgenauer, sind aber aufwendiger und teurer."
+    ],
+    "keywords": ["schiene", "tray", "trays", "aufhellungsschiene", "bleachingschiene", "schienen"],
+    "related": ["bleaching", "led-blaulicht"],
+    "products": ["white-class-pro", "led-kit"]
+  },
+  {
+    "id": "abrasivitaet-rda",
+    "term": "Abrasivität (RDA-Wert)",
+    "question": "Was bedeutet Abrasivität (RDA-Wert)?",
+    "summary": "Ein Maß dafür, wie stark eine Zahnpasta oder ein Putzpulver beim Putzen abträgt.",
+    "body": [
+      "Abrasivität beschreibt, wie stark ein Putzkörper Zahnsubstanz abträgt. Ein gewisser Abrieb ist gewollt, um Beläge und Verfärbungen zu entfernen; zu viel kann Zahnschmelz und freiliegendes Zahnbein schädigen.",
+      "Der RDA-Wert (Radioactive Dentin Abrasion) ist ein gängiges Maß für Zahnpasten. Grob gilt: bis etwa 70 niedrig, 70 bis 100 mittel, 100 bis 150 hoch. Nach der Norm ISO 11609 sollen Zahnpasten höchstens 250 erreichen. Bei reinen Putzpulvern wie Natron oder Aktivkohle ist die Abrasivität oft nicht angegeben."
+    ],
+    "keywords": ["rda", "abrieb", "abrasiv", "putzkörper", "rda-wert", "abrasivität"],
+    "related": ["baking-soda", "aktivkohle", "zahnschmelz"],
+    "products": ["aktivkohle"]
+  },
+  {
+    "id": "verfaerbungen",
+    "term": "Zahnverfärbungen",
+    "question": "Woher kommen Zahnverfärbungen?",
+    "summary": "Man unterscheidet Beläge auf der Oberfläche (extrinsisch) und Verfärbungen im Zahn (intrinsisch).",
+    "body": [
+      "Extrinsische Verfärbungen sitzen außen auf dem Zahn, zum Beispiel durch Kaffee, Tee, Rotwein oder Tabak. Sie lassen sich oft durch professionelle Zahnreinigung oder abrasive Pflegeprodukte verringern.",
+      "Intrinsische Verfärbungen liegen im Zahninneren, etwa durch Alterung, Medikamente oder Zahnschäden. Hier setzen Bleichverfahren mit Wirkstoffen an, die in den Zahn eindringen; reine Oberflächenpflege erreicht sie kaum.",
+      "Nicht jede Verfärbung lässt sich aufhellen: Kronen, Füllungen und Zahnersatz ändern ihre Farbe nicht."
+    ],
+    "keywords": ["verfärbung", "verfärbungen", "flecken", "zahnbelag", "belag", "gelbe zähne", "gelbe zahne", "extrinsisch", "intrinsisch"],
+    "related": ["bleaching", "aktivkohle", "baking-soda", "zahnschmelz"],
+    "products": ["aktivkohle", "strips"]
+  },
+  {
+    "id": "bleaching",
+    "term": "Bleaching (Zahnaufhellung)",
+    "question": "Was ist Bleaching?",
+    "summary": "Das Aufhellen der Zähne durch Wirkstoffe, die Farbstoffe im und am Zahn abbauen.",
+    "body": [
+      "Bleaching bezeichnet das Aufhellen der Zähne durch Wirkstoffe, die Farbstoffe im und am Zahn chemisch abbauen. Es gibt Behandlungen in der Zahnarztpraxis und Anwendungen für zuhause (Home-Whitening).",
+      "Bleaching wirkt nur auf natürliche Zahnsubstanz — Kronen, Füllungen und Zahnersatz hellen nicht mit auf. Vor der Anwendung sollten Karies und Zahnfleischentzündungen zahnärztlich abgeklärt sein. Bei Kindern und Jugendlichen unter 18 Jahren wird von einer Zahnaufhellung ohne zahnärztlichen Rat abgeraten."
+    ],
+    "keywords": ["zahnaufhellung", "whitening", "zähne bleichen", "home-whitening", "aufhellen", "weiße zähne", "weisse zahne", "bleichen"],
+    "related": ["wasserstoffperoxid", "pap", "verfaerbungen", "zahnsensibilitaet"],
+    "products": ["white-class-pro", "strips", "led-kit"]
+  },
+  {
+    "id": "zahnsensibilitaet",
+    "term": "Zahnsensibilität",
+    "question": "Was ist Zahnsensibilität?",
+    "summary": "Kurze, ziehende Schmerzen bei Kälte, Wärme oder Süßem.",
+    "body": [
+      "Zahnempfindlichkeit entsteht, wenn Reize wie Kälte, Hitze oder Süßes über feinste offene Kanälchen im Zahnbein zum Zahnnerv geleitet werden, zum Beispiel bei freiliegenden Zahnhälsen oder angegriffenem Schmelz.",
+      "Sie kann zeitweise auch nach einer Zahnaufhellung auftreten. Hält sie an oder ist sie stark, sollte die Anwendung abgebrochen und zahnärztlicher Rat eingeholt werden."
+    ],
+    "keywords": ["empfindliche zähne", "empfindliche zahne", "zahnempfindlichkeit", "schmerzempfindlich", "zahnhalsempfindlichkeit", "sensibel"],
+    "related": ["bleaching", "wasserstoffperoxid", "pap"],
+    "products": []
+  }
+]

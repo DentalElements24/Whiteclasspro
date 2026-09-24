@@ -11,6 +11,7 @@ Kuratiert von Christian Penz, Zahntechnikermeister mit jahrzehntelanger Berufser
 - `ueber-uns.html` — Über Christian Penz (Zahntechnikermeister, eigenes Dentallabor)
 - `kontakt.html` — Kontaktseite
 - `impressum.html`, `agb.html`, `datenschutz.html`, `widerruf.html`, `versand.html` — rechtliche Seiten (**Platzhalter — vor Live-Gang juristisch prüfen lassen**)
+- `lexikon.html` + `lexikon.js` + `lexikon.json` — Lexikon mit Suche über Begriffe **und** Produkte. Neue Begriffe einfach in `lexikon.json` ergänzen (`question`, `summary`, `body`, alternative Schreibweisen in `keywords`, Verweise in `related`/`products`). **Texte vor Live-Gang fachlich von Christian Penz prüfen lassen** (Health-Claims: nur zugelassene Formulierungen, keine Heilversprechen).
 - `produkt.html` — Produktdetailseite; zeigt unten passende Vorschläge ("Das könnte dir auch gefallen") aus derselben bzw. anderen Kategorien
 - `styles.css` — zentrale Styles & Farbvariablen, inkl. Kategorie-Kacheln, Katalog-Produktkarten und Experten-Sektion
 - `logo.jpg` — White Class Pro Logo (komprimiert, ca. 30 KB); `favicon.png` / `apple-touch-icon.png` daraus abgeleitet

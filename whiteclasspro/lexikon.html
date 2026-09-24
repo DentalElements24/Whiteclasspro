@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Kundenbereich — White Class Pro</title>
-<meta name="robots" content="noindex">
+<title>Lexikon — Fachbegriffe rund um Zahnpflege &amp; Zahnaufhellung | White Class Pro</title>
+<meta name="description" content="Das White-Class-Pro-Lexikon erklärt Fachbegriffe verständlich: Baking Soda, Hydroxylapatit, PAP, Fluorid, Vitamin D3 und K2, Zahnschmelz und mehr — mit Suche.">
 <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
@@ -75,82 +75,39 @@
 </header>
 </div>
 
-<section style="padding:32px 0 80px;">
-  <div class="container" style="max-width:440px;">
-    <h1 style="margin:0 0 6px;">Kundenbereich</h1>
-    <p style="color:var(--text-secondary); font-size:14.5px; margin:0 0 20px;">Melde dich an oder erstelle ein Konto, um deine Bestellungen einzusehen.</p>
-
-    <div id="setup-note" hidden style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:22px; font-size:13.5px; line-height:1.6;">
-      ℹ️ <strong>In Vorbereitung.</strong> Anmeldung und Registrierung sind noch nicht freigeschaltet.
+<section style="padding:24px 0 20px;">
+  <div class="container" style="max-width:908px;">
+    <div class="glass lex-head">
+      <p style="color:var(--blue); font-size:13px; font-weight:600; letter-spacing:0.03em; margin:0 0 10px;">LEXIKON</p>
+      <h1 style="font-size:32px; font-weight:600; margin:0 0 12px; line-height:1.25;">Fachbegriffe einfach erklärt</h1>
+      <p style="font-size:15px; color:var(--text-secondary); line-height:1.7; margin:0 0 20px;">
+        Was steckt in unseren Produkten und was bedeutet das eigentlich? Hier erklären wir die wichtigsten Begriffe rund um Zahnpflege,
+        Zahnaufhellung und Nährstoffe. Gib unten einfach einen Begriff oder ein Produkt ein.
+      </p>
+      <form id="lex-form" class="lex-search" role="search" autocomplete="off">
+        <input type="search" id="lex-q" placeholder="Begriff oder Produkt suchen, z. B. „Baking Soda“ oder „Vitamin D3“" aria-label="Lexikon und Produkte durchsuchen">
+      </form>
+      <p id="lex-status" class="lex-status" aria-live="polite"></p>
     </div>
+  </div>
+</section>
 
-    <div id="login-root" hidden>
-      <div class="auth-tabs" role="tablist">
-        <button type="button" class="active" data-tab="login" role="tab" aria-selected="true">Anmelden</button>
-        <button type="button" data-tab="register" role="tab" aria-selected="false">Konto erstellen</button>
-      </div>
-
-      <div id="panel-login" class="auth-panel">
-        <form id="form-login" class="login-form" novalidate>
-          <label for="li-email">E-Mail-Adresse</label>
-          <input id="li-email" name="email" type="email" autocomplete="email" required>
-          <label for="li-pass">Passwort</label>
-          <input id="li-pass" name="password" type="password" autocomplete="current-password" required>
-          <p id="msg-login" class="form-msg error" role="alert" hidden></p>
-          <button type="submit" class="btn btn-primary">Anmelden</button>
-          <button type="button" id="to-forgot" class="link-btn">Passwort vergessen?</button>
-        </form>
-      </div>
-
-      <div id="panel-register" class="auth-panel" hidden>
-        <form id="form-register" class="login-form" novalidate>
-          <label for="rg-first">Vorname</label>
-          <input id="rg-first" name="first" type="text" autocomplete="given-name" maxlength="50" required>
-          <label for="rg-last">Nachname</label>
-          <input id="rg-last" name="last" type="text" autocomplete="family-name" maxlength="50" required>
-          <label for="rg-email">E-Mail-Adresse</label>
-          <input id="rg-email" name="email" type="email" autocomplete="email" required>
-          <label for="rg-pass">Passwort (mind. 8 Zeichen)</label>
-          <input id="rg-pass" name="password" type="password" autocomplete="new-password" minlength="8" required>
-          <label for="rg-pass2">Passwort wiederholen</label>
-          <input id="rg-pass2" name="password2" type="password" autocomplete="new-password" required>
-          <label class="check"><input type="checkbox" name="consent"> <span>Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> zur Kenntnis genommen.</span></label>
-          <p id="msg-register" class="form-msg error" role="alert" hidden></p>
-          <button type="submit" class="btn btn-primary">Konto erstellen</button>
-        </form>
-        <div id="register-done" class="form-msg ok" role="status" hidden>
-          <strong>Fast geschafft!</strong> Wir haben dir eine E-Mail geschickt. Bitte bestätige deine Adresse über den Link darin, danach kannst du dich anmelden.
-          <br><span style="display:block; margin-top:8px; font-size:12.5px;">Nichts angekommen? Schau bitte auch im Spam-Ordner nach.</span>
-          <button type="button" id="done-to-login" class="link-btn">Zur Anmeldung</button>
-        </div>
-      </div>
-
-      <div id="panel-forgot" class="auth-panel" hidden>
-        <h2 style="font-size:18px; margin:0 0 6px;">Passwort zurücksetzen</h2>
-        <p style="font-size:13.5px; color:var(--text-secondary); margin:0 0 14px;">Wir senden dir einen Link zum Festlegen eines neuen Passworts.</p>
-        <form id="form-forgot" class="login-form" novalidate>
-          <label for="fg-email">E-Mail-Adresse</label>
-          <input id="fg-email" name="email" type="email" autocomplete="email" required>
-          <p id="msg-forgot" class="form-msg error" role="alert" hidden></p>
-          <button type="submit" class="btn btn-primary">Link senden</button>
-          <button type="button" id="back-login" class="link-btn">← Zurück zur Anmeldung</button>
-        </form>
-      </div>
-
-      <div id="panel-reset" class="auth-panel" hidden>
-        <h2 style="font-size:18px; margin:0 0 6px;">Neues Passwort festlegen</h2>
-        <form id="form-reset" class="login-form" novalidate>
-          <label for="rs-pass">Neues Passwort (mind. 8 Zeichen)</label>
-          <input id="rs-pass" name="password" type="password" autocomplete="new-password" minlength="8" required>
-          <label for="rs-pass2">Passwort wiederholen</label>
-          <input id="rs-pass2" name="password2" type="password" autocomplete="new-password" required>
-          <p id="msg-reset" class="form-msg error" role="alert" hidden></p>
-          <button type="submit" class="btn btn-primary">Passwort speichern</button>
-        </form>
+<section style="padding:0 0 70px;">
+  <div class="container">
+    <div style="max-width:860px; margin:0 auto;">
+      <div id="lex-terms"></div>
+      <div id="lex-empty" class="glass" hidden>
+        <p style="margin:0 0 6px; font-weight:600;">Dazu haben wir leider noch keinen Eintrag.</p>
+        <p style="margin:0; font-size:14px; color:var(--text-secondary);">Versuche ein anderes Wort oder <a href="kontakt.html" style="color:var(--blue);">schreib uns</a> — wir ergänzen das Lexikon gern.</p>
       </div>
     </div>
-
-    <p style="margin-top:26px; font-size:14px;"><a href="index.html">← Zurück zur Startseite</a></p>
+    <div id="lex-products" hidden>
+      <h2>Passende Produkte</h2>
+      <div class="catalog-grid" id="lex-product-grid"></div>
+    </div>
+    <div style="max-width:860px; margin:0 auto;">
+      <p class="glass lex-note">Die Erklärungen dienen der allgemeinen Information und ersetzen keine zahnärztliche oder ärztliche Beratung. Bei Beschwerden, Vorerkrankungen, Schwangerschaft, Stillzeit oder Medikamenteneinnahme bitte vor der Anwendung Rücksprache halten.</p>
+    </div>
   </div>
 </section>
 
@@ -208,6 +165,6 @@
 <script src="supabase-config.js" defer></script>
 <script src="auth.js" defer></script>
 <script src="cart.js" defer></script>
-<script src="account.js" defer></script>
+<script src="lexikon.js" defer></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ const STATIC_PAGES = [
   { path: 'zahnaufhellung.html', priority: '0.9', changefreq: 'weekly' },
   { path: 'zahnstaerkung.html', priority: '0.9', changefreq: 'weekly' },
   { path: 'zahnreinigung.html', priority: '0.5', changefreq: 'monthly' },
+  { path: 'lexikon.html', priority: '0.7', changefreq: 'monthly' },
   { path: 'ueber-uns.html', priority: '0.6', changefreq: 'monthly' },
   { path: 'kontakt.html', priority: '0.5', changefreq: 'yearly' },
   { path: 'versand.html', priority: '0.4', changefreq: 'yearly' },

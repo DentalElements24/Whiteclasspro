@@ -162,6 +162,8 @@
 
   window.WCP = window.WCP || {};
   window.WCP.eur = eur;
+  window.WCP.esc = esc;
+  window.WCP.cardHtml = cardHtml;
   window.WCP.loadProducts = loadProducts;
 
   document.addEventListener('DOMContentLoaded', function () {

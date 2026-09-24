@@ -9,6 +9,7 @@
   --text:#14181c;
   --text-secondary:#5c6570;
   --border:#e2e5ea;
+  --glass:rgba(247,248,250,.8);
 }
 *{box-sizing:border-box;}
 html{ scroll-padding-top:var(--header-h, 77px); }
@@ -28,12 +29,34 @@ a{ color:inherit; }
   position:fixed; top:0; left:0; right:0; z-index:100;
 }
 
-.hero-text{
-  background:rgba(255,255,255,.72); border:1px solid rgba(226,229,234,.9); border-radius:14px; padding:28px;
-  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
-}
+/* Halbdurchsichtige Fläche, durch die das Hintergrundfoto klar erkennbar bleibt (gleicher Look wie die Streifen auf der Startseite) */
+.glass{ background:var(--glass); border:1px solid var(--border); border-radius:14px; }
+.hero-text{ background:var(--glass); border:1px solid var(--border); border-radius:14px; padding:28px; }
 @media (max-width:900px){ .hero-text{ padding:20px; } }
-.review-cta{ text-align:center; background:rgba(247,248,250,.85); border:1px solid var(--border); border-radius:14px; padding:36px 24px; }
+.review-cta{ text-align:center; background:var(--glass); border:1px solid var(--border); border-radius:14px; padding:36px 24px; }
+/* --- Lexikon --- */
+.lex-head{ padding:28px; }
+.lex-search input{
+  width:100%; padding:14px 16px; border:1px solid var(--border); border-radius:10px; font:inherit; font-size:16px; background:#fff;
+}
+.lex-status{ font-size:13px; color:var(--text-secondary); margin:10px 0 0; min-height:1.2em; }
+.lex-item{ background:rgba(255,255,255,.94); border:1px solid var(--border); border-radius:12px; margin:0 0 12px; }
+.lex-item summary{ list-style:none; cursor:pointer; padding:16px 44px 16px 20px; position:relative; display:block; }
+.lex-item summary::-webkit-details-marker{ display:none; }
+.lex-item summary::after{ content:"+"; position:absolute; right:18px; top:12px; font-size:24px; color:var(--blue); line-height:1.2; }
+.lex-item[open] summary::after{ content:"–"; }
+.lex-q{ display:block; font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; }
+.lex-short{ display:block; font-size:13.5px; color:var(--text-secondary); margin-top:4px; line-height:1.5; }
+.lex-body{ padding:0 20px 18px; border-top:1px solid var(--border); }
+.lex-body p{ font-size:14.5px; line-height:1.75; color:var(--text-secondary); margin:14px 0 0; }
+.lex-body .lex-row{ font-size:13.5px; }
+.lex-body .lex-row strong{ color:var(--text); margin-right:4px; }
+.lex-chip{ display:inline-block; margin:4px 6px 0 0; padding:4px 11px; border:1px solid var(--border); border-radius:20px; background:var(--surface); color:var(--blue); font-size:13px; text-decoration:none; }
+.lex-chip:hover{ border-color:var(--blue); }
+.lex-chip-product{ color:var(--red); }
+.lex-note{ font-size:12.5px; color:var(--text-secondary); line-height:1.6; margin-top:24px; padding:14px 16px; }
+#lex-products h2{ font-size:22px; font-weight:600; margin:36px 0 18px; }
+#lex-empty{ text-align:center; padding:32px 20px; }
 a.promo-banner{ display:block; text-decoration:none; cursor:pointer; }
 a.promo-banner:hover{ text-decoration:underline; }
 .promo-banner{
