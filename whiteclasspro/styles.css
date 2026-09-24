@@ -188,6 +188,16 @@ footer a:hover{ color:#fff; }
   overflow:hidden;
 }
 .expert-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Startseiten-Hero: fixiertes Hintergrundbild (bleibt beim Scrollen stehen), mit heller Überlagerung für Lesbarkeit */
+.hero-bg{
+  background:linear-gradient(rgba(255,255,255,.86), rgba(255,255,255,.86)), url('hero-bg.jpg') center/cover;
+  background-attachment:fixed;
+}
+/* iOS/Touch-Browser unterstützen "fixed" nicht zuverlässig — dort normal mitscrollen lassen */
+@media (max-width:900px), (hover:none){
+  .hero-bg{ background-attachment:scroll; }
+}
 .expert-credentials{ list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:10px; }
 .expert-credentials li{ font-size:13.5px; padding-left:24px; position:relative; color:var(--text-secondary); }
 .expert-credentials li::before{ content:"✓"; position:absolute; left:0; color:var(--blue); font-weight:700; }
