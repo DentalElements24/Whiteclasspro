@@ -103,6 +103,12 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   input.addEventListener('input', render);
+  window.addEventListener('hashchange', function () {
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    if (!byId(id)) { input.value = ''; render(); }
+    openEntry(id);
+  });
   document.getElementById('lex-form').addEventListener('submit', function (e) { e.preventDefault(); });
 
   // Klick auf einen verwandten Begriff: springt hin, auch wenn er gerade weggefiltert ist
@@ -125,9 +131,10 @@ document.addEventListener('DOMContentLoaded', function () {
     terms.forEach(function (t) { termById[t.id] = t; });
     products.forEach(function (p) { productById[p.id] = p; });
     var q = new URLSearchParams(location.search).get('q');
+    var hash = location.hash;   // render() überschreibt die Adresse, deshalb vorher merken
     if (q) input.value = q;
     render();
-    if (location.hash.length > 1) openEntry(decodeURIComponent(location.hash.slice(1)));
+    if (hash.length > 1) openEntry(decodeURIComponent(hash.slice(1)));
   }).catch(function () {
     byId('lex-terms').innerHTML = '<p class="catalog-empty">Das Lexikon konnte nicht geladen werden. Bitte Seite neu laden.</p>';
   });
