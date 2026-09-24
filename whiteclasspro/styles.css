@@ -28,6 +28,11 @@ a{ color:inherit; }
   position:fixed; top:0; left:0; right:0; z-index:100;
 }
 
+.hero-text{
+  background:rgba(255,255,255,.72); border:1px solid rgba(226,229,234,.9); border-radius:14px; padding:28px;
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+}
+@media (max-width:900px){ .hero-text{ padding:20px; } }
 .review-cta{ text-align:center; background:rgba(247,248,250,.85); border:1px solid var(--border); border-radius:14px; padding:36px 24px; }
 a.promo-banner{ display:block; text-decoration:none; cursor:pointer; }
 a.promo-banner:hover{ text-decoration:underline; }
