@@ -184,18 +184,18 @@ footer a:hover{ color:#fff; }
 .catalog-toolbar{ display:flex; gap:10px; margin:0 0 20px; flex-wrap:wrap; }
 .catalog-toolbar .catalog-search{
   flex:1; min-width:180px; padding:11px 14px; border:1px solid var(--border); border-radius:8px;
-  font:inherit; font-size:14px; background:var(--surface);
+  font:inherit; font-size:14px; background:var(--glass);
 }
 .catalog-toolbar .catalog-sort{
   padding:11px 14px; border:1px solid var(--border); border-radius:8px; font:inherit; font-size:14px;
-  background:var(--surface); color:var(--text);
+  background:var(--glass); color:var(--text);
 }
 
 .related-products{ margin-top:56px; }
 .related-products h2{ font-size:20px; font-weight:600; margin:0 0 18px; }
 
 .cross-link-banner{
-  margin-top:56px; padding:26px 28px; border-radius:12px; background:var(--surface); border:1px solid var(--border);
+  margin-top:56px; padding:26px 28px; border-radius:12px; background:var(--glass); border:1px solid var(--border);
   display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
 }
 .cross-link-banner p{ margin:0; font-size:14px; }
