@@ -148,7 +148,7 @@ header{ border-bottom:1px solid var(--border); background:#fff; position:relativ
 .price-old{ text-decoration:line-through; color:var(--text-secondary); font-size:20px; }
 .price-new{ font-size:36px; font-weight:700; color:var(--text); }
 
-.trust-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:28px; }
+.trust-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px; }
 .trust-item{ background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; font-size:12.5px; text-align:center; color:var(--text-secondary); }
 
 
@@ -489,4 +489,3 @@ body > footer{ margin-top:auto; }
 .todo-box{ background:#fff8db; border:1px solid #f0d878; border-radius:10px; padding:18px 20px; }
 .todo-box p{ font-size:14px; line-height:1.7; color:var(--text-secondary); margin:0 0 12px; }
 .todo-box h3{ font-size:15px; margin:18px 0 6px; color:var(--text); }
-.todo{ background:#ffe680; padding:1px 4px; border-radius:3px; color:#5a4500; font-weight:600; }

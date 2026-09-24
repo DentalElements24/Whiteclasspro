@@ -105,5 +105,5 @@ Offene Platzhalter auflisten: `node pruefe-platzhalter.js` (endet mit Fehlercode
 - [ ] **Kosmetikverordnung** (Zahnaufhellungsprodukte): verantwortliche Person in der EU benennen, Produkte im EU-Portal CPNP notifizieren, Kennzeichnung prüfen; für Wasserstoffperoxid gelten Grenzwerte.
 - [ ] **Nahrungsergänzungsmittel:** Erstinverkehrbringen beim BVL anzeigen; nur zugelassene Health Claims verwenden (die Produkttexte werden später mit den echten Produkten überarbeitet).
 - [ ] Rechtstexte (Impressum, AGB, Datenschutz, Widerruf) juristisch prüfen lassen.
-- [ ] Werbeaussagen prüfen, z. B. "Made in Germany", "30 Tage Geld-zurück", "Versand in 2–4 Tagen": nur behalten, wenn sie stimmen.
+- [ ] Werbeaussagen prüfen: "30 Tage Geld-zurück" nur behalten, wenn es wirklich angeboten wird (gesetzlich sind 14 Tage Widerruf). "Made in Germany" ist entfernt, weil nichts in Deutschland gefertigt wird; "Designed in Germany" nur, wenn Entwicklung/Design tatsächlich in Deutschland stattfinden. Lieferzeit 7–10 Werktage steht auf Startseite, Versand-Seite und in den AGB.
 - [ ] TikTok-Link, Produktfotos und den Bewertungslink ("Hier abgeben") ersetzen.
