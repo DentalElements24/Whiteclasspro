@@ -4,7 +4,7 @@ Eigenständiger Shop für Zahnaufhellung & zahnstärkende Nahrungsergänzung, un
 Kuratiert von Christian Penz, Zahntechnikermeister mit jahrzehntelanger Berufserfahrung und ehemals eigenem Dentallabor.
 
 ## Struktur
-- `index.html` — Startseite (Hero, Kategorie-Kacheln, Bestseller-Produktgrid, Über-uns-Teaser, Testimonials, FAQ)
+- `index.html` — Startseite (Hero, Kategorie-Kacheln, Bestseller-Produktgrid, Über-uns-Teaser, Bewertungs-Hinweis, FAQ)
 - `zahnaufhellung.html` — Kategorieseite mit 6 Zahnaufhellungs-Produkten
 - `zahnstaerkung.html` — Kategorieseite mit 4 zahnstärkenden Nahrungsergänzungsmitteln
 - `zahnreinigung.html` — Kategorieseite Zahnreinigung (z. B. Zahnsticks); noch ohne Produkte, zeigt "Produkte folgen"
@@ -41,12 +41,12 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout,
 
 ## SEO & Auffindbarkeit
 - `api/robots.js` und `api/sitemap.js` erzeugen `/robots.txt` bzw. `/sitemap.xml` live bei jeder Anfrage (Weiterleitung dafür in `vercel.json`) — die Domain wird automatisch aus der Anfrage erkannt (wie bei `SITE_URL` in `api/checkout.js`), die Sitemap zieht ihre Produkt-URLs direkt aus `products.json` und bleibt so immer aktuell.
-- `api/produkt.js` liefert `produkt.html` mit pro-Produkt `<title>`, Meta-Description, Open-Graph-Tags (für Vorschauen bei WhatsApp/Social) und `schema.org`-Product-Markup aus. **Bewusst ohne `aggregateRating`**, solange `rating`/`reviews` in `products.json` Platzhalterwerte ohne echtes Bewertungssystem sind — erfundene Bewertungssterne in Google-Snippets gelten als irreführende Werbung.
+- `api/produkt.js` liefert `produkt.html` mit pro-Produkt `<title>`, Meta-Description, Open-Graph-Tags (für Vorschauen bei WhatsApp/Social) und `schema.org`-Product-Markup aus. **Bewusst ohne `aggregateRating`**, solange es kein echtes Bewertungssystem gibt — erfundene Bewertungssterne in Google-Snippets gelten als irreführende Werbung.
 - Jede Seite hat jetzt ein Favicon (`favicon.png`, `apple-touch-icon.png`).
 
 ## Navigation
 - Links neben dem Logo: direkte Links (Zahnaufhellung, Zahnstärkung, Zahnreinigung, Über uns, FAQ, Kontakt); rechts Sprache, Anmelden (Dummy login.html) und Warenkorb
-- Kategorieseiten haben eine Such-/Sortierleiste über dem Produktgrid (Name durchsuchen, nach Preis oder Bewertung sortieren) — rein clientseitig in `shop.js`, keine neue Abhängigkeit.
+- Kategorieseiten haben eine Such-/Sortierleiste über dem Produktgrid (Name durchsuchen, nach Preis sortieren) — rein clientseitig in `shop.js`, keine neue Abhängigkeit.
 - Rechts: Sprachauswahl (🌐 DE ▾) — Umschalter für Englisch, Polnisch, Niederländisch, Französisch, Spanisch. Die Sprachen sind aktuell als "bald verfügbar" hinterlegt, da noch keine übersetzten Seiteninhalte existieren — das UI ist vorbereitet, die eigentliche Übersetzung ist ein separater nächster Schritt.
 - Mobil: Hamburger-Menü (`script.js`) klappt die Navigation auf; "Menü" erscheint dabei links unter dem Logo, die Sprachauswahl gegenüber rechts. Beide öffnen ihr Dropdown per Tap als schwebende Karte darunter (wie am Desktop), nicht als ausklappende Liste, die den Header aufbläht — es ist dabei immer nur eines der beiden Dropdowns gleichzeitig offen.
 - Die Dropdown-Menüs (Desktop) waren zeitweise nicht anklickbar (Hover-Lücke zwischen Button und Menü) — behoben durch eine nahtlose Hover-Brücke in `styles.css`.
@@ -67,7 +67,7 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout,
 - Kontaktformular hat noch keine Backend-Anbindung
 - Produktbilder sind Emoji-/Text-Platzhalter — echte Produktfotos vor Live-Gang einsetzen
 - Presselogos und Kundenstimmen wurden von der Startseite entfernt (gab es nicht); dort steht jetzt "Sind Sie mit uns zufrieden? … Hier abgeben" (`.review-cta` in `index.html`), der Button zeigt vorerst auf `kontakt.html` — auf den echten Bewertungslink (z. B. Google/Trustpilot) umstellen
-- Sternebewertungen/Bewertungszahlen bei den Produkten (`rating`/`reviews` in `products.json`) sind weiterhin Platzhalter — vor Live-Gang entfernen oder durch echte Reviews ersetzen
+- Die erfundenen Sternebewertungen wurden entfernt (`rating`/`reviews` gibt es in `products.json` nicht mehr, ebenso die Sortierung "Beste Bewertung"). Erst wieder anzeigen, wenn es ein echtes Bewertungssystem gibt; dann auch `aggregateRating` in `api/produkt.js` ergänzen.
 - Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: `shipping.json` (4,90 €, kostenlos ab 50 €, nur DE).
 - Rabattcodes: Eingabefeld im Warenkorb + `api/coupon.js`/`api/checkout.js` prüfen den Code live gegen Stripe. Damit ein Code funktioniert, muss er vorher im Stripe-Dashboard unter Produkte → Gutscheincodes (Coupon + zugehöriger Promotion Code) angelegt werden.
 
@@ -94,3 +94,16 @@ Zum Testen: eine Test-Bestellung durchklicken (Stripe-Testmodus, Testkarte `4242
 danach im Stripe-Dashboard unter dem Webhook-Endpunkt prüfen, ob die Zustellung mit Status 200
 ankam, und im Supabase Table Editor, ob eine Zeile in `orders` erschienen ist.
 - Verkaufspreise sind vorläufig, keine Wirkversprechen zu den Nahrungsergänzungsmitteln ungeprüft übernehmen (Health-Claims-Verordnung beachten)
+
+## Checkliste vor dem Live-Gang
+Offene Platzhalter auflisten: `node pruefe-platzhalter.js` (endet mit Fehlercode, solange welche da sind). Nicht darin enthalten: Emoji-Produktbilder (durch echte Fotos ersetzen).
+
+**Pflichten für den Versand an Privatkunden in Deutschland** (Platzhalter dazu stehen gelb markiert auf `versand.html`; rechtlich von IHK oder Fachanwalt prüfen lassen):
+- [ ] **Verpackungsgesetz:** vor dem ersten Verkauf im Verpackungsregister LUCID registrieren (kostenlos), Verpackungen bei einem dualen System lizenzieren und die Mengen melden. Registrierungsnummer und Systemname auf `versand.html` eintragen. Gilt bei Direktversand aus dem Ausland in der Praxis für uns als Verkäufer, nicht für den Lieferanten.
+- [ ] **Batteriegesetz** (nur wenn Produkte Batterien oder Akkus enthalten, z. B. LED-Lampe oder LED-Set): Registrierung beim Umweltbundesamt, Rückgabe-Hinweis im Shop.
+- [ ] **Elektrogesetz** (nur wenn Elektrogeräte verkauft werden): Registrierung bei der Stiftung ear (WEEE-Nummer), Rücknahme-Hinweis im Shop.
+- [ ] **Kosmetikverordnung** (Zahnaufhellungsprodukte): verantwortliche Person in der EU benennen, Produkte im EU-Portal CPNP notifizieren, Kennzeichnung prüfen; für Wasserstoffperoxid gelten Grenzwerte.
+- [ ] **Nahrungsergänzungsmittel:** Erstinverkehrbringen beim BVL anzeigen; nur zugelassene Health Claims verwenden (die Produkttexte werden später mit den echten Produkten überarbeitet).
+- [ ] Rechtstexte (Impressum, AGB, Datenschutz, Widerruf) juristisch prüfen lassen.
+- [ ] Werbeaussagen prüfen, z. B. "Made in Germany", "30 Tage Geld-zurück", "Versand in 2–4 Tagen": nur behalten, wenn sie stimmen.
+- [ ] TikTok-Link, Produktfotos und den Bewertungslink ("Hier abgeben") ersetzen.

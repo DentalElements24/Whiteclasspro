@@ -10,8 +10,6 @@
     "oldPrice": 4900,
     "short": "PAP-Formel ohne Peroxid, Anwendungsschienen & Anleitung für 7–10 Tage.",
     "description": "Unser Flaggschiff: Aufhellungs-Gel mit PAP-Formel, Anwendungsschienen und deutsche Anleitung für 7–10 Tage. Ohne Wasserstoffperoxid, schonend für Zahnschmelz und Zahnfleisch.",
-    "rating": 4.7,
-    "reviews": 312,
     "featured": true
   },
   {
@@ -23,8 +21,6 @@
     "price": 1490,
     "short": "Dünne, kaum sichtbare Streifen für die schnelle Auffrischung zwischendurch.",
     "description": "Dünne, kaum sichtbare Aufhellungsstreifen zum Aufkleben — ideal für unterwegs oder als Auffrischung zwischen zwei Sets.",
-    "rating": 4.8,
-    "reviews": 54,
     "featured": true
   },
   {
@@ -36,8 +32,6 @@
     "price": 1290,
     "short": "Feines Bambuskohle-Pulver für den natürlichen Aufhellungs-Boost zwischendurch.",
     "description": "Feines Bambuskohle-Pulver bindet Verfärbungen auf der Zahnoberfläche — vegan, ohne künstliche Bleichmittel.",
-    "rating": 4.6,
-    "reviews": 89,
     "featured": true
   },
   {
@@ -49,9 +43,7 @@
     "badgeRed": true,
     "price": 3490,
     "short": "Blaulicht-LED-Schiene, Gel-Pens und Zahnfarbskala in einem Set.",
-    "description": "Blaulicht-LED-Schiene, Gel-Pens und Zahnfarbskala in einem Set — für ein spürbar intensiveres Ergebnis zuhause.",
-    "rating": 4.5,
-    "reviews": 28
+    "description": "Blaulicht-LED-Schiene, Gel-Pens und Zahnfarbskala in einem Set — für ein spürbar intensiveres Ergebnis zuhause."
   },
   {
     "id": "led-lampe",
@@ -61,9 +53,7 @@
     "badge": "Zubehör",
     "price": 1990,
     "short": "Eigenständige Beschleuniger-Lampe zur Ergänzung deines Aufhellungs-Gels.",
-    "description": "Eigenständige Beschleuniger-Lampe zur Ergänzung deines Aufhellungs-Gels — kabellos, für den Nachtisch.",
-    "rating": 4.4,
-    "reviews": 19
+    "description": "Eigenständige Beschleuniger-Lampe zur Ergänzung deines Aufhellungs-Gels — kabellos, für den Nachtisch."
   },
   {
     "id": "hap-zahncreme",
@@ -74,8 +64,6 @@
     "price": 1690,
     "short": "Hellt sichtbar auf und remineralisiert gleichzeitig den Zahnschmelz — fluoridfrei.",
     "description": "Hellt sichtbar auf und remineralisiert gleichzeitig den Zahnschmelz — fluoridfreie Alternative für die tägliche Pflege.",
-    "rating": 4.9,
-    "reviews": 41,
     "featured": true
   },
   {
@@ -88,8 +76,6 @@
     "price": 1990,
     "short": "90 Kapseln mit der Nährstoffkombination, die für Zahnschmelz & Zahnfleisch empfohlen wird.",
     "description": "Kombi-Präparat mit den laut Zahngesundheits-Ratgebern am besten belegten Nährstoffen: Calcium für den Zahnschmelzaufbau, Vitamin K2 lenkt es dorthin, Magnesium für die Mineralisierung.",
-    "rating": 4.7,
-    "reviews": 63,
     "featured": true,
     "supplement": true
   },
@@ -102,8 +88,6 @@
     "price": 2290,
     "short": "Vitamin D3 fördert die Calciumaufnahme, Vitamin K2 lenkt das Calcium in den Zahnschmelz.",
     "description": "Vitamin D3 fördert die Calciumaufnahme, Vitamin K2 sorgt dafür, dass das Calcium im Zahnschmelz statt in den Gefäßen landet.",
-    "rating": 4.8,
-    "reviews": 47,
     "supplement": true
   },
   {
@@ -115,8 +99,6 @@
     "price": 1990,
     "short": "Gut bioverfügbares Magnesium — zentral für die Mineralisierung der Zähne.",
     "description": "Gut bioverfügbares Magnesium in reiner Form — zentraler Baustein für die Mineralisierung und Stabilität der Zahnhartsubstanz.",
-    "rating": 4.5,
-    "reviews": 37,
     "featured": true,
     "supplement": true
   },
@@ -129,8 +111,6 @@
     "price": 2490,
     "short": "Transdermale Pflaster als schluckfreie Alternative zu Kapseln.",
     "description": "Transdermale Pflaster als schluckfreie Alternative zu Kapseln — praktisch für unterwegs, einfach aufkleben.",
-    "rating": 4.3,
-    "reviews": 22,
     "supplement": true
   }
 ]

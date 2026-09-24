@@ -11,11 +11,6 @@
     });
   };
 
-  var stars = function (rating) {
-    var full = Math.round(rating);
-    return '★★★★★'.slice(0, full) + '☆☆☆☆☆'.slice(0, 5 - full);
-  };
-
   var loadProducts = function () {
     return fetch('products.json').then(function (r) {
       if (!r.ok) throw new Error('products.json nicht ladbar');
@@ -32,7 +27,6 @@
           '<span class="catalog-badge' + (p.badgeRed ? ' red' : '') + '">' + esc(p.badge) + '</span>' +
           '<h3>' + esc(p.name) + '</h3>' +
           '<p class="catalog-desc">' + esc(p.short) + '</p>' +
-          '<div class="catalog-stars">' + stars(p.rating) + ' ' + String(p.rating).replace('.', ',') + ' · ' + p.reviews + ' Bewertungen</div>' +
           '<div class="catalog-price-row">' + old + '<span class="catalog-price">' + eur(p.price) + '</span></div>' +
           '<a href="produkt.html?id=' + encodeURIComponent(p.id) + '" class="btn btn-primary">Ansehen</a>' +
         '</div>' +
@@ -42,8 +36,7 @@
   // Sortieroptionen für die Katalog-Toolbar (Kategorieseiten)
   var SORTS = {
     'preis-auf': function (a, b) { return a.price - b.price; },
-    'preis-ab': function (a, b) { return b.price - a.price; },
-    bewertung: function (a, b) { return b.rating - a.rating; }
+    'preis-ab': function (a, b) { return b.price - a.price; }
   };
 
   // Kategorieseiten / Startseite: <div class="catalog-grid" data-category="zahnaufhellung">
@@ -67,7 +60,6 @@
             '<option value="empfehlung">Empfehlung</option>' +
             '<option value="preis-auf">Preis aufsteigend</option>' +
             '<option value="preis-ab">Preis absteigend</option>' +
-            '<option value="bewertung">Beste Bewertung</option>' +
           '</select>';
         grid.parentNode.insertBefore(toolbar, grid);
       }
@@ -136,7 +128,6 @@
         '<div class="catalog-body" style="padding:28px;">' +
           '<span class="catalog-badge' + (p.badgeRed ? ' red' : '') + '">' + esc(p.badge) + '</span>' +
           '<h1 style="font-size:26px; margin:10px 0;">' + esc(p.name) + '</h1>' +
-          '<div class="catalog-stars">' + stars(p.rating) + ' ' + String(p.rating).replace('.', ',') + ' · ' + p.reviews + ' Bewertungen</div>' +
           '<div class="catalog-price-row" style="margin:14px 0;">' + old + '<span class="catalog-price">' + eur(p.price) + '</span></div>' +
           '<p style="font-size:12px; color:var(--text-secondary); margin:-6px 0 14px;">inkl. MwSt., zzgl. <a href="versand.html">Versand</a></p>' +
           '<p class="catalog-desc">' + esc(p.description) + '</p>' +

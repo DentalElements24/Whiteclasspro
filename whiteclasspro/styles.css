@@ -145,7 +145,6 @@ header{ border-bottom:1px solid var(--border); background:#fff; position:relativ
 .btn-primary{ background:var(--red); color:#fff; }
 .btn-primary:hover{ background:var(--red-dark); }
 
-.stars{ color:var(--red); font-size:15px; letter-spacing:1px; }
 .price-old{ text-decoration:line-through; color:var(--text-secondary); font-size:20px; }
 .price-new{ font-size:36px; font-weight:700; color:var(--text); }
 
@@ -194,7 +193,6 @@ footer a:hover{ color:#fff; }
 .catalog-card .catalog-badge.red{ background:#fdeaea; color:var(--red); }
 .catalog-card h3{ font-size:15.5px; margin:0 0 6px; line-height:1.35; }
 .catalog-card .catalog-desc{ font-size:13px; color:var(--text-secondary); line-height:1.55; margin:0 0 14px; flex:1; }
-.catalog-card .catalog-stars{ color:var(--red); font-size:12.5px; margin-bottom:10px; }
 .catalog-card .catalog-price-row{ display:flex; align-items:baseline; gap:8px; margin-bottom:14px; }
 .catalog-card .catalog-price{ font-size:19px; font-weight:700; }
 .catalog-card .catalog-price-old{ font-size:13px; color:var(--text-secondary); text-decoration:line-through; }
@@ -486,3 +484,9 @@ mark.todo{ background:#fff3bf; color:#5b4a00; padding:1px 5px; border-radius:4px
 /* Footer immer am Seitenende, auch auf kurzen Seiten */
 body{ display:flex; flex-direction:column; min-height:100vh; }
 body > footer{ margin-top:auto; }
+
+/* --- Sichtbare Platzhalter für Pflichtangaben, die vor dem Live-Gang ersetzt werden müssen --- */
+.todo-box{ background:#fff8db; border:1px solid #f0d878; border-radius:10px; padding:18px 20px; }
+.todo-box p{ font-size:14px; line-height:1.7; color:var(--text-secondary); margin:0 0 12px; }
+.todo-box h3{ font-size:15px; margin:18px 0 6px; color:var(--text); }
+.todo{ background:#ffe680; padding:1px 4px; border-radius:3px; color:#5a4500; font-weight:600; }

@@ -34,8 +34,7 @@ module.exports = async (req, res) => {
     '<meta name="twitter:card" content="summary_large_image">';
 
   if (p) {
-    // Hinweis: aggregateRating bewusst weggelassen — rating/reviews in products.json sind
-    // aktuell Platzhalterwerte ohne echtes Bewertungssystem dahinter. Google wertet erfundene
+    // Hinweis: aggregateRating bewusst weggelassen — es gibt kein Bewertungssystem. Google wertet erfundene
     // Bewertungssterne in Rich-Snippets als irreführend; erst ergänzen, wenn echte Reviews da sind.
     const ld = {
       '@context': 'https://schema.org',
