@@ -97,6 +97,10 @@ module.exports = async (req, res) => {
 
   // Positionen bei Stripe abfragen statt aus products.json zu rekonstruieren — hier zählt,
   // was zum Zeitpunkt des Kaufs tatsächlich berechnet wurde, auch wenn sich Preise später ändern.
+  // Die Produkt-ID selbst steht nicht in den line_items (nur Name/Menge/Preis), sondern in
+  // metadata.cart ("id:qty,id:qty,…", von api/checkout.js gesetzt) — beide Listen entstehen dort
+  // aus demselben Array in derselben Reihenfolge, lassen sich also 1:1 zusammenführen. Die ID
+  // braucht "Nochmal bestellen" im Kundenkonto, um den Artikel wieder in den Warenkorb zu legen.
   let items = [];
   try {
     const r = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session.id}/line_items?limit=100`, {
@@ -104,7 +108,9 @@ module.exports = async (req, res) => {
     });
     const data = await r.json();
     if (r.ok && Array.isArray(data.data)) {
-      items = data.data.map((li) => ({ name: li.description, qty: li.quantity, amount: li.amount_total }));
+      const cartIds = ((session.metadata && session.metadata.cart) || '')
+        .split(',').filter(Boolean).map((pair) => pair.split(':')[0]);
+      items = data.data.map((li, i) => ({ id: cartIds[i] || null, name: li.description, qty: li.quantity, amount: li.amount_total }));
     }
   } catch (err) {
     console.error('Webhook: Positionen konnten nicht geladen werden:', err && err.message);

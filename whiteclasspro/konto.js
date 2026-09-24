@@ -131,6 +131,26 @@ document.addEventListener('DOMContentLoaded', function () {
     diffShip.addEventListener('change', syncToggles);
     diffBill.addEventListener('change', syncToggles);
 
+    // "Nochmal bestellen": legt die Artikel der Bestellung wieder in den Warenkorb. Braucht die
+    // Produkt-ID je Position (erst seit dem Webhook-Update gespeichert) und das Produkt noch im
+    // Sortiment — beides fehlt bei älteren Bestellungen oder eingestellten Produkten, dann wird
+    // übersprungen statt einen Fehler zu werfen.
+    var reorder = function (order, btn) {
+      if (!window.WCP || !window.WCP.cart || !window.WCP.loadProducts) return;
+      btn.disabled = true;
+      window.WCP.loadProducts().then(function (products) {
+        var byProductId = {};
+        products.forEach(function (p) { byProductId[p.id] = p; });
+        var added = 0;
+        (order.items || []).forEach(function (it) {
+          if (it.id && byProductId[it.id]) { window.WCP.cart.add(it.id, it.qty || 1); added++; }
+        });
+        if (added) { location.href = 'warenkorb.html'; return; }
+        btn.disabled = false;
+        show(byId('orders-msg'), 'Die Artikel dieser Bestellung sind leider nicht mehr verfügbar.', 'error');
+      });
+    };
+
     // Bestellungen laden (Supabase RLS zeigt jedem Kunden nur seine eigenen Zeilen)
     var eur = window.WCP && window.WCP.eur ? window.WCP.eur : function (c) { return (c / 100).toFixed(2) + ' €'; };
     auth.rest('GET', '/orders?select=*&order=created_at.desc').then(function (orders) {
@@ -139,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
         list.innerHTML = '<div class="cart-summary" style="margin:0;"><p class="cart-note" style="margin:0;">Du hast noch keine Bestellung aufgegeben.</p></div>';
         return;
       }
-      list.innerHTML = orders.map(function (o) {
+      list.innerHTML = orders.map(function (o, idx) {
         var date = new Date(o.created_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
         var rows = (o.items || []).map(function (it) {
           return '<div class="cart-total cart-sub"><span>' + it.qty + '× ' + (it.name || 'Produkt') + '</span><span>' + eur(it.amount) + '</span></div>';
@@ -148,8 +168,14 @@ document.addEventListener('DOMContentLoaded', function () {
           '<div class="cart-total cart-sub" style="font-weight:600; color:var(--text);"><span>Bestellung vom ' + date + '</span><span>Bezahlt</span></div>' +
           rows +
           '<div class="cart-total cart-grand"><span>Gesamt</span><strong>' + eur(o.amount_total) + '</strong></div>' +
+          '<div style="text-align:right;"><button type="button" class="btn reorder-btn" data-order-index="' + idx + '">Nochmal bestellen</button></div>' +
         '</div>';
       }).join('');
+      list.addEventListener('click', function (e) {
+        var btn = e.target.closest('.reorder-btn');
+        if (!btn) return;
+        reorder(orders[Number(btn.getAttribute('data-order-index'))], btn);
+      });
     }).catch(function (err) { show(byId('orders-msg'), err.message, 'error'); });
 
     // Gespeicherte Adressen laden; ohne Eintrag den Namen aus dem Profil vorbelegen
