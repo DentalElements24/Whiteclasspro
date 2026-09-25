@@ -94,3 +94,38 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.matchMedia('(min-width: 1101px)').matches) closeNav();
   });
 });
+
+// Passwortfelder: Auge-Symbol zum Ein- und Ausblenden der Eingabe.
+// Standard ist verborgen (durchgestrichenes Auge); ein Klick zeigt das Passwort (Auge ohne Strich).
+document.addEventListener('DOMContentLoaded', function () {
+  var EYE = '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>';
+  var SLASH = '<path d="M4 4l16 16"/>';
+  var svg = function (inner) {
+    return '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+  };
+
+  document.querySelectorAll('input[type="password"]').forEach(function (input) {
+    var wrap = document.createElement('span');
+    wrap.className = 'pw-wrap';
+    input.parentNode.insertBefore(wrap, input);
+    wrap.appendChild(input);
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'pw-toggle';
+    wrap.appendChild(btn);
+
+    var render = function () {
+      var shown = input.type === 'text';
+      btn.innerHTML = svg(shown ? EYE : EYE + SLASH);
+      btn.setAttribute('aria-label', shown ? 'Passwort verbergen' : 'Passwort anzeigen');
+      btn.setAttribute('aria-pressed', shown ? 'true' : 'false');
+    };
+    btn.addEventListener('click', function () {
+      input.type = input.type === 'password' ? 'text' : 'password';
+      render();
+      input.focus();
+    });
+    render();
+  });
+});

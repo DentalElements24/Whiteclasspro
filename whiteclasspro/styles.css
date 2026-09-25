@@ -494,3 +494,16 @@ body > footer{ margin-top:auto; }
 body.plain-bg::before{ display:none; }
 body.plain-bg .legal p, body.plain-bg .legal li{ color:var(--text); }
 body.plain-bg .todo-box p{ color:var(--text); }
+
+/* --- Passwortfeld mit Auge-Symbol (script.js) --- */
+.pw-wrap{ position:relative; display:block; }
+.pw-wrap input{ width:100%; padding-right:48px; }
+.pw-toggle{
+  position:absolute; top:50%; right:6px; transform:translateY(-50%);
+  width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+  background:none; border:none; border-radius:8px; color:var(--text-secondary); cursor:pointer; padding:0;
+}
+.pw-toggle:hover{ color:var(--text); background:rgba(0,0,0,.05); }
+.pw-toggle:focus-visible{ outline:2px solid var(--blue); outline-offset:-2px; }
+/* Edge/IE blenden sonst ein eigenes Auge ins Feld ein */
+input[type="password"]::-ms-reveal, input[type="password"]::-ms-clear{ display:none; }
