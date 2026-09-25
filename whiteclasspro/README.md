@@ -105,5 +105,12 @@ Offene Platzhalter auflisten: `node pruefe-platzhalter.js` (endet mit Fehlercode
 - [ ] **Kosmetikverordnung** (Zahnaufhellungsprodukte): verantwortliche Person in der EU benennen, Produkte im EU-Portal CPNP notifizieren, Kennzeichnung prüfen; für Wasserstoffperoxid gelten Grenzwerte.
 - [ ] **Nahrungsergänzungsmittel:** Erstinverkehrbringen beim BVL anzeigen; nur zugelassene Health Claims verwenden (die Produkttexte werden später mit den echten Produkten überarbeitet).
 - [ ] Rechtstexte (Impressum, AGB, Datenschutz, Widerruf) juristisch prüfen lassen.
+- [ ] **Bestellbestätigung per E-Mail (Rechtslücke):** Der Shop verschickt noch keine eigene Bestätigungs-Mail. Nötig sind: Eingangsbestätigung (§ 312i BGB) und die **Widerrufsbelehrung samt Muster-Widerrufsformular in Textform** (E-Mail) spätestens bei Lieferung. Ohne sie verlängert sich die Widerrufsfrist auf 12 Monate + 14 Tage. Ein Stripe-Beleg reicht dafür nicht. Lösung: Mailversand aus `api/webhook.js` über einen E-Mail-Dienst.
+- [ ] **Produktsicherheitsverordnung (GPSR):** Auf jeder Produktseite müssen Hersteller (Name, Anschrift, E-Mail), ggf. der EU-Verantwortliche und die Sicherheitshinweise stehen. Daten vom Lieferanten einholen; fehlt bisher komplett.
+- [ ] **Grundpreisangabe** (Preis je 100 ml / 100 g) für Zahncreme, Pulver und andere nach Gewicht/Volumen verkaufte Produkte.
+- [ ] **Supabase-Region:** Das Projekt liegt in London (UK). Die Datenschutzerklärung nennt das mit Verweis auf den EU-Angemessenheitsbeschluss; prüfen lassen oder auf Frankfurt umziehen.
+- [ ] **Zahlungsarten in Stripe** festlegen; die AGB und die Versandseite nennen keine konkreten Arten mehr.
+- [ ] **Lieferung aus dem Ausland:** Zoll/Einfuhrumsatzsteuer und Herkunft der Ware klären; die Datenschutzerklärung enthält dazu einen bedingten Satz (Art. 49 Abs. 1 lit. b DSGVO).
+- [ ] **Widerrufsbelehrung:** Der Abschnitt „Ausschluss des Widerrufsrechts“ ist eine Ergänzung zum gesetzlichen Muster und kann dessen Schutzwirkung mindern; vom Anwalt prüfen lassen.
 - [ ] Werbeaussagen prüfen: "30 Tage Geld-zurück" nur behalten, wenn es wirklich angeboten wird (gesetzlich sind 14 Tage Widerruf). "Made in Germany" ist entfernt, weil nichts in Deutschland gefertigt wird; "Designed in Germany" nur, wenn Entwicklung/Design tatsächlich in Deutschland stattfinden. Lieferzeit 7–10 Werktage steht auf Startseite, Versand-Seite und in den AGB.
 - [ ] TikTok-Link, Produktfotos und den Bewertungslink ("Hier abgeben") ersetzen.
