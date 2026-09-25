@@ -23,9 +23,23 @@
       "In Zahnpflegeprodukten wird Hydroxylapatit als synthetisch hergestelltes, sehr feines Pulver eingesetzt. Die winzigen Partikel können sich an die Zahnoberfläche anlagern und kleine Unebenheiten glätten. Dadurch kann die Oberfläche glatter wirken, und Zähne können heller erscheinen.",
       "Hydroxylapatit-Zahncremes werden häufig als fluoridfreie Alternative angeboten. Die Studienlage wird weiter ausgebaut; zahnärztliche Fachgesellschaften empfehlen zur Kariesvorbeugung weiterhin fluoridhaltige Zahnpasta. Wer sich für eine fluoridfreie Pflege entscheidet, bespricht das am besten mit der Zahnärztin oder dem Zahnarzt."
     ],
-    "keywords": ["hydroxyapatit", "hydroxil apatit", "hydroxi apatit", "hydroxyl apatit", "hydroxylapatit", "hap", "nano-hydroxyapatit", "calciumphosphat"],
-    "related": ["zahnschmelz", "remineralisierung", "fluorid"],
+    "keywords": ["hydroxyapatit", "hydroxil apatit", "hydroxi apatit", "hydroxyl apatit", "hydroxylapatit", "hap", "calciumphosphat"],
+    "related": ["zahnschmelz", "remineralisierung", "fluorid", "nano-hydroxylapatit"],
     "products": ["hap-zahncreme"]
+  },
+  {
+    "id": "nano-hydroxylapatit",
+    "term": "Nano-Hydroxylapatit (nHAp)",
+    "question": "Was ist Nano-Hydroxylapatit?",
+    "summary": "Hydroxylapatit in besonders feiner, nanoskaliger Form — soll kleinste Unebenheiten im Zahnschmelz noch gezielter ausgleichen.",
+    "body": [
+      "Nano-Hydroxylapatit (nHAp) ist dasselbe Mineral wie Hydroxylapatit, nur in deutlich kleinerer Partikelgröße — im Nanometerbereich, also nur wenige millionstel Millimeter. Diese feine Struktur kommt der natürlichen Kristallgröße im Zahnschmelz sehr nahe.",
+      "Wegen der geringen Partikelgröße kann Nano-Hydroxylapatit theoretisch tiefer in winzige Unebenheiten und frühe, oberflächliche Schmelzdefekte eindringen als gröber gemahlenes Hydroxylapatit und sie gleichmäßiger auffüllen. Einzelne Studien, viele davon aus Japan und Deutschland, sehen bei Karies-Vorbeugung eine mit niedrig dosiertem Fluorid vergleichbare Wirkung. Die Beweislage wird noch ausgebaut; zahnärztliche Fachgesellschaften empfehlen weiterhin fluoridhaltige Zahnpasta als Standard.",
+      "Rechtliche Besonderheit: Nach der EU-Kosmetikverordnung gilt Nano-Hydroxylapatit als Nanomaterial. Es muss in der Zutatenliste mit dem Zusatz „(nano)“ gekennzeichnet und der EU-Kommission über das Kosmetik-Meldeportal CPNP gemeldet werden. Der EU-Wissenschaftsausschuss für Verbrauchersicherheit (SCCS) hat dazu Stellungnahmen veröffentlicht, die je nach Partikelform (z. B. stäbchen- oder nadelförmig gegenüber rundlich) unterschiedliche Einschränkungen vorsehen. Vor dem Einsatz in eigenen Produkten sollte die aktuell gültige Fassung geprüft werden."
+    ],
+    "keywords": ["nano-hydroxyapatit", "nanohydroxylapatit", "nano hydroxylapatit", "nano hydroxyapatit", "nhap", "n-hap"],
+    "related": ["hydroxylapatit", "zahnschmelz", "remineralisierung"],
+    "products": []
   },
   {
     "id": "pap",
