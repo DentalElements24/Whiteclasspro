@@ -106,6 +106,12 @@ Offene Platzhalter auflisten: `node pruefe-platzhalter.js` (endet mit Fehlercode
 - [ ] **Nahrungsergänzungsmittel:** Erstinverkehrbringen beim BVL anzeigen; nur zugelassene Health Claims verwenden (die Produkttexte werden später mit den echten Produkten überarbeitet).
 - [ ] Rechtstexte (Impressum, AGB, Datenschutz, Widerruf) juristisch prüfen lassen.
 - [ ] **Bestellbestätigung per E-Mail (Rechtslücke):** Der Shop verschickt noch keine eigene Bestätigungs-Mail. Nötig sind: Eingangsbestätigung (§ 312i BGB) und die **Widerrufsbelehrung samt Muster-Widerrufsformular in Textform** (E-Mail) spätestens bei Lieferung. Ohne sie verlängert sich die Widerrufsfrist auf 12 Monate + 14 Tage. Ein Stripe-Beleg reicht dafür nicht. Lösung: Mailversand aus `api/webhook.js` über einen E-Mail-Dienst.
+- [ ] **Google Analytics einrichten** (Banner und Datenschutztext sind fertig, GA ist aber erst aktiv, wenn die ID eingetragen ist):
+    1. Bei analytics.google.com ein Konto und eine GA4-Property anlegen, Datenstrom „Web“ → Mess-ID kopieren (`G-XXXXXXXXXX`).
+    2. Die ID in `consent.js` bei `GA_ID` eintragen. Erst dann erscheinen Banner und der Fußzeilen-Link „Cookie-Einstellungen“.
+    3. In Analytics: *Verwalten → Datenerhebung und -änderung → Datenspeicherung* auf **2 Monate**; **Google Signals aus**; die **Datenverarbeitungsbedingungen (AVV)** annehmen. Die Datenschutzerklärung (Abschnitt 8) sagt genau das.
+    4. Testen: erster Besuch zeigt das Banner; ohne Zustimmung gibt es keinen Aufruf an `googletagmanager.com` und kein `_ga`-Cookie (Browser-Entwicklertools → Netzwerk / Anwendung).
+    5. Nur der Seitenpfad geht an Google (keine Anmelde-Token aus Links). Nicht ändern.
 - [ ] **Produktsicherheitsverordnung (GPSR):** Auf jeder Produktseite müssen Hersteller (Name, Anschrift, E-Mail), ggf. der EU-Verantwortliche und die Sicherheitshinweise stehen. Daten vom Lieferanten einholen; fehlt bisher komplett.
 - [ ] **Grundpreisangabe** (Preis je 100 ml / 100 g) für Zahncreme, Pulver und andere nach Gewicht/Volumen verkaufte Produkte.
 - [ ] **Supabase-Region:** Das Projekt liegt in London (UK). Die Datenschutzerklärung nennt das mit Verweis auf den EU-Angemessenheitsbeschluss; prüfen lassen oder auf Frankfurt umziehen.

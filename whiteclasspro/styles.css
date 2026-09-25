@@ -507,3 +507,16 @@ body.plain-bg .todo-box p{ color:var(--text); }
 .pw-toggle:focus-visible{ outline:2px solid var(--blue); outline-offset:-2px; }
 /* Edge/IE blenden sonst ein eigenes Auge ins Feld ein */
 input[type="password"]::-ms-reveal, input[type="password"]::-ms-clear{ display:none; }
+
+/* --- Einwilligungs-Banner (consent.js) --- */
+.consent{
+  position:fixed; left:16px; right:16px; bottom:16px; max-width:560px; z-index:1000;
+  background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px 22px;
+  box-shadow:0 10px 40px rgba(0,0,0,.18); font-size:14px; line-height:1.55;
+}
+.consent h2{ font-size:17px; margin:0 0 8px; }
+.consent p{ margin:0 0 10px; color:var(--text-secondary); }
+.consent .consent-state{ font-weight:600; color:var(--text); }
+.consent a{ color:var(--blue); }
+.consent-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+.consent-actions .btn{ flex:1 1 150px; }
