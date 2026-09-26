@@ -114,7 +114,7 @@ Offene Platzhalter auflisten: `node pruefe-platzhalter.js` (endet mit Fehlercode
     5. Nur der Seitenpfad geht an Google (keine Anmelde-Token aus Links). Nicht ändern.
 - [ ] **Produktsicherheitsverordnung (GPSR):** Auf jeder Produktseite müssen Hersteller (Name, Anschrift, E-Mail), ggf. der EU-Verantwortliche und die Sicherheitshinweise stehen. Daten vom Lieferanten einholen; fehlt bisher komplett.
 - [ ] **Grundpreisangabe** (Preis je 100 ml / 100 g) für Zahncreme, Pulver und andere nach Gewicht/Volumen verkaufte Produkte.
-- [ ] **Supabase-Region:** Das Projekt liegt in London (UK). Die Datenschutzerklärung nennt das mit Verweis auf den EU-Angemessenheitsbeschluss; prüfen lassen oder auf Frankfurt umziehen.
+- [ ] **Supabase-Region:** Das Projekt liegt in Irland (EU, eu-west-1). Beim Umzug auf Christians Accounts neu entscheiden (z. B. Frankfurt, eu-central-1); die Region lässt sich nur über ein neues Projekt ändern.
 - [ ] **Zahlungsarten in Stripe** festlegen; die AGB und die Versandseite nennen keine konkreten Arten mehr.
 - [ ] **Lieferung aus dem Ausland:** Zoll/Einfuhrumsatzsteuer und Herkunft der Ware klären; die Datenschutzerklärung enthält dazu einen bedingten Satz (Art. 49 Abs. 1 lit. b DSGVO).
 - [ ] **Widerrufsbelehrung:** Der Abschnitt „Ausschluss des Widerrufsrechts“ ist eine Ergänzung zum gesetzlichen Muster und kann dessen Schutzwirkung mindern; vom Anwalt prüfen lassen.
