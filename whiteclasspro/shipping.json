@@ -1,5 +1,27 @@
 {
-  "flat": 490,
-  "freeFrom": 5000,
-  "countries": ["DE"]
+  "hinweis": "PLATZHALTER: Die Versandkosten der Länder außerhalb Deutschlands sind Vorschläge und müssen vor dem Live-Gang mit dem Versandpartner abgeglichen werden. Beträge in Cent (490 = 4,90 €), freeFrom = Warenwert, ab dem der Versand kostenlos ist.",
+  "defaultCountry": "DE",
+  "countries": {
+    "DE": { "name": "Deutschland",  "flat": 490,  "freeFrom": 5000 },
+    "AT": { "name": "Österreich",   "flat": 790,  "freeFrom": 8000 },
+    "BE": { "name": "Belgien",      "flat": 790,  "freeFrom": 8000 },
+    "LU": { "name": "Luxemburg",    "flat": 790,  "freeFrom": 8000 },
+    "NL": { "name": "Niederlande",  "flat": 790,  "freeFrom": 8000 },
+    "ES": { "name": "Spanien",      "flat": 990,  "freeFrom": 10000 },
+    "FI": { "name": "Finnland",     "flat": 990,  "freeFrom": 10000 },
+    "FR": { "name": "Frankreich",   "flat": 990,  "freeFrom": 10000 },
+    "IE": { "name": "Irland",       "flat": 990,  "freeFrom": 10000 },
+    "IT": { "name": "Italien",      "flat": 990,  "freeFrom": 10000 },
+    "PT": { "name": "Portugal",     "flat": 990,  "freeFrom": 10000 },
+    "BG": { "name": "Bulgarien",    "flat": 1290, "freeFrom": 12000 },
+    "CY": { "name": "Zypern",       "flat": 1290, "freeFrom": 12000 },
+    "EE": { "name": "Estland",      "flat": 1290, "freeFrom": 12000 },
+    "GR": { "name": "Griechenland", "flat": 1290, "freeFrom": 12000 },
+    "HR": { "name": "Kroatien",     "flat": 1290, "freeFrom": 12000 },
+    "LT": { "name": "Litauen",      "flat": 1290, "freeFrom": 12000 },
+    "LV": { "name": "Lettland",     "flat": 1290, "freeFrom": 12000 },
+    "MT": { "name": "Malta",        "flat": 1290, "freeFrom": 12000 },
+    "SI": { "name": "Slowenien",    "flat": 1290, "freeFrom": 12000 },
+    "SK": { "name": "Slowakei",     "flat": 1290, "freeFrom": 12000 }
+  }
 }

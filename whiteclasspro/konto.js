@@ -24,12 +24,27 @@ document.addEventListener('DOMContentLoaded', function () {
     [['company', 'Firma (optional)', 'organization', 100]],
     [['street', 'Straße und Hausnummer', 'address-line1', 120]],
     [['address_extra', 'Adresszusatz (optional)', 'address-line2', 120]],
-    [['postal_code', 'PLZ', 'postal-code', 5], ['city', 'Ort', 'address-level2', 80]],
+    [['postal_code', 'PLZ', 'postal-code', 10], ['city', 'Ort', 'address-level2', 80]],
+    [['country', 'Land', 'country', 2]],
     [['phone', 'Telefon (optional, für Rückfragen zur Lieferung)', 'tel', 30]]
   ];
   var OPTIONAL = { company: 1, address_extra: 1, phone: 1 };
   var KIND_LABEL = { main: 'Hauptadresse', shipping: 'Lieferadresse', billing: 'Rechnungsadresse' };
   var KIND_ID = { main: 'addr-main', shipping: 'addr-shipping', billing: 'addr-billing' };
+  // Lieferländer kommen aus shipping.json (dieselbe Liste wie im Warenkorb und beim Checkout)
+  var shippingCfg = { defaultCountry: 'DE', countries: { DE: { name: 'Deutschland' } } };
+  var preferredCountry = function () {
+    var c = null;
+    try { c = localStorage.getItem('wcp_country'); } catch (e) {}
+    return c && Object.prototype.hasOwnProperty.call(shippingCfg.countries, c) ? c : shippingCfg.defaultCountry;
+  };
+  // Grobe Formatprüfung der Postleitzahl je Land (die Datenbank prüft nur allgemein)
+  var POSTAL = {
+    DE: /^\d{5}$/, AT: /^\d{4}$/, BE: /^\d{4}$/, BG: /^\d{4}$/, CY: /^\d{4}$/, EE: /^\d{5}$/, ES: /^\d{5}$/,
+    FI: /^\d{5}$/, FR: /^\d{5}$/, GR: /^\d{3} ?\d{2}$/, HR: /^\d{5}$/, IE: /^[A-Za-z0-9]{3} ?[A-Za-z0-9]{4}$/,
+    IT: /^\d{5}$/, LT: /^(LT-?)?\d{5}$/i, LU: /^\d{4}$/, LV: /^(LV-?)?\d{4}$/i, MT: /^[A-Za-z]{3} ?\d{2,4}$/,
+    NL: /^\d{4} ?[A-Za-z]{2}$/, PT: /^\d{4}-?\d{3}$/, SI: /^\d{4}$/, SK: /^\d{3} ?\d{2}$/
+  };
   var FIELD_NAMES = ROWS.reduce(function (all, row) { return all.concat(row.map(function (f) { return f[0]; })); }, []);
 
   var buildFields = function (kind) {
@@ -43,13 +58,23 @@ document.addEventListener('DOMContentLoaded', function () {
         var label = document.createElement('label');
         label.htmlFor = kind + '-' + f[0];
         label.textContent = f[1];
-        var input = document.createElement('input');
+        var input;
+        if (f[0] === 'country') {
+          input = document.createElement('select');
+          window.WCP.countryList(shippingCfg).forEach(function (cn) {
+            var opt = document.createElement('option');
+            opt.value = cn[0];
+            opt.textContent = cn[1];
+            input.appendChild(opt);
+          });
+        } else {
+          input = document.createElement('input');
+          input.type = f[0] === 'phone' ? 'tel' : 'text';
+          input.maxLength = f[3];
+        }
         input.id = kind + '-' + f[0];
         input.name = f[0];
-        input.type = f[0] === 'phone' ? 'tel' : 'text';
-        input.maxLength = f[3];
         input.setAttribute('autocomplete', (kind === 'main' ? '' : kind + ' ') + f[2]);
-        if (f[0] === 'postal_code') { input.inputMode = 'numeric'; input.pattern = '[0-9]{5}'; }
         field.appendChild(label);
         field.appendChild(input);
         wrap.appendChild(field);
@@ -59,7 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   var fill = function (kind, data) {
-    FIELD_NAMES.forEach(function (n) { byId(kind + '-' + n).value = (data && data[n]) || ''; });
+    FIELD_NAMES.forEach(function (n) {
+      var v = (data && data[n]) || '';
+      if (n === 'country' && !Object.prototype.hasOwnProperty.call(shippingCfg.countries, v)) v = preferredCountry();
+      byId(kind + '-' + n).value = v;
+    });
   };
 
   var collect = function (kind) {
@@ -75,7 +104,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var name = KIND_LABEL[kind];
     if (!a.first_name || !a.last_name) return name + ': Bitte Vor- und Nachnamen angeben.';
     if (!a.street) return name + ': Bitte Straße und Hausnummer angeben.';
-    if (!/^[0-9]{5}$/.test(a.postal_code || '')) return name + ': Bitte eine fünfstellige PLZ angeben.';
+    if (!Object.prototype.hasOwnProperty.call(shippingCfg.countries, a.country)) return name + ': Bitte ein Land auswählen.';
+    if (!(POSTAL[a.country] || /^[A-Za-z0-9][A-Za-z0-9 -]{1,8}[A-Za-z0-9]$/).test(a.postal_code || '')) return name + ': Bitte eine gültige Postleitzahl für ' + shippingCfg.countries[a.country].name + ' angeben.';
     if (!a.city) return name + ': Bitte den Ort angeben.';
     if (a.phone && !/^[0-9+()\/\-\s]{5,30}$/.test(a.phone)) return name + ': Die Telefonnummer enthält ungültige Zeichen.';
     return '';
@@ -84,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ---------- Start ----------
   auth.ready.then(function () { return auth.getSession(); }).then(function (s) {
     if (!s) { location.replace('login.html'); return; }
-    init(s);
+    window.WCP.loadShipping().then(function (cfg) { shippingCfg = cfg; init(s); });
   });
 
   var init = function (s) {
@@ -219,7 +249,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return chain.then(function () { return auth.rest('DELETE', '/addresses?kind=eq.' + kind); });
           }, Promise.resolve());
         })
-        .then(function () { show(msg, 'Deine Daten wurden gespeichert.', 'ok'); busy(f, false); })
+        .then(function () {
+          var shipTo = payload.filter(function (p) { return p.kind === 'shipping'; })[0] || payload[0];
+          try { localStorage.setItem('wcp_country', shipTo.country); } catch (e) {}
+          show(msg, 'Deine Daten wurden gespeichert.', 'ok');
+          busy(f, false);
+        })
         .catch(function (err) { show(msg, err.message, 'error'); busy(f, false); });
     });
 

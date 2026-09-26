@@ -89,7 +89,13 @@ module.exports = async (req, res) => {
     subtotal += p.price * qty;
     lines.push({ p, qty });
   }
-  const shippingCost = subtotal >= shipping.freeFrom ? 0 : shipping.flat;
+  // Lieferland: kommt vom Warenkorb, wird aber hier gegen die Länderliste in shipping.json geprüft
+  const country = String((req.body && req.body.country) || shipping.defaultCountry);
+  if (!Object.prototype.hasOwnProperty.call(shipping.countries, country)) {
+    return fail(res, 400, 'In dieses Land liefern wir derzeit nicht. Bitte wähle im Warenkorb ein anderes Lieferland.');
+  }
+  const rate = shipping.countries[country];
+  const shippingCost = subtotal >= rate.freeFrom ? 0 : rate.flat;
 
   // --- Rabattcode erneut gegen Stripe prüfen (dem Client wird nicht vertraut) ---
   let promotionCodeId = null;
@@ -117,7 +123,8 @@ module.exports = async (req, res) => {
   params.set('mode', 'payment');
   params.set('locale', 'de');
   params.set('billing_address_collection', 'auto');
-  shipping.countries.forEach((c, i) => params.set(`shipping_address_collection[allowed_countries][${i}]`, c));
+  // Nur das gewählte Land ist bei Stripe als Lieferadresse erlaubt, damit Versandkosten und Adresse zusammenpassen
+  params.set('shipping_address_collection[allowed_countries][0]', country);
 
   lines.forEach(({ p, qty }, i) => {
     params.set(`line_items[${i}][quantity]`, String(qty));
@@ -128,7 +135,7 @@ module.exports = async (req, res) => {
   });
 
   params.set('shipping_options[0][shipping_rate_data][type]', 'fixed_amount');
-  params.set('shipping_options[0][shipping_rate_data][display_name]', shippingCost === 0 ? 'Versandkostenfrei' : 'Standardversand');
+  params.set('shipping_options[0][shipping_rate_data][display_name]', shippingCost === 0 ? 'Versandkostenfrei (' + rate.name + ')' : 'Standardversand (' + rate.name + ')');
   params.set('shipping_options[0][shipping_rate_data][fixed_amount][amount]', String(shippingCost));
   params.set('shipping_options[0][shipping_rate_data][fixed_amount][currency]', 'eur');
 
@@ -140,6 +147,7 @@ module.exports = async (req, res) => {
   params.set('customer_email', user.email);
   params.set('client_reference_id', user.id);
   params.set('metadata[user_id]', user.id);
+  params.set('metadata[ship_country]', country);
 
   const origin = process.env.SITE_URL || `https://${req.headers.host}`;
   params.set('success_url', `${origin}/bestellung-erfolgreich.html?session_id={CHECKOUT_SESSION_ID}`);

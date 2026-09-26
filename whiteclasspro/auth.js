@@ -121,7 +121,7 @@
             var code = (data && data.code) || '';
             var msg = 'Das hat leider nicht geklappt. Bitte versuche es erneut.';
             if (code === 'PGRST205' || code === '42P01') msg = 'Diese Funktion ist noch nicht eingerichtet.';
-            else if (code === '23514') msg = 'Bitte prüfe deine Eingaben (z. B. fünfstellige PLZ).';
+            else if (code === '23514') msg = 'Bitte prüfe deine Eingaben (z. B. Postleitzahl und Land).';
             else if (r.status === 401 || code === 'PGRST301') msg = 'Bitte melde dich erneut an.';
             var err = new Error(msg);
             err.code = code;

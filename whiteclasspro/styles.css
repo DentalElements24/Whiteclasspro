@@ -525,3 +525,17 @@ input[type="password"]::-ms-reveal, input[type="password"]::-ms-clear{ display:n
 .consent a{ color:var(--blue); }
 .consent-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
 .consent-actions .btn{ flex:1 1 150px; }
+
+/* Länderauswahl (Kundenkonto-Formular, Warenkorb) */
+.login-form select, .cart-country select{
+  padding:12px 14px; border:1px solid var(--border); border-radius:8px; font:inherit; font-size:15px; background:var(--surface); color:var(--text); width:100%;
+}
+.cart-country{ margin:0 0 14px; }
+.cart-country label{ display:block; font-size:13px; font-weight:600; margin:0 0 6px; }
+.cart-country select{ background:#fff; }
+
+/* Tabelle Versandkosten je Land (versand.html) */
+.versand-table{ width:100%; border-collapse:collapse; font-size:14.5px; }
+.versand-table th, .versand-table td{ text-align:left; padding:9px 12px; border-bottom:1px solid var(--border); }
+.versand-table th{ font-size:12.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-secondary); }
+.versand-table td:nth-child(2), .versand-table td:nth-child(3), .versand-table th:nth-child(2), .versand-table th:nth-child(3){ text-align:right; }

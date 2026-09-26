@@ -12,9 +12,10 @@ create table if not exists public.addresses (
   company       text          check (char_length(company) <= 100),
   street        text not null check (char_length(street) between 1 and 120),
   address_extra text          check (char_length(address_extra) <= 120),
-  postal_code   text not null check (postal_code ~ '^[0-9]{5}$'),
+  postal_code   text not null check (postal_code ~ '^[A-Za-z0-9][A-Za-z0-9 -]{1,8}[A-Za-z0-9]$'),
   city          text not null check (char_length(city) between 1 and 80),
-  country       text not null default 'DE' check (country = 'DE'),
+  -- Euroraum (gleiche Liste wie shipping.json); bestehende Tabellen: addresses_euro_laender.sql ausführen
+  country       text not null default 'DE' check (country in ('AT','BE','BG','CY','DE','EE','ES','FI','FR','GR','HR','IE','IT','LT','LU','LV','MT','NL','PT','SI','SK')),
   phone         text          check (char_length(phone) <= 30),
   updated_at    timestamptz not null default now(),
   unique (user_id, kind)

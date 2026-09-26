@@ -68,7 +68,7 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout,
 - Produktbilder sind Emoji-/Text-Platzhalter — echte Produktfotos vor Live-Gang einsetzen
 - Presselogos und Kundenstimmen wurden von der Startseite entfernt (gab es nicht); dort steht jetzt "Sind Sie mit uns zufrieden? … Hier abgeben" (`.review-cta` in `index.html`), der Button zeigt vorerst auf `kontakt.html` — auf den echten Bewertungslink (z. B. Google/Trustpilot) umstellen
 - Die erfundenen Sternebewertungen wurden entfernt (`rating`/`reviews` gibt es in `products.json` nicht mehr, ebenso die Sortierung "Beste Bewertung"). Erst wieder anzeigen, wenn es ein echtes Bewertungssystem gibt; dann auch `aggregateRating` in `api/produkt.js` ergänzen.
-- Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: `shipping.json` (4,90 €, kostenlos ab 50 €, nur DE).
+- Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: `shipping.json` (siehe Abschnitt "Lieferländer und Versandkosten").
 - Rabattcodes: Eingabefeld im Warenkorb + `api/coupon.js`/`api/checkout.js` prüfen den Code live gegen Stripe. Damit ein Code funktioniert, muss er vorher im Stripe-Dashboard unter Produkte → Gutscheincodes (Coupon + zugehöriger Promotion Code) angelegt werden.
 
 ## Bestellübersicht im Kundenkonto (Stripe-Webhook)
@@ -120,3 +120,19 @@ Offene Platzhalter auflisten: `node pruefe-platzhalter.js` (endet mit Fehlercode
 - [ ] **Widerrufsbelehrung:** Der Abschnitt „Ausschluss des Widerrufsrechts“ ist eine Ergänzung zum gesetzlichen Muster und kann dessen Schutzwirkung mindern; vom Anwalt prüfen lassen.
 - [ ] Werbeaussagen prüfen: "30 Tage Geld-zurück" nur behalten, wenn es wirklich angeboten wird (gesetzlich sind 14 Tage Widerruf). "Made in Germany" ist entfernt, weil nichts in Deutschland gefertigt wird; "Designed in Germany" nur, wenn Entwicklung/Design tatsächlich in Deutschland stattfinden. Lieferzeit 7–10 Werktage steht auf Startseite, Versand-Seite und in den AGB.
 - [ ] TikTok-Link, Produktfotos und den Bewertungslink ("Hier abgeben") ersetzen.
+
+## Lieferländer und Versandkosten (Euroraum)
+Geliefert wird nach Deutschland und in die übrigen Euro-Länder. Alles steht in **`shipping.json`**: je Land Name,
+Pauschale (`flat`, in Cent) und Warenwert für kostenlosen Versand (`freeFrom`, in Cent). Dieselbe Datei nutzen der
+Warenkorb (Auswahl "Lieferland"), das Kundenkonto (Länderliste), die Tabelle auf `versand.html` und der Server beim
+Checkout. Ein Land hinzufügen oder ändern: nur dort eintragen (und bei einem neuen Land zusätzlich die Länderliste in
+`supabase-sql/addresses_euro_laender.sql` ergänzen und ausführen).
+- Der Server (`api/checkout.js`) prüft das Land und berechnet den Versand selbst; bei Stripe ist nur das gewählte Land als Lieferadresse erlaubt.
+- **Die Beträge außerhalb Deutschlands sind Vorschläge** (Hinweis "PLATZHALTER" steht in `shipping.json`) und müssen mit dem Versandpartner abgeglichen werden.
+- **Datenbank:** `supabase-sql/addresses_euro_laender.sql` einmal im Supabase SQL Editor ausführen, sonst lassen sich Adressen außerhalb Deutschlands nicht speichern.
+
+**Zusätzlich vor dem Versand ins Ausland:**
+- [ ] Versandkosten und Lieferzeit je Land mit dem Versandpartner abgleichen (`shipping.json`, Platzhalter auf `versand.html`).
+- [ ] **Umsatzsteuer:** Bei Lieferungen an Privatkunden in andere EU-Länder gilt ab der EU-Lieferschwelle (10.000 € pro Jahr) die Umsatzsteuer des Ziellandes (One-Stop-Shop-Verfahren). Mit Steuerberatung klären, ggf. Stripe Tax nutzen.
+- [ ] **Verpackungs- und Elektro-/Batterie-Pflichten gelten je Zielland**, nicht nur in Deutschland (z. B. Registrierung bzw. Lizenzierung in Frankreich, Österreich, Spanien, Italien). Klären, bevor in diese Länder verkauft wird, oder zunächst nur Länder freischalten, für die alles geklärt ist (Länder in `shipping.json` entfernen).
+- [ ] AGB/Widerruf für Auslandslieferungen (Rücksendekosten, Widerrufsfrist) juristisch prüfen lassen.

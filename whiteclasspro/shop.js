@@ -151,7 +151,27 @@
       : '';
   };
 
+  // Versandregeln und Lieferländer aus shipping.json (dieselbe Datei nutzt der Server beim Checkout)
+  var shippingPromise = null;
+  var loadShipping = function () {
+    if (!shippingPromise) {
+      shippingPromise = fetch('shipping.json').then(function (r) { if (!r.ok) throw new Error('shipping.json'); return r.json(); })
+        .catch(function () { return { defaultCountry: 'DE', countries: { DE: { name: 'Deutschland', flat: 490, freeFrom: 5000 } } }; });
+    }
+    return shippingPromise;
+  };
+  // [[Code, Name], …] mit dem Standardland zuerst, dann alphabetisch
+  var countryList = function (cfg) {
+    return Object.keys(cfg.countries).sort(function (x, y) {
+      if (x === cfg.defaultCountry) return -1;
+      if (y === cfg.defaultCountry) return 1;
+      return cfg.countries[x].name.localeCompare(cfg.countries[y].name, 'de');
+    }).map(function (c) { return [c, cfg.countries[c].name]; });
+  };
+
   window.WCP = window.WCP || {};
+  window.WCP.loadShipping = loadShipping;
+  window.WCP.countryList = countryList;
   window.WCP.eur = eur;
   window.WCP.esc = esc;
   window.WCP.cardHtml = cardHtml;

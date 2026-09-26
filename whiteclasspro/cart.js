@@ -82,18 +82,21 @@
     });
   };
 
-  // Versandregeln aus shipping.json (dieselbe Datei nutzt der Server beim Checkout)
-  var loadShipping = function () {
-    return fetch('shipping.json').then(function (r) { return r.json(); })
-      .catch(function () { return { flat: 490, freeFrom: 5000 }; });
+  // Lieferland: wird im Browser gemerkt (auch vom Kundenkonto gesetzt); der Server prüft es beim Checkout erneut
+  var COUNTRY_KEY = 'wcp_country';
+  var getCountry = function (cfg) {
+    var c = null;
+    try { c = localStorage.getItem(COUNTRY_KEY); } catch (e) {}
+    return c && Object.prototype.hasOwnProperty.call(cfg.countries, c) ? c : cfg.defaultCountry;
   };
+  var setCountry = function (c) { try { localStorage.setItem(COUNTRY_KEY, c); } catch (e) {} };
 
   var renderCartPage = function () {
     var root = document.getElementById('cart-root');
     if (!root || !window.WCP || !window.WCP.loadProducts) return;
     var sessionP = (window.WCP.auth ? window.WCP.auth.getSession() : Promise.resolve(null))
       .catch(function () { return null; });
-    Promise.all([window.WCP.loadProducts(), loadShipping(), sessionP]).then(function (res) {
+    Promise.all([window.WCP.loadProducts(), window.WCP.loadShipping(), sessionP]).then(function (res) {
       var products = res[0], shipping = res[1], loggedIn = !!res[2];
       var byId = {};
       products.forEach(function (p) { byId[p.id] = p; });
@@ -122,7 +125,12 @@
         '</div>';
       }).join('');
       var eur = window.WCP.eur;
-      var ship = total >= shipping.freeFrom ? 0 : shipping.flat;
+      var country = getCountry(shipping);
+      var rate = shipping.countries[country];
+      var ship = total >= rate.freeFrom ? 0 : rate.flat;
+      var countryHtml = '<div class="cart-country"><label for="cart-country">Lieferland</label><select id="cart-country">' +
+        window.WCP.countryList(shipping).map(function (cn) { return '<option value="' + cn[0] + '"' + (cn[0] === country ? ' selected' : '') + '>' + esc(cn[1]) + '</option>'; }).join('') +
+        '</select></div>';
       var discount = 0;
       if (appliedCoupon) {
         discount = appliedCoupon.percentOff ? Math.round(total * appliedCoupon.percentOff / 100) : Math.min(appliedCoupon.amountOff, total);
@@ -141,14 +149,15 @@
         ? '<label class="cart-agree"><input type="checkbox" id="agree"> <span>Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB</a>, die <a href="widerruf.html" target="_blank" rel="noopener">Widerrufsbelehrung</a> und die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.</span></label>' +
           '<p id="checkout-msg" class="form-msg error" role="alert" hidden></p>' +
           '<button type="button" class="btn btn-primary" id="checkout-btn" style="width:100%;">Zahlungspflichtig bestellen</button>' +
-          '<p class="cart-note" style="margin:10px 0 0;">Sichere Bezahlung über Stripe · Lieferung nach Deutschland · <a href="versand.html">Versandinfos</a></p>'
+          '<p class="cart-note" style="margin:10px 0 0;">Sichere Bezahlung über Stripe · Lieferung in ausgewählte Euro-Länder · <a href="versand.html">Versandinfos</a></p>'
         : '<p class="form-msg ok" style="margin:0 0 12px;">🔒 Zum Bestellen brauchst du ein Kundenkonto. Dein Warenkorb bleibt dabei erhalten.</p>' +
           '<a href="login.html?next=warenkorb.html" class="btn btn-primary" style="width:100%; text-align:center;">Anmelden oder Konto erstellen</a>';
       root.innerHTML = rows +
         '<div class="cart-summary">' +
+          countryHtml +
           '<div class="cart-total cart-sub"><span>Zwischensumme</span><span>' + eur(total) + '</span></div>' +
-          '<div class="cart-total cart-sub"><span>Versand</span><span>' + (ship ? eur(ship) : 'kostenlos') + '</span></div>' +
-          (ship ? '<p class="cart-note">Noch ' + eur(shipping.freeFrom - total) + ' bis zum kostenlosen Versand (ab ' + eur(shipping.freeFrom) + ').</p>' : '') +
+          '<div class="cart-total cart-sub"><span>Versand nach ' + esc(rate.name) + '</span><span>' + (ship ? eur(ship) : 'kostenlos') + '</span></div>' +
+          (ship ? '<p class="cart-note">Noch ' + eur(rate.freeFrom - total) + ' bis zum kostenlosen Versand nach ' + esc(rate.name) + ' (ab ' + eur(rate.freeFrom) + ').</p>' : '') +
           (discount ? '<div class="cart-total cart-sub cart-discount"><span>Rabatt (' + esc(appliedCoupon.code) + ')</span><span>−' + eur(discount) + '</span></div>' : '') +
           couponHtml +
           '<div class="cart-total cart-grand"><span>Gesamt (inkl. MwSt.)</span><strong>' + eur(grandTotal) + '</strong></div>' +
@@ -174,7 +183,7 @@
       return fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + s.access_token },
-        body: JSON.stringify({ items: read(), promotionCode: appliedCoupon ? appliedCoupon.code : undefined })
+        body: JSON.stringify({ items: read(), country: (document.getElementById('cart-country') || {}).value || undefined, promotionCode: appliedCoupon ? appliedCoupon.code : undefined })
       }).then(function (r) {
         return r.json().then(function (d) {
           if (r.status === 401) { goLogin(); return null; }
@@ -249,6 +258,11 @@
     if (act === 'rm') remove(id);
   });
 
+  document.addEventListener('change', function (e) {
+    var sel = e.target.closest && e.target.closest('#cart-country');
+    if (sel) { setCountry(sel.value); renderCartPage(); }
+  });
+
   document.addEventListener('wcp:cart-changed', renderCartPage);
   document.addEventListener('wcp:auth-changed', renderCartPage);
   // Änderungen aus einem anderen Tab übernehmen
@@ -257,9 +271,24 @@
   window.WCP = window.WCP || {};
   window.WCP.cart = { read: read, add: add, setQty: setQty, remove: remove, clear: clear, count: count, MAX_QTY: MAX_QTY };
 
+  // Tabelle "Versandkosten je Land" auf versand.html — kommt aus shipping.json, damit nichts doppelt gepflegt wird
+  var renderShippingTable = function () {
+    var box = document.getElementById('versand-tabelle');
+    if (!box || !window.WCP || !window.WCP.loadShipping) return;
+    window.WCP.loadShipping().then(function (cfg) {
+      var eur = window.WCP.eur;
+      box.innerHTML = '<table class="versand-table"><thead><tr><th>Land</th><th>Versandkosten</th><th>Versandkostenfrei ab</th></tr></thead><tbody>' +
+        window.WCP.countryList(cfg).map(function (cn) {
+          var r = cfg.countries[cn[0]];
+          return '<tr><td>' + esc(cn[1]) + '</td><td>' + eur(r.flat) + '</td><td>' + eur(r.freeFrom) + '</td></tr>';
+        }).join('') + '</tbody></table>';
+    });
+  };
+
   document.addEventListener('DOMContentLoaded', function () {
     injectHeaderLink();
     updateBadge();
     renderCartPage();
+    renderShippingTable();
   });
 })();
