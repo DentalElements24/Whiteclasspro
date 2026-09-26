@@ -122,7 +122,7 @@
       ? '<div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:20px; font-size:13px; color:var(--text-secondary); line-height:1.6;">ℹ️ Nahrungsergänzungsmittel ersetzen keine ausgewogene Ernährung und keine zahnärztliche Behandlung. Bei bestehenden Erkrankungen, Medikamenteneinnahme, Schwangerschaft oder Stillzeit vor der Einnahme Rücksprache mit einem Arzt oder Apotheker halten.</div>'
       : '';
     root.innerHTML = '' +
-      '<p style="font-size:13px; margin-bottom:18px;"><a href="' + p.category + '.html">← ' + catName + '</a></p>' +
+      '<p class="glass-head" style="font-size:13px; margin-bottom:18px; padding:8px 16px;"><a href="' + p.category + '.html">← ' + catName + '</a></p>' +
       '<div class="catalog-card" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); overflow:hidden;">' +
         '<div class="catalog-media" style="min-height:280px; font-size:96px;">' + p.emoji + '</div>' +
         '<div class="catalog-body" style="padding:28px;">' +
@@ -147,7 +147,7 @@
     var others = products.filter(function (p) { return p.id !== current.id && p.category !== current.category; });
     var list = sameCategory.concat(others).slice(0, 3);
     root.innerHTML = list.length
-      ? '<h2>Das könnte dir auch gefallen</h2><div class="catalog-grid">' + list.map(cardHtml).join('') + '</div>'
+      ? '<h2 class="glass-head">Das könnte dir auch gefallen</h2><div class="catalog-grid">' + list.map(cardHtml).join('') + '</div>'
       : '';
   };
 

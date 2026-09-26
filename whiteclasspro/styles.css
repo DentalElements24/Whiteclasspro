@@ -31,6 +31,7 @@ a{ color:inherit; }
 
 /* Halbdurchsichtige Fläche, durch die das Hintergrundfoto klar erkennbar bleibt (gleicher Look wie die Streifen auf der Startseite) */
 .glass{ background:var(--glass); border:1px solid var(--border); border-radius:14px; }
+.glass-head{ display:inline-block; background:var(--glass); border:1px solid var(--border); border-radius:12px; padding:14px 22px; }
 .hero-text{ background:var(--glass); border:1px solid var(--border); border-radius:14px; padding:28px; }
 @media (max-width:900px){ .hero-text{ padding:20px; } }
 .review-cta{ text-align:center; background:var(--glass); border:1px solid var(--border); border-radius:14px; padding:36px 24px; }
@@ -202,7 +203,7 @@ footer a:hover{ color:#fff; }
 .catalog-card .catalog-price-old{ font-size:13px; color:var(--text-secondary); text-decoration:line-through; }
 .catalog-card .btn{ width:100%; text-align:center; padding:10px 0; font-size:13.5px; }
 
-.catalog-intro{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin:0 0 28px; }
+.catalog-intro{ background:var(--glass); border:1px solid var(--border); border-radius:14px; padding:22px 26px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin:0 0 28px; }
 .catalog-intro h1{ font-size:28px; font-weight:600; margin:0 0 8px; }
 .catalog-intro p{ font-size:14px; color:var(--text-secondary); margin:0; max-width:520px; line-height:1.6; }
 .catalog-count{ font-size:13px; color:var(--text-secondary); font-weight:600; white-space:nowrap; }
