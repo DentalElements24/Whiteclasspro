@@ -163,7 +163,11 @@ footer a:hover{ color:#fff; }
 .footer-cols h4{ color:#fff; font-size:13px; margin:0 0 14px; }
 .footer-cols ul{ list-style:none; padding:0; margin:0; }
 .footer-cols li{ margin-bottom:8px; }
-.footer-bottom{ border-top:1px solid #2a2f36; padding-top:18px; color:#8b8f96; font-size:12px; }
+.footer-bottom{ border-top:1px solid #2a2f36; padding-top:18px; color:#8b8f96; font-size:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px 24px; }
+.footer-credit{ white-space:nowrap; }
+.footer-credit a{ color:#fff; font-weight:600; letter-spacing:.02em; padding-bottom:1px; border-bottom:1px solid rgba(255,255,255,.3); transition:color .15s, border-color .15s; }
+.footer-credit a::after{ content:" ↗"; font-size:.9em; color:var(--blue); }
+.footer-credit a:hover{ color:var(--blue); border-bottom-color:var(--blue); }
 
 /* --- Category tiles (Startseite) --- */
 .category-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
