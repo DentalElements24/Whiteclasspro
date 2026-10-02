@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!loading) {
       loading = Promise.all([
         fetch('lexikon.json').then(function (r) { return r.json(); }),
-        fetch('products.json').then(function (r) { return r.json(); })
+        window.WCP.loadProducts()
       ]).then(function (res) { data = { terms: res[0], products: res[1] }; }).catch(function () { loading = null; });
     }
     return loading;

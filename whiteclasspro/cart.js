@@ -1,5 +1,5 @@
 // White Class Pro — Warenkorb (localStorage). Gespeichert wird nur {id, qty};
-// Preise kommen immer aus products.json bzw. später serverseitig beim Checkout.
+// Preise kommen immer aus der Produktdatenbank und werden beim Checkout serverseitig neu berechnet.
 (function () {
   var KEY = 'wcp_cart';
   var MAX_QTY = 10;
@@ -112,7 +112,7 @@
         var line = p.price * i.qty;
         total += line;
         return '<div class="cart-row">' +
-          '<a class="cart-emoji" href="produkt.html?id=' + encodeURIComponent(p.id) + '">' + p.emoji + '</a>' +
+          '<a class="cart-emoji" href="produkt.html?id=' + encodeURIComponent(p.id) + '">' + window.WCP.mediaHtml(p) + '</a>' +
           '<div class="cart-info"><a href="produkt.html?id=' + encodeURIComponent(p.id) + '"><strong>' + esc(p.name) + '</strong></a>' +
             '<div class="cart-unit">' + window.WCP.eur(p.price) + ' / Stück</div></div>' +
           '<div class="cart-qty">' +

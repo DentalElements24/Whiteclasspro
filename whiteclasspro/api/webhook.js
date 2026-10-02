@@ -102,7 +102,7 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
-  // Positionen bei Stripe abfragen statt aus products.json zu rekonstruieren — hier zählt,
+  // Positionen bei Stripe abfragen statt aus der Produktdatenbank zu rekonstruieren — hier zählt,
   // was zum Zeitpunkt des Kaufs tatsächlich berechnet wurde, auch wenn sich Preise später ändern.
   // Die Produkt-ID selbst steht nicht in den line_items (nur Name/Menge/Preis), sondern in
   // metadata.cart ("id:qty,id:qty,…", von api/checkout.js gesetzt) — beide Listen entstehen dort

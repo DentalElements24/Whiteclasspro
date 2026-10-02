@@ -1,5 +1,6 @@
 // White Class Pro — Produktdaten laden und Karten / Detailseite rendern
-// Preise in products.json sind in Cent (2900 = 29,00 €).
+// Produkte kommen aus der gemeinsamen Datenbank (Supabase, gepflegt in der Shop-Zentrale).
+// Preise sind in Cent (2900 = 29,00 €).
 (function () {
   var eur = function (cents) {
     return (cents / 100).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
@@ -11,18 +12,56 @@
     });
   };
 
+  // Dieselben Spalten und Feldnamen wie toProduct() in api/_supabase.js (serverseitig)
+  var PRODUCT_COLUMNS = 'slug,category,name,emoji,badge,badge_red,price,old_price,short,description,featured,supplement,image_url';
+  var toProduct = function (r) {
+    return {
+      id: r.slug,
+      category: r.category,
+      name: r.name,
+      emoji: r.emoji || '',
+      badge: r.badge || '',
+      badgeRed: !!r.badge_red,
+      price: r.price,
+      oldPrice: r.old_price || null,
+      short: r.short || '',
+      description: r.description || '',
+      featured: !!r.featured,
+      supplement: !!r.supplement,
+      image: r.image_url || null
+    };
+  };
+
+  // Einmal pro Seitenaufruf laden, auch wenn mehrere Stellen (Katalog, Warenkorb, Suche) fragen.
+  // Die Datenbank liefert Besuchern ohnehin nur sichtbare Produkte; active=is.true hält die
+  // Liste auch für angemeldete Admins, die im Shop stöbern, identisch.
+  var productsPromise = null;
   var loadProducts = function () {
-    return fetch('products.json').then(function (r) {
-      if (!r.ok) throw new Error('products.json nicht ladbar');
-      return r.json();
-    });
+    if (!productsPromise) {
+      var cfg = window.WCP_SUPABASE || {};
+      var url = String(cfg.url || '').replace(/\/$/, '') + '/rest/v1/products?select=' + PRODUCT_COLUMNS +
+        '&shop_id=eq.' + encodeURIComponent(cfg.shop || '') + '&active=is.true&order=sort_order.asc,created_at.asc';
+      productsPromise = fetch(url, { headers: { apikey: cfg.key } }).then(function (r) {
+        if (!r.ok) throw new Error('Produkte nicht ladbar');
+        return r.json();
+      }).then(function (rows) { return rows.map(toProduct); });
+      productsPromise.catch(function () { productsPromise = null; });   // später erneut versuchen
+    }
+    return productsPromise;
+  };
+
+  // Produktfoto, falls hochgeladen — sonst das Emoji als Platzhalter
+  var mediaHtml = function (p) {
+    return p.image
+      ? '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy">'
+      : esc(p.emoji);
   };
 
   var cardHtml = function (p) {
     var old = p.oldPrice ? '<span class="catalog-price-old">' + eur(p.oldPrice) + '</span>' : '';
     return '' +
       '<div class="catalog-card" id="' + esc(p.id) + '">' +
-        '<a class="catalog-media" href="produkt.html?id=' + encodeURIComponent(p.id) + '" style="text-decoration:none;">' + p.emoji + '</a>' +
+        '<a class="catalog-media" href="produkt.html?id=' + encodeURIComponent(p.id) + '" style="text-decoration:none;">' + mediaHtml(p) + '</a>' +
         '<div class="catalog-body">' +
           '<span class="catalog-badge' + (p.badgeRed ? ' red' : '') + '">' + esc(p.badge) + '</span>' +
           '<h3>' + esc(p.name) + '</h3>' +
@@ -122,9 +161,9 @@
       ? '<div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:20px; font-size:13px; color:var(--text-secondary); line-height:1.6;">ℹ️ Nahrungsergänzungsmittel ersetzen keine ausgewogene Ernährung und keine zahnärztliche Behandlung. Bei bestehenden Erkrankungen, Medikamenteneinnahme, Schwangerschaft oder Stillzeit vor der Einnahme Rücksprache mit einem Arzt oder Apotheker halten.</div>'
       : '';
     root.innerHTML = '' +
-      '<p class="glass-head" style="font-size:13px; margin-bottom:18px; padding:8px 16px;"><a href="' + p.category + '.html">← ' + catName + '</a></p>' +
+      '<p class="glass-head" style="font-size:13px; margin-bottom:18px; padding:8px 16px;"><a href="' + encodeURIComponent(p.category) + '.html">← ' + catName + '</a></p>' +
       '<div class="catalog-card" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); overflow:hidden;">' +
-        '<div class="catalog-media" style="min-height:280px; font-size:96px;">' + p.emoji + '</div>' +
+        '<div class="catalog-media catalog-media-detail" style="min-height:280px; font-size:96px;">' + mediaHtml(p) + '</div>' +
         '<div class="catalog-body" style="padding:28px;">' +
           '<span class="catalog-badge' + (p.badgeRed ? ' red' : '') + '">' + esc(p.badge) + '</span>' +
           '<h1 style="font-size:26px; margin:10px 0;">' + esc(p.name) + '</h1>' +
@@ -175,6 +214,7 @@
   window.WCP.eur = eur;
   window.WCP.esc = esc;
   window.WCP.cardHtml = cardHtml;
+  window.WCP.mediaHtml = mediaHtml;
   window.WCP.loadProducts = loadProducts;
 
   document.addEventListener('DOMContentLoaded', function () {

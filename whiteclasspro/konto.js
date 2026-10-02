@@ -185,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // gilt für alle Shops derselben Datenbank — hier nur die Bestellungen DIESES Shops zeigen, sonst
     // sähe man in "Meine Bestellungen" bei White Class Pro auch Käufe bei z. B. Nightguard.
     var shopId = (window.WCP_SUPABASE && window.WCP_SUPABASE.shop) || '';
+    var escHtml = window.WCP && window.WCP.esc ? window.WCP.esc : function (t) { return String(t).replace(/[&<>"']/g, ''); };
+    var STATUS = { paid: 'Bezahlt', shipped: 'Versendet', cancelled: 'Storniert' };
     var eur = window.WCP && window.WCP.eur ? window.WCP.eur : function (c) { return (c / 100).toFixed(2) + ' €'; };
     auth.rest('GET', '/orders?select=*&shop_id=eq.' + encodeURIComponent(shopId) + '&order=created_at.desc').then(function (orders) {
       var list = byId('orders-list');
@@ -195,10 +197,17 @@ document.addEventListener('DOMContentLoaded', function () {
       list.innerHTML = orders.map(function (o, idx) {
         var date = new Date(o.created_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
         var rows = (o.items || []).map(function (it) {
-          return '<div class="cart-total cart-sub"><span>' + it.qty + '× ' + (it.name || 'Produkt') + '</span><span>' + eur(it.amount) + '</span></div>';
+          return '<div class="cart-total cart-sub"><span>' + escHtml(it.qty) + '× ' + escHtml(it.name || 'Produkt') + '</span><span>' + eur(it.amount) + '</span></div>';
         }).join('');
+        // Dieselbe Kurznummer wie in der Shop-Zentrale, damit Kunde und Shop dieselbe Nummer nennen
+        var orderNo = String(o.id || '').replace(/-/g, '').slice(0, 8).toUpperCase();
+        var tracking = o.status === 'shipped' && o.tracking_number
+          ? '<div class="cart-total cart-sub"><span>Sendungsnummer</span><span>' + escHtml(o.tracking_number) + '</span></div>'
+          : '';
         return '<div class="cart-summary" style="margin:0 0 16px;">' +
-          '<div class="cart-total cart-sub" style="font-weight:600; color:var(--text);"><span>Bestellung vom ' + date + '</span><span>Bezahlt</span></div>' +
+          '<div class="cart-total cart-sub" style="font-weight:600; color:var(--text);"><span>Bestellung vom ' + date + '</span><span>' + escHtml(STATUS[o.status] || 'Bezahlt') + '</span></div>' +
+          '<div class="cart-total cart-sub"><span>Bestellnummer</span><span>' + orderNo + '</span></div>' +
+          tracking +
           rows +
           '<div class="cart-total cart-grand"><span>Gesamt</span><strong>' + eur(o.amount_total) + '</strong></div>' +
           '<div style="text-align:right;"><button type="button" class="btn reorder-btn" data-order-index="' + idx + '">Nochmal bestellen</button></div>' +

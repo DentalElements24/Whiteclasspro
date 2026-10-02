@@ -40,7 +40,7 @@ auf der Website.
 Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout, Kundenkonto sowie robots.txt/sitemap.xml/Produkt-SEO (siehe unten) brauchen allerdings Vercel für die Serverfunktionen in `api/` — auf GitHub Pages liefen nur die statischen Seiten ohne diese Funktionen.
 
 ## SEO & Auffindbarkeit
-- `api/robots.js` und `api/sitemap.js` erzeugen `/robots.txt` bzw. `/sitemap.xml` live bei jeder Anfrage (Weiterleitung dafür in `vercel.json`) — die Domain wird automatisch aus der Anfrage erkannt (wie bei `SITE_URL` in `api/checkout.js`), die Sitemap zieht ihre Produkt-URLs direkt aus `products.json` und bleibt so immer aktuell.
+- `api/robots.js` und `api/sitemap.js` erzeugen `/robots.txt` bzw. `/sitemap.xml` live bei jeder Anfrage (Weiterleitung dafür in `vercel.json`) — die Domain wird automatisch aus der Anfrage erkannt (wie bei `SITE_URL` in `api/checkout.js`), die Sitemap zieht ihre Produkt-URLs direkt aus der Produktdatenbank (Supabase) und bleibt so immer aktuell.
 - `api/produkt.js` liefert `produkt.html` mit pro-Produkt `<title>`, Meta-Description, Open-Graph-Tags (für Vorschauen bei WhatsApp/Social) und `schema.org`-Product-Markup aus. **Bewusst ohne `aggregateRating`**, solange es kein echtes Bewertungssystem gibt — erfundene Bewertungssterne in Google-Snippets gelten als irreführende Werbung.
 - Jede Seite hat jetzt ein Favicon (`favicon.png`, `apple-touch-icon.png`).
 
@@ -67,7 +67,7 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout,
 - Kontaktformular hat noch keine Backend-Anbindung
 - Produktbilder sind Emoji-/Text-Platzhalter — echte Produktfotos vor Live-Gang einsetzen
 - Presselogos und Kundenstimmen wurden von der Startseite entfernt (gab es nicht); dort steht jetzt "Sind Sie mit uns zufrieden? … Hier abgeben" (`.review-cta` in `index.html`), der Button zeigt vorerst auf `kontakt.html` — auf den echten Bewertungslink (z. B. Google/Trustpilot) umstellen
-- Die erfundenen Sternebewertungen wurden entfernt (`rating`/`reviews` gibt es in `products.json` nicht mehr, ebenso die Sortierung "Beste Bewertung"). Erst wieder anzeigen, wenn es ein echtes Bewertungssystem gibt; dann auch `aggregateRating` in `api/produkt.js` ergänzen.
+- Die erfundenen Sternebewertungen wurden entfernt (`rating`/`reviews` gibt es in der Produktdatenbank nicht mehr, ebenso die Sortierung "Beste Bewertung"). Erst wieder anzeigen, wenn es ein echtes Bewertungssystem gibt; dann auch `aggregateRating` in `api/produkt.js` ergänzen.
 - Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: `shipping.json` (siehe Abschnitt "Lieferländer und Versandkosten").
 - Rabattcodes: Eingabefeld im Warenkorb + `api/coupon.js`/`api/checkout.js` prüfen den Code live gegen Stripe. Damit ein Code funktioniert, muss er vorher im Stripe-Dashboard unter Produkte → Gutscheincodes (Coupon + zugehöriger Promotion Code) angelegt werden.
 

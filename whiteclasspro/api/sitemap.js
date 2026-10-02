@@ -1,8 +1,8 @@
-// Vercel-Serverfunktion: erzeugt sitemap.xml live aus products.json, damit neue oder
+// Vercel-Serverfunktion: erzeugt sitemap.xml live aus der Produktdatenbank, damit neue oder
 // entfernte Produkte nie eine veraltete, von Hand gepflegte Sitemap hinterlassen.
 // Seiten mit <meta name="robots" content="noindex"> (Konto, Login, Warenkorb,
 // Bestellbestätigung) tauchen absichtlich nicht auf.
-const products = require('../products.json');
+const { fetchProducts } = require('./_supabase');
 
 const STATIC_PAGES = [
   { path: 'index.html', priority: '1.0', changefreq: 'weekly' },
@@ -25,6 +25,13 @@ module.exports = async (req, res) => {
   const urls = STATIC_PAGES.map((p) =>
     `<url><loc>${origin}/${p.path}</loc><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority></url>`
   );
+  let products = [];
+  try {
+    products = await fetchProducts();
+  } catch (err) {
+    // Lieber eine Sitemap nur mit den festen Seiten als gar keine
+    console.error('Sitemap: Produkte nicht ladbar:', err && err.message);
+  }
   products.forEach((p) => {
     urls.push(`<url><loc>${origin}/produkt.html?id=${encodeURIComponent(p.id)}</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>`);
   });

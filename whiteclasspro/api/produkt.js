@@ -9,19 +9,28 @@
 // produkt.html hätte die Weiterleitung hierher also stillschweigend blockiert.
 const fs = require('fs');
 const path = require('path');
-const products = require('../products.json');
+const { fetchProducts } = require('./_supabase');
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 module.exports = async (req, res) => {
   const id = typeof req.query.id === 'string' ? req.query.id : '';
-  const p = products.find((x) => x.id === id);
+  let p = null;
+  if (id) {
+    try {
+      p = (await fetchProducts()).find((x) => x.id === id) || null;
+    } catch (err) {
+      // Ohne Datenbank trotzdem die Seite ausliefern — nur mit allgemeinen Meta-Tags;
+      // die Produktdaten lädt shop.js im Browser dann selbst.
+      console.error('Produkte nicht ladbar:', err && err.message);
+    }
+  }
   const origin = process.env.SITE_URL || `https://${req.headers.host}`;
 
   const title = p ? `${p.name} — White Class Pro` : 'Produkt — White Class Pro';
   const description = p ? p.short : 'Zahnaufhellung und zahnstärkende Nahrungsergänzung von White Class Pro.';
   const url = `${origin}/produkt.html${id ? '?id=' + encodeURIComponent(id) : ''}`;
-  const image = `${origin}/logo.jpg`;
+  const image = (p && p.image) || `${origin}/logo.jpg`;
 
   let seoTags = '<meta name="description" content="' + esc(description) + '">\n' +
     '<link rel="canonical" href="' + esc(url) + '">\n' +

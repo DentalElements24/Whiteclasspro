@@ -1,23 +1,9 @@
 // Vercel-Serverfunktion: erzeugt eine Stripe-Checkout-Sitzung aus dem Warenkorb.
-// Preise und Versand werden HIER aus products.json / shipping.json berechnet —
+// Preise und Versand werden HIER aus der Produktdatenbank (Supabase) / shipping.json berechnet —
 // vom Browser kommen nur Produkt-IDs und Mengen. Der Stripe-Schlüssel steht in der
 // Vercel-Umgebungsvariable STRIPE_SECRET_KEY und nie im Code.
-const products = require('../products.json');
 const shipping = require('../shipping.json');
-
-// Öffentliche Supabase-Werte (URL + Publishable Key) aus derselben Datei wie im Browser,
-// damit sie nur an einer Stelle gepflegt werden. Die Datei setzt window.WCP_SUPABASE.
-const loadSupabaseConfig = () => {
-  const hadWindow = 'window' in global;
-  if (!hadWindow) global.window = {};
-  try {
-    require('../supabase-config.js');
-    return global.window.WCP_SUPABASE || {};
-  } finally {
-    if (!hadWindow) delete global.window;
-  }
-};
-const supabase = loadSupabaseConfig();
+const { config: supabase, fetchProducts } = require('./_supabase');
 
 const MAX_QTY = 10;
 const MAX_LINES = 20;
@@ -71,6 +57,13 @@ module.exports = async (req, res) => {
     return fail(res, 400, 'Dein Warenkorb ist leer oder ungültig.');
   }
 
+  let products;
+  try {
+    products = await fetchProducts();
+  } catch (err) {
+    console.error('Produkte nicht ladbar:', err && err.message);
+    return fail(res, 502, 'Die Zahlung konnte gerade nicht gestartet werden. Bitte versuche es später erneut.');
+  }
   const byId = new Map(products.map((p) => [p.id, p]));
   const qtyById = new Map();
   for (const item of items) {
@@ -131,7 +124,8 @@ module.exports = async (req, res) => {
     params.set(`line_items[${i}][price_data][currency]`, 'eur');
     params.set(`line_items[${i}][price_data][unit_amount]`, String(p.price));
     params.set(`line_items[${i}][price_data][product_data][name]`, p.name);
-    params.set(`line_items[${i}][price_data][product_data][description]`, p.short);
+    if (p.short) params.set(`line_items[${i}][price_data][product_data][description]`, p.short);
+    if (p.image) params.set(`line_items[${i}][price_data][product_data][images][0]`, p.image);
   });
 
   params.set('shipping_options[0][shipping_rate_data][type]', 'fixed_amount');
