@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var OPTIONAL = { company: 1, address_extra: 1, phone: 1 };
   var KIND_LABEL = { main: 'Hauptadresse', shipping: 'Lieferadresse', billing: 'Rechnungsadresse' };
   var KIND_ID = { main: 'addr-main', shipping: 'addr-shipping', billing: 'addr-billing' };
-  // Lieferländer kommen aus shipping.json (dieselbe Liste wie im Warenkorb und beim Checkout)
+  // Lieferländer kommen aus der Shop-Zentrale (dieselbe Tabelle wie im Warenkorb und beim Checkout)
   var shippingCfg = { defaultCountry: 'DE', countries: { DE: { name: 'Deutschland' } } };
   var preferredCountry = function () {
     var c = null;

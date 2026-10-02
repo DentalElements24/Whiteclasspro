@@ -1,9 +1,8 @@
 // Vercel-Serverfunktion: erzeugt eine Stripe-Checkout-Sitzung aus dem Warenkorb.
-// Preise und Versand werden HIER aus der Produktdatenbank (Supabase) / shipping.json berechnet —
+// Preise und Versand werden HIER aus der Produktdatenbank (Supabase) berechnet —
 // vom Browser kommen nur Produkt-IDs und Mengen. Der Stripe-Schlüssel steht in der
 // Vercel-Umgebungsvariable STRIPE_SECRET_KEY und nie im Code.
-const shipping = require('../shipping.json');
-const { config: supabase, fetchProducts } = require('./_supabase');
+const { config: supabase, fetchProducts, fetchShippingRates } = require('./_supabase');
 
 const MAX_QTY = 10;
 const MAX_LINES = 20;
@@ -57,11 +56,11 @@ module.exports = async (req, res) => {
     return fail(res, 400, 'Dein Warenkorb ist leer oder ungültig.');
   }
 
-  let products;
+  let products, shipping;
   try {
-    products = await fetchProducts();
+    [products, shipping] = await Promise.all([fetchProducts(), fetchShippingRates()]);
   } catch (err) {
-    console.error('Produkte nicht ladbar:', err && err.message);
+    console.error('Produkte/Versandkosten nicht ladbar:', err && err.message);
     return fail(res, 502, 'Die Zahlung konnte gerade nicht gestartet werden. Bitte versuche es später erneut.');
   }
   const byId = new Map(products.map((p) => [p.id, p]));
@@ -82,7 +81,7 @@ module.exports = async (req, res) => {
     subtotal += p.price * qty;
     lines.push({ p, qty });
   }
-  // Lieferland: kommt vom Warenkorb, wird aber hier gegen die Länderliste in shipping.json geprüft
+  // Lieferland: kommt vom Warenkorb, wird aber hier gegen die Versandkosten-Tabelle geprüft
   const country = String((req.body && req.body.country) || shipping.defaultCountry);
   if (!Object.prototype.hasOwnProperty.call(shipping.countries, country)) {
     return fail(res, 400, 'In dieses Land liefern wir derzeit nicht. Bitte wähle im Warenkorb ein anderes Lieferland.');

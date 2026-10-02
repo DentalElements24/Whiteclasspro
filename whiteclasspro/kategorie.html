@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Zahnaufhellung — White Class Pro</title>
-<meta name="description" content="Zahnaufhellungs-Produkte von White Class Pro: Strips, Sets, LED-Zubehör und Whitening-Zahncreme — schonend und ohne Peroxid.">
+<title>Kategorie — White Class Pro</title>
 <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
@@ -76,23 +76,26 @@
 </header>
 </div>
 
+<!--
+  Generische Kategorieseite für Kategorien, die in der Shop-Zentrale neu angelegt wurden und noch
+  keine eigene, von Hand gestaltete Seite haben (die drei bestehenden Kategorien behalten ihre
+  eigenen Seiten — zahnaufhellung.html usw. — mit eigenem Werbetext und Bild). Der Name kommt per
+  JavaScript aus der Shop-Zentrale, passend zum Kürzel in der Adresse (?id=…), siehe shop.js.
+-->
 <section style="padding:24px 0 70px;">
   <div class="container">
 
     <div class="catalog-intro">
       <div>
-        <h1>Zahnaufhellung</h1>
-        <p>Von der sanften Whitening-Zahncreme bis zum Profi-Set mit LED-Schiene — alle Produkte mit PAP-Formel bzw. fluoridfreier Rezeptur, kuratiert von Zahntechnikermeister Christian Penz.</p>
+        <h1 data-category-title>Kategorie</h1>
+        <p>Alle Produkte dieser Kategorie.</p>
       </div>
-      <span class="catalog-count">6 Produkte</span>
+      <span class="catalog-count">0 Produkte</span>
     </div>
 
-    <div class="catalog-grid" data-category="zahnaufhellung"></div>
+    <div class="catalog-grid" data-category-from-url></div>
 
-    <div class="cross-link-banner">
-      <p><strong>Noch mehr für deine Zähne?</strong>Ergänze deine Aufhellung mit unseren zahnstärkenden Nahrungsergänzungsmitteln.</p>
-      <a href="zahnstaerkung.html" class="btn btn-primary" style="padding:11px 20px; font-size:13.5px;">Zur Zahnstärkung →</a>
-    </div>
+    <p style="margin-top:32px;"><a href="index.html">← Zurück zur Startseite</a></p>
 
   </div>
 </section>

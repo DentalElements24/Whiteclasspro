@@ -18,7 +18,7 @@ const base = String(config.url || '').replace(/\/$/, '');
 
 // Dieselben Spalten und dieselbe Umwandlung wie loadProducts() in shop.js, damit Browser und
 // Server ein Produkt gleich sehen (dieselben Feldnamen wie früher in der mittlerweile entfernten products.json).
-const PRODUCT_COLUMNS = 'slug,category,name,emoji,badge,badge_red,price,old_price,short,description,featured,supplement,image_url';
+const PRODUCT_COLUMNS = 'slug,category,name,emoji,badge,badge_red,price,old_price,short,description,featured,supplement,image_url,seo_title,seo_description';
 const toProduct = (r) => ({
   id: r.slug,
   category: r.category,
@@ -32,7 +32,9 @@ const toProduct = (r) => ({
   description: r.description || '',
   featured: !!r.featured,
   supplement: !!r.supplement,
-  image: r.image_url || null
+  image: r.image_url || null,
+  seoTitle: r.seo_title || null,
+  seoDescription: r.seo_description || null
 });
 
 // Alle sichtbaren Produkte dieses Shops. Liest mit dem öffentlichen Key — Row Level Security
@@ -46,4 +48,22 @@ const fetchProducts = async () => {
   return (await r.json()).map(toProduct);
 };
 
-module.exports = { config, base, fetchProducts };
+// Versandkosten dieses Shops je Land. Dieselbe Tabelle pflegt die Shop-Zentrale; Änderungen dort
+// gelten hier wie beim Client sofort, ohne dass Code angefasst werden muss.
+const fetchShippingRates = async () => {
+  if (!base || !config.key || !config.shop) throw new Error('Supabase-Konfiguration unvollständig');
+  const url = `${base}/rest/v1/shipping_rates?select=country,name,flat,free_from,is_default` +
+    `&shop_id=eq.${encodeURIComponent(config.shop)}&order=sort_order.asc`;
+  const r = await fetch(url, { headers: { apikey: config.key } });
+  if (!r.ok) throw new Error(`Versandkosten nicht ladbar (HTTP ${r.status})`);
+  const rows = await r.json();
+  const countries = {};
+  let defaultCountry = 'DE';
+  rows.forEach((row) => {
+    countries[row.country] = { name: row.name, flat: row.flat, freeFrom: row.free_from };
+    if (row.is_default) defaultCountry = row.country;
+  });
+  return { defaultCountry, countries };
+};
+
+module.exports = { config, base, fetchProducts, fetchShippingRates };

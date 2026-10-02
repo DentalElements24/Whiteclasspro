@@ -271,7 +271,7 @@
   window.WCP = window.WCP || {};
   window.WCP.cart = { read: read, add: add, setQty: setQty, remove: remove, clear: clear, count: count, MAX_QTY: MAX_QTY };
 
-  // Tabelle "Versandkosten je Land" auf versand.html — kommt aus shipping.json, damit nichts doppelt gepflegt wird
+  // Tabelle "Versandkosten je Land" auf versand.html — kommt aus der Shop-Zentrale (Tabelle shipping_rates), damit nichts doppelt gepflegt wird
   var renderShippingTable = function () {
     var box = document.getElementById('versand-tabelle');
     if (!box || !window.WCP || !window.WCP.loadShipping) return;

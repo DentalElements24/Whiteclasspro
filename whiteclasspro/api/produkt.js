@@ -27,8 +27,8 @@ module.exports = async (req, res) => {
   }
   const origin = process.env.SITE_URL || `https://${req.headers.host}`;
 
-  const title = p ? `${p.name} — White Class Pro` : 'Produkt — White Class Pro';
-  const description = p ? p.short : 'Zahnaufhellung und zahnstärkende Nahrungsergänzung von White Class Pro.';
+  const title = p ? (p.seoTitle || `${p.name} — White Class Pro`) : 'Produkt — White Class Pro';
+  const description = p ? (p.seoDescription || p.short) : 'Zahnaufhellung und zahnstärkende Nahrungsergänzung von White Class Pro.';
   const url = `${origin}/produkt.html${id ? '?id=' + encodeURIComponent(id) : ''}`;
   const image = (p && p.image) || `${origin}/logo.jpg`;
 

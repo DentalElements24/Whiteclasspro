@@ -39,6 +39,16 @@ auf der Website.
 ## Reine HTML/CSS-Version
 Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout, Kundenkonto sowie robots.txt/sitemap.xml/Produkt-SEO (siehe unten) brauchen allerdings Vercel für die Serverfunktionen in `api/` — auf GitHub Pages liefen nur die statischen Seiten ohne diese Funktionen.
 
+## Shop-Zentrale (Admin, Repo `shop-admin`)
+Produkte, Bestellungen und ein wachsender Teil der Shop-Texte werden **nicht mehr im Code gepflegt**,
+sondern im separaten Admin-Bereich "Shop-Zentrale" (gemeinsame Supabase-Datenbank, eigenes Repo
+`shop-admin`). Änderungen dort wirken sich sofort auf diese Seite aus:
+- **Produkte:** anlegen/bearbeiten/ausblenden, Bild per Klick oder Drag & Drop hochladen, Reihenfolge per Drag & Drop, eigener Google-Titel/-Beschreibung je Produkt (`seo_title`/`seo_description`, sonst automatisch aus Name/Kurztext).
+- **Bestellungen:** Status (bezahlt/versendet/storniert) und Sendungsnummer; erscheint im Kundenkonto.
+- **Einstellungen:** Lieferzeit-Text, Versandkosten je Land (Tabelle `shipping_rates`), Kontaktdaten (Telefon/E-Mail/USt-IdNr), TikTok-Link, Promo-Banner-Text (roter Balken oben). Diese Felder stehen in HTML als `data-delivery-time`, `data-contact-phone` usw. markiert — bleiben leer, zeigen sie weiterhin den gelben Platzhaltertext.
+- **Kategorien:** umbenennen und sortieren wirkt sofort; eine neu angelegte Kategorie landet automatisch auf der generischen `kategorie.html?id=<kürzel>` (Produkte durchsuchbar, aber ohne eigene Werbe-Kachel/-Text — die drei bestehenden Kategorieseiten mit eigenem Design bleiben unverändert über `CATEGORY_PAGES` in `shop.js` verdrahtet).
+- Siehe `shop-admin/README.md` für Einrichtung und SQL-Skripte.
+
 ## SEO & Auffindbarkeit
 - `api/robots.js` und `api/sitemap.js` erzeugen `/robots.txt` bzw. `/sitemap.xml` live bei jeder Anfrage (Weiterleitung dafür in `vercel.json`) — die Domain wird automatisch aus der Anfrage erkannt (wie bei `SITE_URL` in `api/checkout.js`), die Sitemap zieht ihre Produkt-URLs direkt aus der Produktdatenbank (Supabase) und bleibt so immer aktuell.
 - `api/produkt.js` liefert `produkt.html` mit pro-Produkt `<title>`, Meta-Description, Open-Graph-Tags (für Vorschauen bei WhatsApp/Social) und `schema.org`-Product-Markup aus. **Bewusst ohne `aggregateRating`**, solange es kein echtes Bewertungssystem gibt — erfundene Bewertungssterne in Google-Snippets gelten als irreführende Werbung.
@@ -68,7 +78,7 @@ Kein Build-Schritt nötig — einfach `index.html` im Browser öffnen. Checkout,
 - Produktbilder sind Emoji-/Text-Platzhalter — echte Produktfotos vor Live-Gang einsetzen
 - Presselogos und Kundenstimmen wurden von der Startseite entfernt (gab es nicht); dort steht jetzt "Sind Sie mit uns zufrieden? … Hier abgeben" (`.review-cta` in `index.html`), der Button zeigt vorerst auf `kontakt.html` — auf den echten Bewertungslink (z. B. Google/Trustpilot) umstellen
 - Die erfundenen Sternebewertungen wurden entfernt (`rating`/`reviews` gibt es in der Produktdatenbank nicht mehr, ebenso die Sortierung "Beste Bewertung"). Erst wieder anzeigen, wenn es ein echtes Bewertungssystem gibt; dann auch `aggregateRating` in `api/produkt.js` ergänzen.
-- Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: `shipping.json` (siehe Abschnitt "Lieferländer und Versandkosten").
+- Checkout (Stripe) läuft über `api/checkout.js`; braucht die Vercel-Umgebungsvariable `STRIPE_SECRET_KEY` (nie im Code ablegen). Versand: Tabelle `shipping_rates` in der Shop-Zentrale (siehe Abschnitt "Lieferländer und Versandkosten").
 - Rabattcodes: Eingabefeld im Warenkorb + `api/coupon.js`/`api/checkout.js` prüfen den Code live gegen Stripe. Damit ein Code funktioniert, muss er vorher im Stripe-Dashboard unter Produkte → Gutscheincodes (Coupon + zugehöriger Promotion Code) angelegt werden.
 
 ## Bestellübersicht im Kundenkonto (Stripe-Webhook)
@@ -122,17 +132,20 @@ Offene Platzhalter auflisten: `node pruefe-platzhalter.js` (endet mit Fehlercode
 - [ ] TikTok-Link, Produktfotos und den Bewertungslink ("Hier abgeben") ersetzen.
 
 ## Lieferländer und Versandkosten (Euroraum)
-Geliefert wird nach Deutschland und in die übrigen Euro-Länder. Alles steht in **`shipping.json`**: je Land Name,
-Pauschale (`flat`, in Cent) und Warenwert für kostenlosen Versand (`freeFrom`, in Cent). Dieselbe Datei nutzen der
-Warenkorb (Auswahl "Lieferland"), das Kundenkonto (Länderliste), die Tabelle auf `versand.html` und der Server beim
-Checkout. Ein Land hinzufügen oder ändern: nur dort eintragen (und bei einem neuen Land zusätzlich die Länderliste in
-`supabase-sql/addresses_euro_laender.sql` ergänzen und ausführen).
+Geliefert wird nach Deutschland und in die übrigen Euro-Länder. Alles steht in der gemeinsamen
+Datenbank (Tabelle `shipping_rates`, siehe Repo `shop-admin`): je Land Name, Pauschale und
+Warenwert für kostenlosen Versand. Gepflegt wird das in der **Shop-Zentrale** unter
+„Einstellungen“ — nicht mehr im Code. Dieselbe Tabelle nutzen der Warenkorb (Auswahl
+„Lieferland“), das Kundenkonto (Länderliste), die Tabelle auf `versand.html` und der Server beim
+Checkout. Ein Land hinzufügen oder ändern: in der Shop-Zentrale eintragen (bei einem neuen Land
+zusätzlich die Länderliste in `supabase-sql/addresses_euro_laender.sql` ergänzen und ausführen,
+damit sich dort auch Adressen speichern lassen).
 - Der Server (`api/checkout.js`) prüft das Land und berechnet den Versand selbst; bei Stripe ist nur das gewählte Land als Lieferadresse erlaubt.
-- **Die Beträge außerhalb Deutschlands sind Vorschläge** (Hinweis "PLATZHALTER" steht in `shipping.json`) und müssen mit dem Versandpartner abgeglichen werden.
+- **Die Beträge außerhalb Deutschlands sind Vorschläge** und müssen mit dem Versandpartner abgeglichen werden.
 - **Datenbank:** `supabase-sql/addresses_euro_laender.sql` einmal im Supabase SQL Editor ausführen, sonst lassen sich Adressen außerhalb Deutschlands nicht speichern.
 
 **Zusätzlich vor dem Versand ins Ausland:**
-- [ ] Versandkosten und Lieferzeit je Land mit dem Versandpartner abgleichen (`shipping.json`, Platzhalter auf `versand.html`).
+- [ ] Versandkosten und Lieferzeit je Land mit dem Versandpartner abgleichen (Shop-Zentrale → Einstellungen, Platzhalter-Hinweis auf `versand.html`).
 - [ ] **Umsatzsteuer:** Bei Lieferungen an Privatkunden in andere EU-Länder gilt ab der EU-Lieferschwelle (10.000 € pro Jahr) die Umsatzsteuer des Ziellandes (One-Stop-Shop-Verfahren). Mit Steuerberatung klären, ggf. Stripe Tax nutzen.
-- [ ] **Verpackungs- und Elektro-/Batterie-Pflichten gelten je Zielland**, nicht nur in Deutschland (z. B. Registrierung bzw. Lizenzierung in Frankreich, Österreich, Spanien, Italien). Klären, bevor in diese Länder verkauft wird, oder zunächst nur Länder freischalten, für die alles geklärt ist (Länder in `shipping.json` entfernen).
+- [ ] **Verpackungs- und Elektro-/Batterie-Pflichten gelten je Zielland**, nicht nur in Deutschland (z. B. Registrierung bzw. Lizenzierung in Frankreich, Österreich, Spanien, Italien). Klären, bevor in diese Länder verkauft wird, oder zunächst nur Länder freischalten, für die alles geklärt ist (Land in der Shop-Zentrale entfernen).
 - [ ] AGB/Widerruf für Auslandslieferungen (Rücksendekosten, Widerrufsfrist) juristisch prüfen lassen.
