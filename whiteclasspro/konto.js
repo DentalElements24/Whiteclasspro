@@ -181,9 +181,12 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     };
 
-    // Bestellungen laden (Supabase RLS zeigt jedem Kunden nur seine eigenen Zeilen)
+    // Bestellungen laden (Supabase RLS zeigt jedem Kunden nur seine eigenen Zeilen). Ein Kundenkonto
+    // gilt für alle Shops derselben Datenbank — hier nur die Bestellungen DIESES Shops zeigen, sonst
+    // sähe man in "Meine Bestellungen" bei White Class Pro auch Käufe bei z. B. Nightguard.
+    var shopId = (window.WCP_SUPABASE && window.WCP_SUPABASE.shop) || '';
     var eur = window.WCP && window.WCP.eur ? window.WCP.eur : function (c) { return (c / 100).toFixed(2) + ' €'; };
-    auth.rest('GET', '/orders?select=*&order=created_at.desc').then(function (orders) {
+    auth.rest('GET', '/orders?select=*&shop_id=eq.' + encodeURIComponent(shopId) + '&order=created_at.desc').then(function (orders) {
       var list = byId('orders-list');
       if (!orders || !orders.length) {
         list.innerHTML = '<div class="cart-summary" style="margin:0;"><p class="cart-note" style="margin:0;">Du hast noch keine Bestellung aufgegeben.</p></div>';

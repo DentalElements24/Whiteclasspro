@@ -148,6 +148,8 @@ module.exports = async (req, res) => {
   params.set('client_reference_id', user.id);
   params.set('metadata[user_id]', user.id);
   params.set('metadata[ship_country]', country);
+  // Alle Shops teilen sich ein Stripe-Konto: Daran erkennt der Webhook, zu welchem Shop die Bestellung gehört.
+  params.set('metadata[shop]', supabase.shop);
 
   const origin = process.env.SITE_URL || `https://${req.headers.host}`;
   params.set('success_url', `${origin}/bestellung-erfolgreich.html?session_id={CHECKOUT_SESSION_ID}`);

@@ -89,6 +89,13 @@ module.exports = async (req, res) => {
     return res.status(200).end(); // z. B. noch offene asynchrone Zahlung
   }
 
+  // Alle Shops teilen sich ein Stripe-Konto, Stripe schickt deshalb jedes Ereignis an die Webhooks
+  // ALLER Shops. Jeder Shop speichert nur seine eigenen Bestellungen (metadata.shop setzt
+  // api/checkout.js). Bestellungen von vor der Umstellung haben noch keine Kennung und gehören
+  // zu diesem Shop.
+  const orderShop = (session.metadata && session.metadata.shop) || supabase.shop;
+  if (orderShop !== supabase.shop) return res.status(200).end();
+
   const userId = session.client_reference_id || (session.metadata && session.metadata.user_id);
   if (!userId) {
     console.error('Webhook: Session ohne user_id/client_reference_id:', session.id);
@@ -116,12 +123,31 @@ module.exports = async (req, res) => {
     console.error('Webhook: Positionen konnten nicht geladen werden:', err && err.message);
   }
 
+  // Lieferadresse für den Versand im Admin. Neuere Stripe-API-Versionen liefern sie unter
+  // collected_information, ältere direkt unter shipping_details.
+  const customer = session.customer_details || {};
+  const ship = (session.collected_information && session.collected_information.shipping_details) ||
+    session.shipping_details || null;
+  const addr = ship && ship.address;
+  const shippingAddress = addr ? {
+    name: ship.name || customer.name || null,
+    line1: addr.line1 || null,
+    line2: addr.line2 || null,
+    postal_code: addr.postal_code || null,
+    city: addr.city || null,
+    country: addr.country || null
+  } : null;
+
   const order = {
     user_id: userId,
+    shop_id: supabase.shop,
     stripe_session_id: session.id,
     status: 'paid',
     amount_total: session.amount_total,
     currency: session.currency,
+    customer_email: customer.email || session.customer_email || null,
+    customer_name: (ship && ship.name) || customer.name || null,
+    shipping_address: shippingAddress,
     items
   };
 
